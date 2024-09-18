@@ -1,0 +1,26 @@
+.slider-hight{
+  min-height: 12.5rem;
+}
+
+.image-container {
+  overflow: hidden;
+}
+
+.hover-image{
+  transition: transform 0.3s ease;
+}
+
+.image-container:hover .hover-image {
+  transform: translateY(-20px);
+}
+
+.catagories img {
+  width: 80px;
+  height: 80px;
+}
+/*
+.back-img1{
+background-image: url('assets/home6-banner-3.jpg');
+background-size: 100% 100%;
+background-repeat: no-repeat;
+} */

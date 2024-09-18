@@ -1,0 +1,39 @@
+<section   role="button"  class="container-fluid bg-light">
+  <h2 class="main-title py-5">All Products</h2>
+
+  <div class="row">
+    <div class="col-md-4 rounded-5">
+      <div class="card mb-3 shadow-lg p-3 rounded-5" style="max-width: 540px">
+        <div class="row g-0">
+          <div class="col-md-4 py-5">
+            <img
+              [src]="mainSrc"
+              class="card-img-top"
+              (mouseover)="changeImage()"
+              (mouseout)="resetImage()"
+              alt="..."
+            />
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <div class="my-3">
+                <i
+                  class="fa-solid fa-heart fa-2xl d-flex justify-content-end"
+                ></i>
+              </div>
+
+              <h5 class="card-title">Name of product</h5>
+              <p class="card-text">smart of</p>
+              <p class="card-text">
+                <small class="text-body-secondary">Price 1111</small>
+              </p>
+              <button class="btn btn-primary w-100" type="button">
+                Add To Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
