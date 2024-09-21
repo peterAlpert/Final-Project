@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { jwtDecode } from 'jwt-decode';
 import { Observable } from 'rxjs';
 import { IUser } from '../interfaces/iuser';
+import { environment } from '../../../environments/environment';
 
 
 @Injectable({
@@ -10,42 +11,28 @@ import { IUser } from '../interfaces/iuser';
 
 })
 export class AuthService {
-  userInfo: any
+  userInfo: IUser = {} as IUser
+  token: string | number = ""
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) { }
 
-    // this.userInfo={} as IUser;
-  }
-
-  //baseUrl
-
-  baseUrl: string = `http://localhost:5136/api/Account/`;
-
-
-  register(userData: any): any {
-    return this.http.post(this.baseUrl + 'Register', userData)
+  register(userData: IUser): Observable<any> {
+    return this.http.post(environment.baseUrl + '/Account/Register', userData)
   }
 
   login(userData: any): Observable<any> {
-    return this.http.post(this.baseUrl + 'Login', userData)
+    return this.http.post(environment.baseUrl + '/Account/Login', userData)
   }
 
+  getUserId(): Observable<any> {
+    this.token = localStorage.getItem("eToken")!
+    //console.log(this.token);
 
-  // decodeUser():void{
-
-  //   const encode = localStorage.getItem('eToken');
-
-  //   if(encode !== null){//user tmam
-
-  //     const decode = jwtDecode(encode);
-  //     this.userInfo = decode ;
-  //     console.log(decode);
-
-  //   }
-
-  // }
-
-
-
+    return this.http.get(`${environment.baseUrl}/Account/getCurrentUserID`, {
+      headers: new HttpHeaders({
+        "authorization": `Bearer ${this.token}`
+      })
+    })
+  }
 
 }

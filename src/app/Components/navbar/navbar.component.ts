@@ -1,25 +1,33 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styles: ''
 })
 export class NavbarComponent {
-  constructor(private _Router:Router){}
+  isLogin: boolean = false;
+  token: string | null
+  constructor(private _Router: Router, private _ToastrService: ToastrService) {
+    this.token = localStorage.getItem("eToken");
 
-  SignOut():void{
-    localStorage.removeItem("eToken");
-    this._Router.navigate(['/login'])
-
+    if (!this.token) {
+      this.isLogin = true;
+    }
 
   }
 
-
-
+  SignOut() {
+    localStorage.removeItem("eToken");
+    this.isLogin = false;
+    this._ToastrService.info("Sign out sucessfully")
+    this._Router.navigate(['/home'])
+    location.reload();
+  }
 
 }
