@@ -3,82 +3,55 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormControlOptions, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../Core/Services/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styles: ''
 })
 export class LoginComponent {
+  loginForm: FormGroup = new FormGroup({
+    userName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
+    password: new FormControl('', [Validators.required]),
+  })
 
-  constructor( private _AuthService:AuthService, private _Router:Router){}
+  constructor(private _AuthService: AuthService, private _Router: Router, private _ToastrService: ToastrService) { }
 
   ngOnInit(): void {
 
   }
-  errMsg:string=''; //==>false ,"dfgdf"===>true
+  errMsg: string = ''; //==>false ,"dfgdf"===>true
 
-  isLoading:boolean=false
+  isLoading: boolean = false
 
+  login(): void {
+    const userData = this.loginForm.value;
+    this.isLoading = true;
 
-
-
-  loginForm:FormGroup = new FormGroup({
-    userName:new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(20)]),
-    password:new FormControl('',[Validators.required]),
-    }, {validators:[this.confirmPassword]} as FormControlOptions)
-
-    confirmPassword(group:FormGroup):void{
-      const password=group.get('password');
-      const rePassword= group.get('rePassword');
-
-      if(rePassword?.value == "") {
-        rePassword.setErrors({require:true});
-      }
-
-      else if(password?.value != rePassword?.value)
-      {
-        rePassword?.setErrors({mismatch: true});
-      }
-
-    }
-
-    handleForm():void{
-      const userData = this.loginForm.value;
-      console.log("UserData",userData);
-
-      this.isLoading = true;
-
-      if(this.loginForm.valid=== true){
-        this._AuthService.login(userData).subscribe({
-          next:(response:any)=>{ //data tmam
-            console.log(response);
+    if (this.loginForm.valid) {
+      this._AuthService.login(userData).subscribe({
+        next: (response) => { //data tmam
+          localStorage.setItem('eToken', response.token);
+          this._ToastrService.show("Login Sucessfully")
+          this.isLoading = false;
+          this._Router.navigate(['home'])
 
 
-            localStorage.setItem('eToken',response.token);
-
-            //this._AuthService.decodeUser();
-
-
-
-            this.isLoading = false;
-            this._Router.navigate(['home'])
-
-
-          },
-          error:(err:any)=>{
-            console.log(err);
-            this.errMsg = err.error.PAssword
-            this.isLoading = false;
-
-
-          }
-        })
-
-      }
+          setTimeout(() => {
+            location.reload();
+          }, 10);
+        },
+        error: (err) => {
+          this._ToastrService.info(err.error.PAssword)
+          this.isLoading = false;
+        }
+      })
 
     }
+
+  }
 
 }

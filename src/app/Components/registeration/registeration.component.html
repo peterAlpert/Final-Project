@@ -1,8 +1,8 @@
 <section class="w-50 mx-auto shadow rounded p-4 my-3 ">
   <h1>Register Now</h1>
-  <h6>{{registerForm.value | json}}</h6>
-  <h1>{{registerForm.valid}}</h1>
-  <form [formGroup]="registerForm" (ngSubmit)="handleForm()">
+  <!-- <h6>{{registerForm.value | json}}</h6>
+  <h1>{{registerForm.valid}}</h1> -->
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
     <div class="mb-2 form-item">
       <label for="userName">userName :</label>
       <input formControlName="userName" type="text" id="userName" class="form-control" />
@@ -13,8 +13,6 @@
         <p class="mb-0" *ngIf="registerForm.get('userName')?.getError('minlength')">Name MinLength 3</p>
         <p class="mb-0" *ngIf="registerForm.get('userName')?.getError('maxlength')"> Name MaxLength 20</p>
       </div>
-
-
     </div>
 
     <div class="mb-2 form-item">
@@ -27,11 +25,6 @@
         <p class="mb-0" *ngIf="registerForm.get('email')?.getError('email')">email invaild format </p>
       </div>
     </div>
-
-
-
-
-
 
     <div class="mb-2 form-item">
       <label for="password">Password :</label>
@@ -48,19 +41,11 @@
           password must math pattern
         </p>
       </div>
-
-
-
-
-
-
     </div>
 
     <div class="mb-2 form-item">
       <label for="rePassword">rePassword :</label>
       <input type="password" id="rePassword" class="form-control" />
-
-
 
       <!-- <div *ngIf="
         registerForm.get('rePassword')?.errors &&
@@ -73,14 +58,11 @@
           repassword must math pattern
         </p>
       </div> -->
-
-
     </div>
 
     <div class="mb-2 form-item">
       <label for="phone">Phone :</label>
       <input formControlName="phone" type="tel" id="phone" class="form-control">
-
 
       <div *ngIf="registerForm.get('phone')?.errors && registerForm.get('phone')?.touched"
         class="alert alert-danger p-1 w-50 mx-auto">
@@ -99,21 +81,10 @@
       <input formControlName="profileImageURL" type="file" id="profileImageURL" class="form-control">
     </div>
 
-
-
-
     <button [disabled]="registerForm.invalid" class="rounded mt-3 d-block ms-auto btn btn-outline-dark ">
       Register <span *ngIf="isLoading"><i class="fas fa-spin fa-spinner"></i></span>
     </button>
-
-
   </form>
-
-  <!-- <button (click)="ShowTostager()">ShowToster</button> -->
-
-
-  <!-- <button ((click))="nav()">Nanvagit </button> -->
-
 
   <p *ngIf="errMsg" class="alert alert-danger p-1 w-50 mx-auto mb-0 text-center">{{errMsg}}</p>
 
