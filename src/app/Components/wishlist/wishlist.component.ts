@@ -1,5 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { AuthService } from '../../Core/Services/auth.service';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { WhishlistService } from '../../Core/Services/whishlist.service';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { IWishlistitems } from '../../Core/interfaces/iwishlistitems';
@@ -17,33 +16,23 @@ export class WishlistComponent implements OnInit {
   wishlistItems: IWishlistitems[] = [] as IWishlistitems[]
 
   constructor(
-    private _AuthService: AuthService,
     private _WhishlistService: WhishlistService,
     private _ToastrService: ToastrService
   ) { }
 
 
   ngOnInit() {
+    //get UserID
+    this.userId = Number(localStorage.getItem("userId"))
 
-    this._AuthService.getUserId().subscribe({
-      next: (res) => {
-        this.userId = res
+    //get all items in wishlist
+    this._WhishlistService.getAll(this.userId).subscribe({
+      next: res => {
+        this.wishlistItems = res; console.log(this.wishlistItems);
       }
+      ,
+      error: err => { console.log(err); }
     })
-
-
-
-
-    setTimeout(() => {
-      this._WhishlistService.getAll(this.userId).subscribe({
-        next: res => {
-          this.wishlistItems = res; console.log(this.wishlistItems);
-        }
-        ,
-        error: err => { console.log(err); }
-      })
-
-    }, 200);
 
   }
 
@@ -54,7 +43,7 @@ export class WishlistComponent implements OnInit {
     console.log(this.userId)
 
     this._WhishlistService.delete(this.userId, productId).subscribe({
-      next: res => { this._ToastrService.info("Product deleted fro your wishlist") },
+      next: res => { this._ToastrService.show("Product deleted from your wishlist") },
       error: err => {
         console.log(err);
       }

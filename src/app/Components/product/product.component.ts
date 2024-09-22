@@ -1,5 +1,6 @@
+import { ICartItem } from './../../Core/interfaces/icart-item';
 import { IFavlistuserproduct } from './../../Core/interfaces/ifavlistuserproduct';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Directive, Input, OnInit } from '@angular/core';
 import { IProduct } from '../../Core/interfaces/iproduct';
 import { ProductService } from '../../Core/Services/product.service';
 import { CommonModule, JsonPipe } from '@angular/common';
@@ -28,6 +29,7 @@ export class ProductComponent implements OnInit {
   whishlistData: IFavlistuserproduct = {} as IFavlistuserproduct
   heartStyle: string = "fa-regular fa-heart fa-2xl d-flex justify-content-end"
   isFav: boolean = false
+  cartItem: ICartItem = {} as ICartItem
 
 
   constructor(
@@ -73,12 +75,16 @@ export class ProductComponent implements OnInit {
   }
 
   goToDetails(prod: IProduct) {
-    this._ProductService.GetByID(prod.id).subscribe({
-      next: (res) => { this.prod = res; console.log(res); },
-      error: (err) => {
-        console.log(err);
-      }
-    })
+    this._Router.navigateByUrl(`product/${prod.id}`)
+    // this._ProductService.GetByID(prod.id).subscribe({
+    //   next: (res) => {
+    //     this.prod = res;
+    //     this._Router.navigateByUrl(`product/${res.id}`)
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //   }
+    // })
   }
 
   deleteProd(prod: IProduct) {
@@ -129,9 +135,17 @@ export class ProductComponent implements OnInit {
   }
 
   addToCart(prod: IProduct) {
-    console.log(prod.id);
-    this._CartService.add({}).subscribe({
-      next: res => console.log(res),
+
+    this.cartItem = {
+      'price': prod.price,
+      'cartItemId': 1,
+      'userId': this.userId,
+      'productId': prod.id,
+      'quantity': 1
+    }
+
+    this._CartService.add(this.cartItem).subscribe({
+      next: res => this._ToastrService.success(`product (${prod.name}) added to you cart successfully`),
       error: err => console.log(err)
     })
 

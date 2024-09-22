@@ -24,6 +24,26 @@ export class AuthService {
     return this.http.post(environment.baseUrl + '/Account/Login', userData)
   }
 
+  forgetPassword_email(email: string): Observable<any> {
+    return this.http.post(`${environment.baseUrl}/Account/SendVerificationMail?toAddress=${email}`, {})
+  }
+
+  forgetPassword_otp(otpData: {}): Observable<any> {
+    return this.http.post(`${environment.baseUrl}/Account/ResetPassword`, otpData)
+  }
+
+
+  changePassword(passData: any): Observable<any> {
+    var token = localStorage.getItem("eToken")
+    return this.http.post(`${environment.baseUrl}/Account/UpdatePassword`, passData, {
+      headers: new HttpHeaders({
+        "authorization": `Bearer ${token}`
+      })
+    })
+  }
+
+
+
   getUserId(): Observable<any> {
     this.token = localStorage.getItem("eToken")!
     //console.log(this.token);
