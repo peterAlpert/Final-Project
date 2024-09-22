@@ -1,3 +1,4 @@
+import { AddProductComponent } from './Components/add-product/add-product.component';
 import { ChangePasswordComponent } from './Components/Password/change-password/change-password.component';
 
 import { EditAccountComponent } from './Components/edit-account/edit-account.component';
@@ -19,7 +20,9 @@ export const routes: Routes = [
 
   { path: "", redirectTo: "home", pathMatch: 'prefix' },
   { path: "home", component: HomeComponent, title: "Home" },
+
   { path: "product", component: ProductComponent, title: "product" },
+  { path: "addProduct", component: AddProductComponent },
   { path: "product/:id", component: DetailsComponent, title: "productDetails" },
 
   { path: "changePassword", component: ChangePasswordComponent, title: "change" },
@@ -42,7 +45,6 @@ export const routes: Routes = [
   // {path:'product',loadComponent:()=>import('./Components/product/product.component').then((m)=>m.ProductComponent),title:"product"},
 
   { path: 'Register', loadComponent: () => import('./Components/registeration/registeration.component').then((m) => m.RegisterationComponent), title: "Register" },
-  { path: 'Admin', loadComponent: () => import('./Components/admin-dashboard/admin-dashboard.component').then((m) => m.AdminDashboardComponent), title: "admin-dashboard" },
   { path: 'Login', loadComponent: () => import('./Components/login/login.component').then((m) => m.LoginComponent), title: "Login" },
   { path: 'WishList', loadComponent: () => import('./Components/wishlist/wishlist.component').then((m) => m.WishlistComponent), title: "WishList" },
   { path: 'Cart', loadComponent: () => import('./Components/cart/cart.component').then((m) => m.CartComponent), title: "Cart" },
