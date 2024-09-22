@@ -2,17 +2,18 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormControlOptions, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../Core/Services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './login.component.html',
   styles: ''
 })
 export class LoginComponent {
+  userId: number = 0;
   loginForm: FormGroup = new FormGroup({
     userName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
     password: new FormControl('', [Validators.required]),
@@ -39,16 +40,25 @@ export class LoginComponent {
           this.isLoading = false;
           this._Router.navigate(['home'])
 
+          //set userId in localstorage
+          this._AuthService.getUserId().subscribe({
+            next: (res) => {
+              this.userId = res;
+              localStorage.setItem("userId", this.userId.toString())
 
+            }
+          })
           setTimeout(() => {
             location.reload();
-          }, 10);
+          }, 200);
         },
         error: (err) => {
-          this._ToastrService.info(err.error.PAssword)
+          this.errMsg = err.error.Username
+          this._ToastrService.info(this.errMsg)
           this.isLoading = false;
         }
       })
+
 
     }
 

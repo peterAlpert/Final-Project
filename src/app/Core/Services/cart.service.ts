@@ -17,7 +17,11 @@ export class CartService {
     return this._HttpClient.get(`${environment.baseUrl}/cartitem/create cartitem/${id}`)
   }
 
-  getCartById() {
+  getCartByUserId(id: number) {
+    return this._HttpClient.get(`${environment.baseUrl}/cart/user/${id}/products`)
+  }
 
+  deleteItem(userId: number, productId: number): Observable<any> {
+    return this._HttpClient.delete(`${environment.baseUrl}/CartItem/RemoveItemFromcart?userId=${userId}&productId=${productId}`)
   }
 }
