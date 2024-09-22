@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class ProductService {
   products: IProduct[] = [] as IProduct[]
+  productData: IProduct = {} as IProduct;
 
   constructor(private _HttpClient: HttpClient) { }
 
@@ -22,6 +23,10 @@ export class ProductService {
 
   Add(prod: IProduct) {
     this._HttpClient.post(`${environment.baseUrl}/product`, prod)
+  }
+
+  addProduct(productData: IProduct): Observable<any> {
+    return this._HttpClient.post(environment.baseUrl + `/Product`, productData)
   }
 
   // update(Id:number){
