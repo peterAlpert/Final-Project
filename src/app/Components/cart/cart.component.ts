@@ -11,11 +11,12 @@ import { SharedService } from '../../Core/Services/shared.service';
   standalone: true,
   imports: [SpinnerComponent, RouterLink],
   templateUrl: './cart.component.html',
-  styleUrl: './cart.component.css'
+  styles: ''
 })
 export class CartComponent implements OnInit {
   isLoading: boolean = true
   cartItems: any
+  productQty: number = 1;
 
   userId: number = 0
 
@@ -45,6 +46,17 @@ export class CartComponent implements OnInit {
       }
     })
 
+    this._SharedService.cartProdQty.subscribe(res => this.productQty = res)
+
+  }
+
+  incQty() {
+    this.productQty++
+  }
+  decQty() {
+    this.productQty--
+    if (this.productQty == 0)
+      this.productQty = 0
   }
 
   deleteItem(productId: number) {

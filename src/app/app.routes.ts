@@ -34,6 +34,7 @@ export const routes: Routes = [
   { path: "forgetPassword/otp", component: OtpComponent, title: "otp" },
 
   { path: "WishList", component: WishlistComponent, title: "wishlist" },
+  { path: "Cart", component: CartComponent, title: "Cart" },
 
 
   // { path: "**", component: NotfoundComponent, title: "Not found" },
@@ -55,7 +56,7 @@ export const routes: Routes = [
   { path: 'Register', loadComponent: () => import('./Components/registeration/registeration.component').then((m) => m.RegisterationComponent), title: "Register" },
   { path: 'Login', loadComponent: () => import('./Components/login/login.component').then((m) => m.LoginComponent), title: "Login" },
   // { path: 'WishList', loadComponent: () => import('./Components/wishlist/wishlist.component').then((m) => m.WishlistComponent), title: "WishList" },
-  { path: 'Cart', loadComponent: () => import('./Components/cart/cart.component').then((m) => m.CartComponent), title: "Cart" },
+  // { path: 'Cart', loadComponent: () => import('./Components/cart/cart.component').then((m) => m.CartComponent), title: "Cart" },
   { path: 'EditAccount', loadComponent: () => import('./Components/edit-account/edit-account.component').then((m) => m.EditAccountComponent), title: "EditAccount" },
   { path: 'checkout', loadComponent: () => import('./Components/checkout/checkout.component').then((m) => m.CheckoutComponent), title: "checkout" },
 

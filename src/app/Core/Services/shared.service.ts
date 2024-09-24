@@ -21,4 +21,11 @@ export class SharedService {
   }
 
 
+  private cartDataProdQty = new BehaviorSubject<number>(1);
+  cartProdQty = this.cartDataProdQty.asObservable();
+  updateCartProdQty(count: number) {
+    this.cartDataProdQty.next(count);
+  }
+
+
 }

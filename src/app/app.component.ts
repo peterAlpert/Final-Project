@@ -5,6 +5,9 @@ import { FooterComponent } from "./Components/footer/footer.component";
 import { HomeComponent } from './Components/home/home.component';
 
 import { RegisterationComponent } from "./Components/registeration/registeration.component";
+import { SharedService } from './Core/Services/shared.service';
+import { WhishlistService } from './Core/Services/whishlist.service';
+import { CartService } from './Core/Services/cart.service';
 
 
 @Component({
@@ -14,20 +17,11 @@ import { RegisterationComponent } from "./Components/registeration/registeration
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'Final-Project';
-  userId: number = 0
-
-  constructor() {
-  }
-  ngOnInit(): void {
-  }
 
   goToUp(): void {
     window.scrollTo(0, 0)
   }
-
-
-
 
 }

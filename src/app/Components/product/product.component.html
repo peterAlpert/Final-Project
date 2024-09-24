@@ -36,7 +36,7 @@
               <button (click)="deleteProd(prod)" class="btn btn-danger my-1 w-100" type="button">
                 delete
               </button>
-              <button (click)="goToDetails(prod)" class="btn btn-info my-1 w-100" type="button">
+              <button routerLink="{{prod.id}}" class="btn btn-info my-1 w-100" type="button">
                 Details
               </button>
               <button (click)="addToCart(prod)" class="btn btn-primary my-1 w-100" type="button">

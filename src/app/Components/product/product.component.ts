@@ -8,16 +8,17 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../Core/Services/auth.service';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { WhishlistService } from '../../Core/Services/whishlist.service';
 import { Observable } from 'rxjs';
 import { CartService } from '../../Core/Services/cart.service';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { SharedService } from '../../Core/Services/shared.service';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CommonModule, JsonPipe, FormsModule, SpinnerComponent],
+  imports: [CommonModule, JsonPipe, FormsModule, SpinnerComponent, RouterLink],
   templateUrl: './product.component.html',
   styles: '.in-wishlist {color: red}'
 })
@@ -28,7 +29,7 @@ export class ProductComponent implements OnInit {
   searchInput: string = "";
   userId: any
   favItem = "redColor"
-  token: string | null = ""
+  // token: string | null = ""
   whishlistData: IFavlistuserproduct = {} as IFavlistuserproduct
   heartStyle: string = "fa-regular fa-heart fa-2xl d-flex justify-content-end"
   isFav: boolean = false
@@ -41,7 +42,8 @@ export class ProductComponent implements OnInit {
     private _ToastrService: ToastrService,
     private _Router: Router,
     private _WhishlistService: WhishlistService,
-    private _CartService: CartService
+    private _CartService: CartService,
+    private _SharedService: SharedService
   ) { }
 
   ngOnInit(): void {
@@ -50,30 +52,11 @@ export class ProductComponent implements OnInit {
         next: (res: any) => { this.products = res; this.isLoading = false },
         error: (err: any) => { console.log(err); this.isLoading = true }
       })
-    }, 2000);
+    }, 1500);
+
+    this._AuthService.getUserId().subscribe({ next: res => this.userId = res })
 
 
-    this._AuthService.getUserId().subscribe({
-      next: (res) => {
-        this.userId = res
-      }
-    })
-
-  }
-
-  wishlistIds: number[] = [];
-
-  toggleWishlist(productId: number) {
-    const index = this.wishlistIds.indexOf(productId);
-    if (index === -1) {
-      this.wishlistIds.push(productId);
-    } else {
-      this.wishlistIds.splice(index, 1);
-    }
-  }
-
-  isInWishlist(productId: number): boolean {
-    return this.wishlistIds.includes(productId);
   }
 
   search() {
@@ -101,11 +84,6 @@ export class ProductComponent implements OnInit {
     }
   }
 
-
-  goToDetails(prod: IProduct) {
-    this._Router.navigateByUrl(`product/${prod.id}`)
-  }
-
   deleteProd(prod: IProduct) {
     this._ProductService.delete(prod.id).subscribe({
       next: (res) => { console.log(res); },
@@ -116,32 +94,39 @@ export class ProductComponent implements OnInit {
 
   }
 
+
+  //to color hreart to red when clicked
+  wishlistIds: number[] = [];
+  toggleWishlist(productId: number) {
+    const index = this.wishlistIds.indexOf(productId);
+    if (index === -1) {
+      this.wishlistIds.push(productId);
+    } else {
+      this.wishlistIds.splice(index, 1);
+    }
+  }
+  isInWishlist(productId: number): boolean {
+    return this.wishlistIds.includes(productId);
+  }
+
   addToWhishlist(prod: IProduct) {
     this.whishlistData = {
       "userId": this.userId,
       "productId": prod.id
     }
 
-    this._WhishlistService.add(this.whishlistData).subscribe({
-      next: (res: any) => {
-        this.toggleWishlist(prod.id)
-        this._ToastrService.success(`${prod.name} : added to wishlist`);
-      },
-      error: () => this._ToastrService.warning("Product is Already Exists in Your Wishlist")
-    })
-
-  }
-
-
-  changeColorToRed() {
-    if (this.heartStyle == "fa-regular fa-heart fa-2xl d-flex justify-content-end")
-      this.heartStyle = "fa-solid text-danger fa-heart fa-2xl d-flex justify-content-end"
-  }
-
-  changeColorToWhite() {
-    if (this.heartStyle == "fa-solid text-danger fa-heart fa-2xl d-flex justify-content-end")
-      this.heartStyle = "fa-regular fa-heart fa-2xl d-flex justify-content-end"
-
+    if (!this.IsLogeed()) {
+      this._ToastrService.warning("Please login first")
+      this._Router.navigate(['/Login'])
+    } else {
+      this._WhishlistService.add(this.whishlistData).subscribe({
+        next: (res: any) => {
+          this.toggleWishlist(prod.id)
+          this._ToastrService.success(`${prod.name} : added to wishlist`);
+        },
+        error: () => this._ToastrService.warning("Product is Already Exists in Your Wishlist")
+      })
+    }
   }
 
   addToCart(prod: IProduct) {
@@ -153,13 +138,42 @@ export class ProductComponent implements OnInit {
       'quantity': 1
     }
 
-    this._CartService.add(this.cartItem).subscribe({
-      next: res => {
-        this._ToastrService.success(`${prod.name} : added to you cart successfully`)
-        console.log(res);
-      },
-      error: err => console.log(err)
-    })
+    if (!this.IsLogeed()) {
+      this._ToastrService.warning("Please login first")
+      this._Router.navigate(['/Login'])
+    }
+    else {
+      this._CartService.add(this.cartItem).subscribe({
+        next: res => {
+          if (res) {
+            this._ToastrService.success(`${prod.name} : added to you cart successfully`)
+
+          }
+          else {
+            this._ToastrService.warning(`${prod.name} : Already exists in you cart`)
+            var count = 0
+            this._SharedService.cartProdQty.subscribe(res => count = res)
+            console.log(count);
+
+            this._SharedService.updateCartProdQty(count = count + 1)
+            console.log(count);
+
+          }
+        },
+        error: err => console.log(err)
+      })
+
+    }
+
+  }
+
+  IsLogeed(): boolean {
+    var token = localStorage.getItem('eToken')!
+
+    if (token)
+      return true
+    else
+      return false
 
   }
 
