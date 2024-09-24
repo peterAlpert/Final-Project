@@ -1,51 +1,38 @@
-<section class="w-50 mx-auto shadow rounded p-4 my-3 bg-main-light">
-  <h1>Login Now</h1>
+<section class="w-25 mx-auto shadow rounded p-5 my-4 bg-main-light">
+  <div class="text-center fs-2 mb-2">
+    <span>Login Now</span>
+  </div>
 
-  <form [formGroup]="loginForm" (ngSubmit)="login()">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
     <div class="mb-2 form-item">
-      <label for="name">userName :</label>
-      <input formControlName="userName" type="text" id="userName" class="form-control" />
+      <label for="username">username </label>
+      <input formControlName="username" type="text" id="username" class="form-control" />
 
-      <div *ngIf="loginForm.get('userName')?.errors && loginForm.get('userName')?.touched"
-        class="alert alert-danger p-1  small w-50 mx-auto">
-        <p class="mb-0" *ngIf="loginForm.get('userName')?.getError('required')">Name is Required</p>
-
+      <div *ngIf="loginForm.get('username')?.errors && loginForm.get('username')?.touched">
+        <p class="text-danger" *ngIf="loginForm.get('username')?.getError('required')">Name is Required</p>
       </div>
     </div>
 
-
-
     <div class="mb-2 form-item">
-      <label for="password">Password :</label>
+      <label for="password">Password </label>
       <input formControlName="password" type="password" id="password" class="form-control" />
 
       <div *ngIf="
         loginForm.get('password')?.errors &&
-        loginForm.get('password')?.touched
-      " class="alert alert-danger p-1 w-50 mx-auto">
-        <p *ngIf="loginForm.get('password')?.getError('required')">
+        loginForm.get('password')?.touched">
+        <p class="text-danger" *ngIf="loginForm.get('password')?.getError('required')">
           password is Required
         </p>
       </div>
 
-
     </div>
 
-
-
-
-    <button class=" rounded mt-3 d-block ms-auto  btn btn-outline-dark ">
+    <button [disabled]="loginForm.invalid" class=" rounded mt-3 d-block ms-auto  btn btn-outline-primary w-100 my-4 ">
       Login
     </button>
-    <a routerLink="/forgetPassword">Forget Password ?</a>
-
-
-
-
-
-
-
+    <div class="text-center text-primary"><a routerLink="/forgetPassword" class="text-decoration-none">Forget Password
+        ?</a></div>
   </form>
 
 </section>

@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormControlOptions, FormGroup, ReactiveFormsM
 import { AuthService } from '../../../Core/Services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent {
   userId: number = 0;
   loginForm: FormGroup = new FormGroup({
-    userName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
+    username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
     password: new FormControl('', [Validators.required]),
   })
 
@@ -33,16 +34,22 @@ export class LoginComponent {
 
   isLoading: boolean = false
 
-  login(): void {
-    const userData = this.loginForm.value;
-    this.isLoading = true;
-
+  onSubmit() {
     if (this.loginForm.valid) {
+      const userData = this.loginForm.value;
+      this.isLoading = true;
+
+
       this._AuthService.login(userData).subscribe({
         next: (response) => { //data tmam
-          localStorage.setItem('eToken', response.token);
-          this._ToastrService.success("Login Sucessfully")
+          localStorage.setItem('token', response.token);
           this.isLoading = false;
+          Swal.fire({
+            icon: 'success',
+            title: 'Login Sucessfully',
+            text: `Welcome ${userData.username}`
+          });
+          this.loginForm.reset();
 
           this._AuthService.isLogin.next(true);
           this._Router.navigate(['home'])
@@ -55,59 +62,16 @@ export class LoginComponent {
             }
           })
         },
-        error: (err) => {
-          this.errMsg = err.error.Username
-          this._ToastrService.info(this.errMsg)
+        error: () => {
           this.isLoading = false;
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Wrong!',
+            text: 'UserName or Password Invalid'
+          });
         }
       })
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// <div class="modal-body">
-//                 <form [formGroup]="loginForm">
-//                   <div class="form-group">
-//                     <div class="mb-2 form-item">
-//                       <label for="name">userName :</label>
-//                       <input formControlName="userName" type="text" id="userName" class="form-control" />
-
-//                       <div *ngIf="loginForm.get('userName')?.errors && loginForm.get('userName')?.touched"
-//                         class="alert alert-danger p-1  small w-50 mx-auto">
-//                         <p class="mb-0" *ngIf="loginForm.get('userName')?.getError('required')">Name is Required</p>
-
-//                       </div>
-//                     </div>
-//                   </div>
-//                   <div class="form-group">
-//                     <div class="mb-2 form-item">
-//                       <label for="password">Password :</label>
-//                       <input formControlName="password" type="password" id="password" class="form-control" />
-
-//                       <div *ngIf="
-//                         loginForm.get('password')?.errors &&
-//                         loginForm.get('password')?.touched
-//                       " class="alert alert-danger p-1 w-50 mx-auto">
-//                         <p *ngIf="loginForm.get('password')?.getError('required')">
-//                           password is Required
-//                         </p>
-//                       </div>
-
-
-//                     </div>
-//                   </div>
-//                 </form>
-//               </div>

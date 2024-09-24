@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit {
     private _SharedService: SharedService
   ) {
     this.userId = Number(localStorage.getItem('userId'))
-    this.token = localStorage.getItem("eToken");
+    this.token = localStorage.getItem("token");
 
     this._AuthService.isLogin.subscribe({ next: res => this.IsLogged = res })
 
@@ -53,7 +53,7 @@ export class NavbarComponent implements OnInit {
       cancelButtonText: 'Cancel'
     }).then(res => {
       if (res.isConfirmed) {
-        localStorage.removeItem("eToken");
+        localStorage.removeItem("token");
         localStorage.removeItem("userId")
         this._AuthService.isLogin.next(false);
         this._ToastrService.success("Sign out sucessfully")

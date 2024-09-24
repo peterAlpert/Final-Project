@@ -168,7 +168,7 @@ export class ProductComponent implements OnInit {
   }
 
   IsLogeed(): boolean {
-    var token = localStorage.getItem('eToken')!
+    var token = localStorage.getItem('token')!
 
     if (token)
       return true

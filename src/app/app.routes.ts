@@ -17,6 +17,7 @@ import { ForgetPasswordComponent } from './Components/Password/forget-password/f
 import { OtpComponent } from './Components/Password/otp/otp.component';
 import { AddCategoryComponent } from './Components/Admin/Category/add-category/add-category.component';
 import { AddBrandComponent } from './Components/Admin/Brand/add-brand/add-brand.component';
+import { ProfileComponent } from './Components/User/profile/profile.component';
 
 export const routes: Routes = [
 
@@ -29,11 +30,19 @@ export const routes: Routes = [
   { path: "addBrand", component: AddBrandComponent },
   { path: "product/:id", component: DetailsComponent, title: "productDetails" },
 
-  { path: "changePassword", component: ChangePasswordComponent, title: "change" },
+
   { path: "forgetPassword", component: ForgetPasswordComponent, title: "forget" },
   { path: "forgetPassword/otp", component: OtpComponent, title: "otp" },
 
   { path: "WishList", component: WishlistComponent, title: "wishlist" },
+  {
+    path: "profile", component: ProfileComponent, title: "user profile",
+    children: [
+      { path: "", redirectTo: 'profile/EditAccount', pathMatch: 'full' },
+      { path: 'profile/EditAccount', component: EditAccountComponent, title: "EditAccount" },
+      { path: "profile/changePassword", component: ChangePasswordComponent, title: "change" },
+    ]
+  },
   { path: "Cart", component: CartComponent, title: "Cart" },
 
 
@@ -57,9 +66,8 @@ export const routes: Routes = [
   { path: 'Login', loadComponent: () => import('./Components/Authentication/login/login.component').then((m) => m.LoginComponent), title: "Login" },
   // { path: 'WishList', loadComponent: () => import('./Components/wishlist/wishlist.component').then((m) => m.WishlistComponent), title: "WishList" },
   // { path: 'Cart', loadComponent: () => import('./Components/cart/cart.component').then((m) => m.CartComponent), title: "Cart" },
-  { path: 'EditAccount', loadComponent: () => import('./Components/User/edit-account/edit-account.component').then((m) => m.EditAccountComponent), title: "EditAccount" },
-  { path: 'checkout', loadComponent: () => import('./Components/checkout/checkout.component').then((m) => m.CheckoutComponent), title: "checkout" },
 
+  { path: 'checkout', loadComponent: () => import('./Components/checkout/checkout.component').then((m) => m.CheckoutComponent), title: "checkout" },
 
 
 ];
