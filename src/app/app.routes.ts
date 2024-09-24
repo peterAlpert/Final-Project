@@ -15,6 +15,8 @@ import { DetailsComponent } from './Components/details/details.component';
 import { NotfoundComponent } from './Components/notfound/notfound.component';
 import { ForgetPasswordComponent } from './Components/Password/forget-password/forget-password.component';
 import { OtpComponent } from './Components/Password/otp/otp.component';
+import { AddCategoryComponent } from './Components/add-category/add-category.component';
+import { AddBrandComponent } from './Components/add-brand/add-brand.component';
 
 export const routes: Routes = [
 
@@ -23,6 +25,8 @@ export const routes: Routes = [
 
   { path: "product", component: ProductComponent, title: "product" },
   { path: "addProduct", component: AddProductComponent },
+  { path: "addCategory", component: AddCategoryComponent },
+  { path: "addBrand", component: AddBrandComponent },
   { path: "product/:id", component: DetailsComponent, title: "productDetails" },
 
   { path: "changePassword", component: ChangePasswordComponent, title: "change" },

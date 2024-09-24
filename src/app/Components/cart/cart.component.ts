@@ -2,16 +2,18 @@ import { ToastrService } from 'ngx-toastr';
 import { IProduct } from '../../Core/interfaces/iproduct';
 import { CartService } from './../../Core/Services/cart.service';
 import { Component, OnInit } from '@angular/core';
+import { SpinnerComponent } from '../spinner/spinner.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [],
+  imports: [SpinnerComponent, RouterLink],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
 export class CartComponent implements OnInit {
-  // cartItems: IProduct[] = [] as IProduct[]
+  isLoading: boolean = true
   cartItems: any
 
   userId: number = 0
@@ -30,22 +32,25 @@ export class CartComponent implements OnInit {
     //get all items in cart
     this._CartService.getCartByUserId(this.userId).subscribe({
       next: res => {
-        console.log(res);
         this.cartItems = res
+        this.isLoading = false
       }
       ,
-      error: err => { console.log(err); }
+      error: err => {
+        this._ToastrService.warning("Not Items in Your Cart")
+        this.isLoading = false
+      }
     })
 
   }
 
-  deleteItem(id: number) {
-    console.log(this.userId);
-    console.log(id);
-
-    this._CartService.deleteItem(this.userId, id).subscribe({
-      next: res => this._ToastrService.show("Item deleted from cart"),
-      error: err => console.log(err)
+  deleteItem(productId: number) {
+    this._CartService.deleteItem(this.userId, productId).subscribe({
+      next: () => {
+        this._ToastrService.show("Item deleted from cart")
+        this.cartItems = this.cartItems.filter((item: any) => item.id != productId)
+      },
+      error: err => this._ToastrService.warning(err)
     })
   }
 }
