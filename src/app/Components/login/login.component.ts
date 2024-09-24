@@ -41,7 +41,7 @@ export class LoginComponent {
       this._AuthService.login(userData).subscribe({
         next: (response) => { //data tmam
           localStorage.setItem('eToken', response.token);
-          this._ToastrService.show("Login Sucessfully")
+          this._ToastrService.success("Login Sucessfully")
           this.isLoading = false;
 
           this._AuthService.isLogin.next(true);

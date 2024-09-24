@@ -4,6 +4,7 @@ import { CartService } from './../../Core/Services/cart.service';
 import { Component, OnInit } from '@angular/core';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { RouterLink } from '@angular/router';
+import { SharedService } from '../../Core/Services/shared.service';
 
 @Component({
   selector: 'app-cart',
@@ -21,7 +22,8 @@ export class CartComponent implements OnInit {
 
   constructor(
     private _CartService: CartService,
-    private _ToastrService: ToastrService
+    private _ToastrService: ToastrService,
+    private _SharedService: SharedService
   ) { }
 
   ngOnInit(): void {
@@ -33,6 +35,7 @@ export class CartComponent implements OnInit {
     this._CartService.getCartByUserId(this.userId).subscribe({
       next: res => {
         this.cartItems = res
+        this._SharedService.updateCartCount(this.cartItems.length)
         this.isLoading = false
       }
       ,

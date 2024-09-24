@@ -20,7 +20,9 @@ export class NavbarComponent implements OnInit {
   IsLogged: boolean = false
 
   token: string | null
-  listCount: number = 0
+  wishListCount: number = 0
+  cartCount: number = 0
+
   constructor(
     private _Router: Router,
     private _ToastrService: ToastrService,
@@ -29,16 +31,15 @@ export class NavbarComponent implements OnInit {
   ) {
     this.userId = Number(localStorage.getItem('userId'))
     this.token = localStorage.getItem("eToken");
-    this._AuthService.isLogin.subscribe({
-      next: res => this.IsLogged = res
-    })
+
+    this._AuthService.isLogin.subscribe({ next: res => this.IsLogged = res })
+
 
   }
 
   ngOnInit(): void {
-    console.log(this._SharedService.userId);
-    console.log(this._SharedService.wishListCount);
-
+    this._SharedService.wishListCount.subscribe(res => this.wishListCount = res)
+    this._SharedService.cartCount.subscribe(res => this.cartCount = res)
   }
 
   //sign out

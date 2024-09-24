@@ -4,6 +4,7 @@ import { CommonModule, JsonPipe } from '@angular/common';
 import { IWishlistitems } from '../../Core/interfaces/iwishlistitems';
 import { ToastrService } from 'ngx-toastr';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { SharedService } from '../../Core/Services/shared.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -19,10 +20,12 @@ export class WishlistComponent implements OnInit {
 
   constructor(
     private _WhishlistService: WhishlistService,
-    private _ToastrService: ToastrService
+    private _ToastrService: ToastrService,
+    private _SharedService: SharedService
   ) { }
 
   ngOnInit() {
+
     //get UserID
     this.userId = Number(localStorage.getItem("userId"))
 
@@ -30,6 +33,8 @@ export class WishlistComponent implements OnInit {
     this._WhishlistService.getAll(this.userId).subscribe({
       next: res => {
         this.wishlistItems = res
+
+        this._SharedService.updateWishlistCount(this.wishlistItems.length)
         this.isLoading = false
       },
       error: err => {
