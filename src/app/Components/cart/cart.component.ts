@@ -2,7 +2,7 @@ import { ToastrService } from 'ngx-toastr';
 import { IProduct } from '../../Core/interfaces/iproduct';
 import { CartService } from './../../Core/Services/cart.service';
 import { Component, OnInit } from '@angular/core';
-import { SpinnerComponent } from '../spinner/spinner.component';
+import { SpinnerComponent } from '../Layout/spinner/spinner.component';
 import { RouterLink } from '@angular/router';
 import { SharedService } from '../../Core/Services/shared.service';
 

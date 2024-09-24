@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, SimpleChanges } from '@angular/core';
 import { FormControl, FormControlOptions, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../Core/Services/auth.service';
+import { AuthService } from '../../../Core/Services/auth.service';
 import { Router } from '@angular/router';
 import { LoginComponent } from '../login/login.component';
 import { ToastrService } from 'ngx-toastr';
-import { IUser } from '../../Core/interfaces/iuser';
+import { IUser } from '../../../Core/interfaces/iuser';
 
 @Component({
   selector: 'app-registeration',

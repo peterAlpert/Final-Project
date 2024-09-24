@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { IProduct } from '../../Core/interfaces/iproduct';
-import { ProductService } from '../../Core/Services/product.service';
+import { IProduct } from '../../../../Core/interfaces/iproduct';
+import { ProductService } from '../../../../Core/Services/product.service';
 
 @Component({
   selector: 'app-add-product',

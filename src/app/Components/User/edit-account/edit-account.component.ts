@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './edit-account.component.html',
-  styleUrl: './edit-account.component.css'
+  styles: ''
 })
 export class EditAccountComponent {
 

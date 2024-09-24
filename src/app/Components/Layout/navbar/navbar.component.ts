@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from '../../Core/Services/auth.service';
-import { WhishlistService } from '../../Core/Services/whishlist.service';
+import { AuthService } from '../../../Core/Services/auth.service';
+import { WhishlistService } from '../../../Core/Services/whishlist.service';
 import Swal from 'sweetalert2';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SharedService } from '../../Core/Services/shared.service';
+import { SharedService } from '../../../Core/Services/shared.service';
 
 @Component({
   selector: 'app-navbar',

@@ -3,7 +3,7 @@ import { WhishlistService } from '../../Core/Services/whishlist.service';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { IWishlistitems } from '../../Core/interfaces/iwishlistitems';
 import { ToastrService } from 'ngx-toastr';
-import { SpinnerComponent } from '../spinner/spinner.component';
+import { SpinnerComponent } from '../Layout/spinner/spinner.component';
 import { SharedService } from '../../Core/Services/shared.service';
 
 @Component({

@@ -1,19 +1,19 @@
-import { ICartItem } from './../../Core/interfaces/icart-item';
-import { IFavlistuserproduct } from './../../Core/interfaces/ifavlistuserproduct';
+import { ICartItem } from '../../../Core/interfaces/icart-item';
+import { IFavlistuserproduct } from '../../../Core/interfaces/ifavlistuserproduct';
 import { Component, Directive, Input, OnInit } from '@angular/core';
-import { IProduct } from '../../Core/interfaces/iproduct';
-import { ProductService } from '../../Core/Services/product.service';
+import { IProduct } from '../../../Core/interfaces/iproduct';
+import { ProductService } from '../../../Core/Services/product.service';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../Core/Services/auth.service';
+import { AuthService } from '../../../Core/Services/auth.service';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { ToastrService } from 'ngx-toastr';
 import { Router, RouterLink } from '@angular/router';
-import { WhishlistService } from '../../Core/Services/whishlist.service';
+import { WhishlistService } from '../../../Core/Services/whishlist.service';
 import { Observable } from 'rxjs';
-import { CartService } from '../../Core/Services/cart.service';
-import { SpinnerComponent } from '../spinner/spinner.component';
-import { SharedService } from '../../Core/Services/shared.service';
+import { CartService } from '../../../Core/Services/cart.service';
+import { SpinnerComponent } from '../../Layout/spinner/spinner.component';
+import { SharedService } from '../../../Core/Services/shared.service';
 
 @Component({
   selector: 'app-product',
