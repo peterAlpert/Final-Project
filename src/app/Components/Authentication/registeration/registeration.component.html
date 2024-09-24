@@ -8,11 +8,10 @@
       <label for="userName">userName</label>
       <input formControlName="userName" type="text" id="userName" class="form-control" />
 
-      <div *ngIf="registerForm.get('userName')?.errors && registerForm.get('userName')?.touched"
-        class="alert alert-danger p-1  small w-50 mx-auto">
-        <p class="mb-0" *ngIf="registerForm.get('userName')?.getError('required')">Name is Required</p>
-        <p class="mb-0" *ngIf="registerForm.get('userName')?.getError('minlength')">Name MinLength 3</p>
-        <p class="mb-0" *ngIf="registerForm.get('userName')?.getError('maxlength')"> Name MaxLength 20</p>
+      <div *ngIf="registerForm.get('userName')?.errors && registerForm.get('userName')?.touched">
+        <p class="text-danger" *ngIf="registerForm.get('userName')?.getError('required')">Name is Required</p>
+        <p class="text-danger" *ngIf="registerForm.get('userName')?.getError('minlength')">Name MinLength 3</p>
+        <p class="text-danger" *ngIf="registerForm.get('userName')?.getError('maxlength')"> Name MaxLength 20</p>
       </div>
     </div>
 
@@ -20,10 +19,9 @@
       <label for="email">Email</label>
       <input formControlName="email" type="email" id="email" class="form-control" />
 
-      <div *ngIf="registerForm.get('email')?.errors && registerForm.get('email')?.touched"
-        class="alert alert-danger p-1  small w-50 mx-auto">
-        <p class="mb-0" *ngIf="registerForm.get('email')?.getError('required')">Email is Required</p>
-        <p class="mb-0" *ngIf="registerForm.get('email')?.getError('email')">email invaild format </p>
+      <div *ngIf="registerForm.get('email')?.errors && registerForm.get('email')?.touched">
+        <p class="text-danger" *ngIf="registerForm.get('email')?.getError('required')">Email is Required</p>
+        <p class="text-danger" *ngIf="registerForm.get('email')?.getError('email')">email invaild format </p>
       </div>
     </div>
 
@@ -33,12 +31,11 @@
 
       <div *ngIf="
         registerForm.get('password')?.errors &&
-        registerForm.get('password')?.touched
-      " class="alert alert-danger p-1 w-50 mx-auto">
-        <p *ngIf="registerForm.get('password')?.getError('required')">
+        registerForm.get('password')?.touched">
+        <p class="text-danger" *ngIf="registerForm.get('password')?.getError('required')">
           password is Required
         </p>
-        <p *ngIf="registerForm.get('password')?.getError('pattern')">
+        <p class="text-danger" *ngIf="registerForm.get('password')?.getError('pattern')">
           password must math pattern
         </p>
       </div>
@@ -50,12 +47,11 @@
 
       <!-- <div *ngIf="
         registerForm.get('rePassword')?.errors &&
-        registerForm.get('rePassword')?.touched
-      " class="alert alert-danger p-1 w-50 mx-auto">
-        <p *ngIf="registerForm.get('rePassword')?.getError('required')">
+        registerForm.get('rePassword')?.touched">
+        <p class="text-danger" *ngIf="registerForm.get('rePassword')?.getError('required')">
           repassword is Required
         </p>
-        <p *ngIf="registerForm.get('rePassword')?.getError('pattern')">
+        <p class="text-danger" *ngIf="registerForm.get('rePassword')?.getError('pattern')">
           repassword must math pattern
         </p>
       </div> -->
@@ -65,10 +61,10 @@
       <label for="phone">Phone</label>
       <input formControlName="phone" type="tel" id="phone" class="form-control">
 
-      <div *ngIf="registerForm.get('phone')?.errors && registerForm.get('phone')?.touched"
-        class="alert alert-danger p-1 w-50 mx-auto">
-        <p *ngIf="registerForm.get('phone')?.getError('required')">Phone is Required</p>
-        <p *ngIf="registerForm.get('phone')?.getError('pattern')"> "accept only egypt phone numbers"</p>
+      <div *ngIf="registerForm.get('phone')?.errors && registerForm.get('phone')?.touched">
+        <p class="text-danger" *ngIf="registerForm.get('phone')?.getError('required')">Phone is Required</p>
+        <p class="text-danger" *ngIf="registerForm.get('phone')?.getError('pattern')"> "accept only egypt phone numbers"
+        </p>
       </div>
     </div>
 
@@ -83,6 +79,6 @@
     </button>
   </form>
 
-  <p *ngIf="errMsg" class="alert alert-danger p-1 w-50 mx-auto mb-0 text-center">{{errMsg}}</p>
+  <p *ngIf="errMsg" class="alert alert-danger p-1 w-50 mx-auto text-danger text-center">{{errMsg}}</p>
 
 </section>

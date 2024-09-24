@@ -63,6 +63,7 @@ export const routes: Routes = [
   // {path:'product',loadComponent:()=>import('./Components/product/product.component').then((m)=>m.ProductComponent),title:"product"},
 
   { path: 'Register', loadComponent: () => import('./Components/Authentication/registeration/registeration.component').then((m) => m.RegisterationComponent), title: "Register" },
+  { path: 'contactus', loadComponent: () => import('./Components/Layout/contact-us/contact-us.component').then((m) => m.ContactUsComponent), title: "Contact Us" },
   { path: 'Login', loadComponent: () => import('./Components/Authentication/login/login.component').then((m) => m.LoginComponent), title: "Login" },
   // { path: 'WishList', loadComponent: () => import('./Components/wishlist/wishlist.component').then((m) => m.WishlistComponent), title: "WishList" },
   // { path: 'Cart', loadComponent: () => import('./Components/cart/cart.component').then((m) => m.CartComponent), title: "Cart" },

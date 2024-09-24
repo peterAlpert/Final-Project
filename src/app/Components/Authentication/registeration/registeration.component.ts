@@ -23,16 +23,13 @@ export class RegisterationComponent {
   registerForm: FormGroup = new FormGroup({
     userName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required]),
+    password: new FormControl('', Validators.required),
     phone: new FormControl('', [Validators.required, Validators.pattern(/^01[0125][0-9]{8}$/)]),
-    address: new FormControl(''),
-    profileImageURL: new FormControl(''),
+    address: new FormControl('')
 
-  })//, { validators: [this.confirmPassword] } as FormControlOptions)
+  })
 
   constructor(private _AuthService: AuthService, private _Router: Router, private _ToastrService: ToastrService) { }
-
-  //@Output() myEvent=new EventEmitter();
 
   // confirmPassword(group: FormGroup): void {
   //   const password = group.get('password');
@@ -49,16 +46,16 @@ export class RegisterationComponent {
   // }
 
   register(): void {
-    this.userData = this.registerForm.value;
     this.isLoading = true;
 
     //console.log(this.userData);
 
     if (this.registerForm.valid) {
 
-      this._AuthService.register(this.userData).subscribe({
+      this._AuthService.register(this.registerForm.value).subscribe({
         next: () => {
-          this._ToastrService.success(`Welcome ${this.userData.userName} to our website ElDokan`);
+          this._ToastrService.success(`Welcome  ${this.registerForm.value.userName}  to our website El-Dokan`);
+          this.registerForm.reset();
           this._Router.navigateByUrl('Login');
         },
         error: (err: any) => {
