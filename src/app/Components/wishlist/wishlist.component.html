@@ -1,8 +1,9 @@
+@if (isLoading) {<app-spinner></app-spinner>}
 <div class="my-5">
   <div class="row text-center">
     <div class="col-12 m-4"><span class="fs-1">Wishlist</span></div>
   </div>
-  @if(wishlistItems.length >0){
+  @if(wishlistItems.length>0){
   @for (item of wishlistItems; track item.id) {
   <section class="container mx-auto py-1">
     <div class="row w-75 mx-auto  border border-3 border-light-subtle rounded-5 px-1 py-2">
@@ -13,12 +14,10 @@
         <h1>{{item.product.name}}</h1>
         <p>{{item.product.price}}</p>
         <p>{{item.product.description}}</p>
-
       </div>
       <div class="col-md-2 ">
         <button class="btn w-100 btn-primary my-1 rounded-5">Add To Cart</button>
         <button (click)="removeItemFromList(item.productId)" class="btn w-100 my-1 btn-danger rounded-5">remove</button>
-
       </div>
 
     </div>
@@ -28,7 +27,7 @@
   @else {
   <section class="container mx-auto py-1">
     <div class="row w-75 mx-auto rounded-5 px-1 py-2">
-      <div class="col-md-12">
+      <div class="col-md-12 text-center h-100">
         <h2>No items, please add some</h2>
 
       </div>

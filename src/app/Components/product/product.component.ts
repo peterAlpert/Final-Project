@@ -12,19 +12,22 @@ import { Router } from '@angular/router';
 import { WhishlistService } from '../../Core/Services/whishlist.service';
 import { Observable } from 'rxjs';
 import { CartService } from '../../Core/Services/cart.service';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CommonModule, JsonPipe, FormsModule],
+  imports: [CommonModule, JsonPipe, FormsModule, SpinnerComponent],
   templateUrl: './product.component.html',
-  styles: ''
+  styles: '.in-wishlist {color: red}'
 })
 export class ProductComponent implements OnInit {
+  isLoading: boolean = true;
   products: IProduct[] = [] as IProduct[];
-  prod: IProduct = {} as IProduct
+  prod: IProduct = {} as IProduct;
   searchInput: string = "";
   userId: any
+  favItem = "redColor"
   token: string | null = ""
   whishlistData: IFavlistuserproduct = {} as IFavlistuserproduct
   heartStyle: string = "fa-regular fa-heart fa-2xl d-flex justify-content-end"
@@ -42,19 +45,35 @@ export class ProductComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._ProductService.GetAll().subscribe({
-      next: (res: any) => { this.products = res; console.log(res); },
-      error: (err: any) => { console.log(err); }
-    })
+    setTimeout(() => {
+      this._ProductService.GetAll().subscribe({
+        next: (res: any) => { this.products = res; this.isLoading = false },
+        error: (err: any) => { console.log(err); this.isLoading = true }
+      })
+    }, 2000);
+
 
     this._AuthService.getUserId().subscribe({
       next: (res) => {
-        console.log(res)
-
         this.userId = res
       }
     })
 
+  }
+
+  wishlistIds: number[] = [];
+
+  toggleWishlist(productId: number) {
+    const index = this.wishlistIds.indexOf(productId);
+    if (index === -1) {
+      this.wishlistIds.push(productId);
+    } else {
+      this.wishlistIds.splice(index, 1);
+    }
+  }
+
+  isInWishlist(productId: number): boolean {
+    return this.wishlistIds.includes(productId);
   }
 
   search() {
@@ -72,19 +91,19 @@ export class ProductComponent implements OnInit {
         }
       })
     }
+    else {
+      this._ProductService.GetAll().subscribe({
+        next: res => this.products = res,
+        error: err => console.log(err)
+
+      })
+
+    }
   }
+
 
   goToDetails(prod: IProduct) {
     this._Router.navigateByUrl(`product/${prod.id}`)
-    // this._ProductService.GetByID(prod.id).subscribe({
-    //   next: (res) => {
-    //     this.prod = res;
-    //     this._Router.navigateByUrl(`product/${res.id}`)
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //   }
-    // })
   }
 
   deleteProd(prod: IProduct) {
@@ -98,7 +117,6 @@ export class ProductComponent implements OnInit {
   }
 
   addToWhishlist(prod: IProduct) {
-
     this.whishlistData = {
       "userId": this.userId,
       "productId": prod.id
@@ -106,18 +124,10 @@ export class ProductComponent implements OnInit {
 
     this._WhishlistService.add(this.whishlistData).subscribe({
       next: (res: any) => {
-        if (!this.isFav) {
-          this.isFav = true;
-          this.heartStyle = "fa-solid text-danger fa-heart fa-2xl d-flex justify-content-end"
-        }
-        else {
-          this.isFav = false;
-          this.heartStyle = "fa-regular fa-heart fa-2xl d-flex justify-content-end"
-        }
-
-        this._ToastrService.success("added to wishlist");
+        this.toggleWishlist(prod.id)
+        this._ToastrService.success(`${prod.name} : added to wishlist`);
       },
-      error: (err) => { console.log(err); console.log(this.isFav); }
+      error: () => this._ToastrService.warning("Product is Already Exists in Your Wishlist")
     })
 
   }
@@ -135,7 +145,6 @@ export class ProductComponent implements OnInit {
   }
 
   addToCart(prod: IProduct) {
-
     this.cartItem = {
       'price': prod.price,
       'cartItemId': 1,
@@ -145,7 +154,10 @@ export class ProductComponent implements OnInit {
     }
 
     this._CartService.add(this.cartItem).subscribe({
-      next: res => this._ToastrService.success(`product (${prod.name}) added to you cart successfully`),
+      next: res => {
+        this._ToastrService.success(`${prod.name} : added to you cart successfully`)
+        console.log(res);
+      },
       error: err => console.log(err)
     })
 

@@ -1,3 +1,4 @@
+@if (isLoading) {<app-spinner></app-spinner>}
 <section role="button" class="container-fluid bg-light">
   <h2 class="main-title py-5">All Products</h2>
   <div class="row my-3 mx-auto ">
@@ -13,7 +14,6 @@
 
   </div>
 
-
   <div class="row">
     @for (prod of products; track prod.id) {
     <div class="col-md-4 rounded-5">
@@ -25,9 +25,8 @@
           <div class="col-md-8">
             <div class="card-body">
               <div class="my-3">
-                <!-- (mouseover)="changeColorToRed()" (mouseleave)="changeColorToWhite()" -->
-                <i (click)="addToWhishlist(prod)" [class]="heartStyle"></i>
-                <!-- <i (click)="addToWhishlist(prod)" class="fa-solid fa-heart fa-2xl d-flex justify-content-end"></i> -->
+                <i [ngClass]="{'fa-solid text-danger': isInWishlist(prod.id)}" (click)="addToWhishlist(prod)"
+                  class="fa-regular fa-heart fa-2xl d-flex justify-content-end"></i>
               </div>
 
               <h5 class="card-title">{{prod.name}}</h5>

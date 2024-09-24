@@ -1,40 +1,64 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../Core/Services/auth.service';
+import { WhishlistService } from '../../Core/Services/whishlist.service';
+import Swal from 'sweetalert2';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SharedService } from '../../Core/Services/shared.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule],
   templateUrl: './navbar.component.html',
   styles: ''
 })
-export class NavbarComponent implements OnInit, OnChanges {
-  isLogin: boolean = false;
+export class NavbarComponent implements OnInit {
+  userId: number = 0;
+  IsLogged: boolean = false
+
   token: string | null
-  constructor(private _Router: Router, private _ToastrService: ToastrService) {
+  listCount: number = 0
+  constructor(
+    private _Router: Router,
+    private _ToastrService: ToastrService,
+    private _AuthService: AuthService,
+    private _SharedService: SharedService
+  ) {
+    this.userId = Number(localStorage.getItem('userId'))
     this.token = localStorage.getItem("eToken");
+    this._AuthService.isLogin.subscribe({
+      next: res => this.IsLogged = res
+    })
 
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    // if (!this.token) {
-    //   this.isLogin = true;
-    // }
-  }
+
   ngOnInit(): void {
-    if (!this.token) {
-      this.isLogin = true;
-    }
+    console.log(this._SharedService.userId);
+    console.log(this._SharedService.wishListCount);
+
   }
 
+  //sign out
   SignOut() {
-    localStorage.removeItem("eToken");
-    localStorage.removeItem("userId")
-    this.isLogin = false;
-    this._ToastrService.info("Sign out sucessfully")
-    this._Router.navigate(['/home'])
-    location.reload();
+    Swal.fire({
+      title: 'Sign out',
+      text: 'Are You Sure',
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel'
+    }).then(res => {
+      if (res.isConfirmed) {
+        localStorage.removeItem("eToken");
+        localStorage.removeItem("userId")
+        this._AuthService.isLogin.next(false);
+        this._ToastrService.success("Sign out sucessfully")
+        this._Router.navigate(['/home'])
+      }
+    });
   }
 
 }

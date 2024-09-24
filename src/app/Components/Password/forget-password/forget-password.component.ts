@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './forget-password.component.html',
-  styleUrl: './forget-password.component.css'
+  styles: ''
 })
 export class ForgetPasswordComponent {
   toAddress: string = ""

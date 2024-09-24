@@ -1,7 +1,7 @@
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IUser } from '../interfaces/iuser';
 import { environment } from '../../../environments/environment';
 
@@ -12,9 +12,18 @@ import { environment } from '../../../environments/environment';
 })
 export class AuthService {
   userInfo: IUser = {} as IUser
-  token: string | number = ""
+  token: any
+  isLogin: BehaviorSubject<boolean>
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.token = localStorage.getItem('eToken')
+
+    var flag = false
+    if (this.token)
+      flag = true
+
+    this.isLogin = new BehaviorSubject<boolean>(flag);
+  }
 
   register(userData: IUser): Observable<any> {
     return this.http.post(environment.baseUrl + '/Account/Register', userData)
@@ -34,10 +43,10 @@ export class AuthService {
 
 
   changePassword(passData: any): Observable<any> {
-    var token = localStorage.getItem("eToken")
+    this.token = localStorage.getItem("eToken")
     return this.http.post(`${environment.baseUrl}/Account/UpdatePassword`, passData, {
       headers: new HttpHeaders({
-        "authorization": `Bearer ${token}`
+        "authorization": `Bearer ${this.token}`
       })
     })
   }
@@ -45,8 +54,7 @@ export class AuthService {
 
 
   getUserId(): Observable<any> {
-    this.token = localStorage.getItem("eToken")!
-    //console.log(this.token);
+    this.token = localStorage.getItem("eToken")
 
     return this.http.get(`${environment.baseUrl}/Account/getCurrentUserID`, {
       headers: new HttpHeaders({
