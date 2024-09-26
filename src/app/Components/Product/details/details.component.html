@@ -21,7 +21,7 @@
             <p>{{prodcut.description}}</p>
 
             <div class="row py-4">
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
 
                     <div class="border border-light-subtle border-1 ">
                         <div class="d-flex justify-content-between py-2 px-3 rounded-3">
@@ -32,16 +32,20 @@
 
 
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <button class="btn w-100 py-2 main-btn-gray main-btn-blue-hover" type="button">Add To
-                        Cart</button>
+                </div> -->
+                <div class="col-md-4">
+                    <button class="btn w-100 py-2 btn-outline-primary">Add To Cart</button>
 
                 </div>
+                <div class="col-md-4">
+                    <button class="btn w-100 py-2 btn-outline-info" routerLink="/addreview/{{prodID}}">Add
+                        Review</button>
+
+                </div>
+                <div class="col-md-2"></div>
                 <div class="col-md-2 ">
-                    <div
-                        class="border border-light-subtle border-1 py-2 px-2 rounded-3 w-75 main-btn-blue-hover  text-center">
-                        <i class="fa-solid fa-heart fa-xl"></i>
+                    <div class=" border-1 py-2 px-2 rounded-3 w-75 text-center">
+                        <i class="fa-regular fa-heart fa-xl"></i>
                     </div>
 
                 </div>
@@ -49,8 +53,8 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button"
-                        class=" border border-light-subtle   btn main-btn-white main-btn-blue-hover   w-100 ">Buy it Now
+                    <button type="button" class="btn btn-outline-primary main-btn-blue-hover   w-100 ">Buy it
+                        Now
                     </button>
                 </div>
             </div>

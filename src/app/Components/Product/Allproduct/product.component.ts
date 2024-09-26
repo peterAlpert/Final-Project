@@ -131,11 +131,10 @@ export class ProductComponent implements OnInit {
 
   addToCart(prod: IProduct) {
     this.cartItem = {
-      'price': prod.price,
-      'cartItemId': 1,
+      'id': 1,
+      'quantity': 1,
       'userId': this.userId,
-      'productId': prod.id,
-      'quantity': 1
+      'productId': prod.id
     }
 
     if (!this.IsLogeed()) {

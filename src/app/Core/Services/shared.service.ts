@@ -28,4 +28,12 @@ export class SharedService {
   }
 
 
+  private username = new BehaviorSubject<string>(''); // استبدل `string` بنوع البيانات التي تريد تمريرها
+  currentName = this.username.asObservable();
+
+  changeName(data: string) {
+    this.username.next(data);
+  }
+
+
 }

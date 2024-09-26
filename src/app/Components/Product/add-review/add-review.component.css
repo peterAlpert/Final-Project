@@ -1,0 +1,17 @@
+.star-rating {
+    font-size: 50px;
+    color: lightgray;
+    cursor: pointer;
+}
+
+.star-rating .filled {
+    color: gold;
+}
+
+.star-rating span {
+    transition: color 0.3s;
+}
+
+.star-rating span:hover {
+    color: orange;
+}
