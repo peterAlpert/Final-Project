@@ -8,9 +8,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class WhishlistService {
-  useridProdid: any
-
-  whishlistData: IFavlistuserproduct = {} as IFavlistuserproduct
 
   constructor(private _HttpClient: HttpClient) {
 

@@ -1,77 +1,72 @@
+@if (isLoading) {<app-spinner></app-spinner>}
 <section class="container-fluid p-5">
   <div class="row text-center">
     <div class="col-12 m-4"><span class="fs-1">Cart</span></div>
   </div>
-  <div class="row">
-    <div class="col-md-12 p-3 border border-4 border-light">
-      @for (item of cartItems; track $index) {
-      <div class="px-5 rounded rounded-3 border border-light-subtle rounded-5 px-1 py-2 my-3 ">
-        <div class="row  bg-white  p-2">
-          <div class="col-md-4">Product</div>
-          <div class="col-md-2">Price</div>
-          <div class="col-md-3">Quantity</div>
-          <!-- <div class="col-md-2">Subtotal</div> -->
-          <div class="col-md-1"></div>
-        </div>
-
-        <div class="row bg-white  p-2">
-          <div class="col-md-6">
-            <div class="border border-2 w-50 border-light">
-              <img src="assets/watch1.jpg" class="w-100">
-            </div>
-
-            <div class="w-50">
-              <p class="fs-3">{{item.name}}</p>
-              <p class="fs-6">{{item.description}}</p>
-            </div>
-
-          </div>
-          <div class="col-md-2">{{item.price}}</div>
-          <div class="col-md-3">
-            <div class="row ounded-5  mx-auto text-center">
-              <div class="col-2"><button class="btn">-</button></div>
-              <div class="col-4 "><span>1</span></div>
-              <div class="col-2"><button class="btn">+</button></div>
-            </div>
-          </div>
-          <!-- <div class="col-md-2">1400</div> -->
-          <div class="col-md-1 me-0">
-            <button (click)="deleteItem(item.id)" class="fa-solid fa-trash-can text-danger"></button>
-          </div>
-
+  <div class="row border border-4 border-light mx-auto w-75">
+    @if (items.length>0) {
+    @for (item of items; track item.id) {
+    <div class="shadow rounded-5 ps-5 py-2 my-3">
+      <div class="row bg-white p-2 text-center">
+        <div class="col-md-5">Product</div>
+        <div class="col-md-2">Price</div>
+        <div class="col-md-3">Quantity</div>
+        <div class="col-md-1"></div>
+        <div class="col-md-1">
+          <button (click)="deleteItem(item.productId)"
+            class="fa-solid border-0 fs-3 fa-trash-can text-danger bg-light"></button>
         </div>
       </div>
-      }
+      <hr class="fw-bolder mx-5">
+
+      <div class="row bg-white  p-2">
+        <div class="col-md-5">
+          <div class="border border-2 w-50 border-light">
+            <img src="assets/watch1.jpg" class="w-100">
+          </div>
+
+          <div class="w-75">
+            <!-- <p class="fs-3">{{item.name}}</p>
+                <p class="fs-6">{{item.description}}</p> -->
+            <p> productId {{item.productId}}</p>
+          </div>
+
+        </div>
+        <div class="col-md-2">1000</div>
+        <div class="col-md-3">
+          <div class="border border-light-subtle border-1 ">
+            <div class="d-flex justify-content-between py-2 px-3 rounded-3">
+              <button (click)="decQty(item.productId)" [disabled]="productQty==0"
+                class="d-block border-0 bg-light fs-3 ">-</button>
+              <span class="d-block fw-medium fs-2 "> {{item.quantity}}</span>
+              <button (click)="incQty(item.productId)" class="d-block border-0 bg-light fs-3 ">+</button>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-md-2">1400</div> -->
+
+
+
+      </div>
     </div>
-
-    <!-- <div class="col-md-4 rounded-4 p-3 border border-4 border-light bg-white">
-      <div class="p-3">
-        <div class="row">
-          <div class="col-md-4">
-            <h5>Cart totals</h5>
-          </div>
-        </div>
-
-        <div class="row bg-light rounded-4 p-2 ">
-
-
-          <div class="col-md-4 d-flex align-content-between justify-content-between">
-            <h5> total</h5>
-            <h5 class="text-info">1400$</h5>
-
-          </div>
-
-          <div>
-            <button class="btn btn-primary rounded-3 w-100">Proceed to CheckOut</button>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
+    }
     <div class="row">
-      <div>
-        <button class="btn btn-primary rounded-3 w-100 ">Proceed to CheckOut</button>
+      <div class="text-center mt-5">
+        <button class="btn btn-outline-primary rounded-3 w-75 btn-lg " routerLink="/checkout">Proceed to
+          CheckOut</button>
       </div>
     </div>
+    }
+
+    @else {
+    <section class="container mx-auto py-1">
+      <div class="row w-75 mx-auto rounded-5 px-1 py-2">
+        <div class="col-md-12 text-center">
+          <h2>No items, please add some</h2>
+
+        </div>
+      </div>
+    </section>
+    }
   </div>
 </section>

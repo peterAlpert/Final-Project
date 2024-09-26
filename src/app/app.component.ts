@@ -1,11 +1,13 @@
-import { NavbarComponent } from './Components/navbar/navbar.component';
+import { NavbarComponent } from './Components/Layout/navbar/navbar.component';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, RouterModule, ROUTES, Router, Routes } from '@angular/router';
-import { FooterComponent } from "./Components/footer/footer.component";
+import { FooterComponent } from "./Components/Layout/footer/footer.component";
 import { HomeComponent } from './Components/home/home.component';
 
-import { RegisterationComponent } from "./Components/registeration/registeration.component";
-import { AuthService } from './Core/Services/auth.service';
+import { RegisterationComponent } from "./Components/Authentication/registeration/registeration.component";
+import { SharedService } from './Core/Services/shared.service';
+import { WhishlistService } from './Core/Services/whishlist.service';
+import { CartService } from './Core/Services/cart.service';
 
 
 @Component({
@@ -16,14 +18,11 @@ import { AuthService } from './Core/Services/auth.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-
-
   title = 'Final-Project';
 
   goToUp(): void {
     window.scrollTo(0, 0)
   }
-
 
 
 

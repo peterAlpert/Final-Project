@@ -1,52 +1,56 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { WhishlistService } from '../../Core/Services/whishlist.service';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { IWishlistitems } from '../../Core/interfaces/iwishlistitems';
 import { ToastrService } from 'ngx-toastr';
+import { SpinnerComponent } from '../Layout/spinner/spinner.component';
+import { SharedService } from '../../Core/Services/shared.service';
 
 @Component({
   selector: 'app-wishlist',
   standalone: true,
-  imports: [JsonPipe, CommonModule],
+  imports: [JsonPipe, CommonModule, SpinnerComponent],
   templateUrl: './wishlist.component.html',
   styles: ''
 })
 export class WishlistComponent implements OnInit {
-  userId: number = 0
+  isLoading: Boolean = true
+  userId: number = 0;
   wishlistItems: IWishlistitems[] = [] as IWishlistitems[]
 
   constructor(
     private _WhishlistService: WhishlistService,
-    private _ToastrService: ToastrService
+    private _ToastrService: ToastrService,
+    private _SharedService: SharedService
   ) { }
 
-
   ngOnInit() {
+
     //get UserID
     this.userId = Number(localStorage.getItem("userId"))
 
     //get all items in wishlist
     this._WhishlistService.getAll(this.userId).subscribe({
       next: res => {
-        this.wishlistItems = res; console.log(this.wishlistItems);
-      }
-      ,
-      error: err => { console.log(err); }
-    })
+        this.wishlistItems = res
 
+        this._SharedService.updateWishlistCount(this.wishlistItems.length)
+        this.isLoading = false
+      },
+      error: err => {
+        this._ToastrService.warning("No Items in Your Wishlist")
+        this.isLoading = false
+      }
+    })
   }
 
-
-
   removeItemFromList(productId: number) {
-    console.log(productId)
-    console.log(this.userId)
-
     this._WhishlistService.delete(this.userId, productId).subscribe({
-      next: res => { this._ToastrService.show("Product deleted from your wishlist") },
-      error: err => {
-        console.log(err);
-      }
+      next: () => {
+        this._ToastrService.show("Product deleted from your wishlist")
+        this.wishlistItems = this.wishlistItems.filter(item => item.productId != productId)
+      },
+      error: err => console.log(err)
     })
 
   }

@@ -2,6 +2,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../Core/Services/auth.service';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-change-password',
@@ -15,7 +16,7 @@ export class ChangePasswordComponent {
   CurrentPassword: string = ""
   NewPassword: string = ""
 
-  token = localStorage.getItem("eToken");
+  token = localStorage.getItem("token");
 
   constructor(private _AuthService: AuthService, private _Toastr: ToastrService) {
   }
@@ -25,15 +26,12 @@ export class ChangePasswordComponent {
       'CurrentPassword': this.CurrentPassword,
       'NewPassword': this.NewPassword
     }
-    console.log(this.passwordData);
-    console.log(this.token);
-    console.log(localStorage.getItem("userId"));
 
     this._AuthService.changePassword(this.passwordData).subscribe({
       next: res => {
         this._Toastr.success("Password updated successfully.")
       },
-      error: err => { console.log(err); console.log(this.token) }
+      error: err => this._Toastr.warning("password incorrect")
     })
   }
 }
