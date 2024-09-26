@@ -18,6 +18,9 @@ import { OtpComponent } from './Components/Password/otp/otp.component';
 import { AddCategoryComponent } from './Components/Admin/Category/add-category/add-category.component';
 import { AddBrandComponent } from './Components/Admin/Brand/add-brand/add-brand.component';
 import { ProfileComponent } from './Components/User/profile/profile.component';
+import { OrderComponent } from './Components/order/orders/order.component';
+import { OrderDetailsComponent } from './Components/order/order-details/order-details.component';
+import { OrderTrackComponent } from './Components/order/order-track/order-track.component';
 
 export const routes: Routes = [
 
@@ -35,6 +38,9 @@ export const routes: Routes = [
   { path: "forgetPassword/otp", component: OtpComponent, title: "otp" },
 
   { path: "WishList", component: WishlistComponent, title: "wishlist" },
+  { path: "order", component: OrderComponent, title: "Order" },
+  { path: "order/details/:id", component: OrderDetailsComponent, title: "Order" },
+  { path: "order/track/:id", component: OrderTrackComponent, title: "Order" },
   {
     path: "profile", component: ProfileComponent, title: "user profile",
     children: [

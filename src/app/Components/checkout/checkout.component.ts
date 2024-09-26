@@ -64,12 +64,20 @@ export class CheckoutComponent implements OnInit {
 
 
   onSubmit() {
+    const checkout = {
+      'userID': this.userId,
+      'cartItems': this.cartItems
+    }
+
+    const placeOrderDTO = {
+      'OrderId': this.orderId,
+      'billingDetails': this.billingForm.value,
+      "shipping": this.orderForm.get('deliveryMethod')?.value,
+      'paymentMethod': this.orderForm.get('paymentMethod')?.value,
+    }
+
     if (this.orderForm.valid && this.billingForm.valid) {
 
-      const checkout = {
-        'userID': this.userId,
-        'cartItems': this.cartItems
-      }
       //proceed to checkout to ceate order
       this._CheckoutService.proceedToCheckout(checkout).subscribe({
         next: res => this.orderId = res.id,
@@ -77,23 +85,13 @@ export class CheckoutComponent implements OnInit {
 
       })
 
-
-      setTimeout(() => {
-        const placeOrderDTO = {
-          'OrderId': this.orderId,
-          'billingDetails': this.billingForm.value,
-          "shipping": this.orderForm.get('deliveryMethod')?.value,
-          'paymentMethod': this.orderForm.get('paymentMethod')?.value,
-        }
-        //placr order 
-        this._CheckoutService.placeOrder(placeOrderDTO).subscribe({
-          next: res => {
-            this._ToastrService.success("Your Order Placed Successfully, check your email for order id to track Your order"); console.log(res);
-          },
-          error: err => console.warn(err)
-        })
-
-      }, 100);
+      //placr order 
+      this._CheckoutService.placeOrder(placeOrderDTO).subscribe({
+        next: res => {
+          this._ToastrService.success("Your Order Placed Successfully, check your email for order id to track Your order"); console.log(res);
+        },
+        error: err => console.warn(err)
+      })
     }
     else {
       this._ToastrService.warning("Please fill All required fields")
