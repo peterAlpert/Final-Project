@@ -1,22 +1,26 @@
-import { AddProductComponent } from './Components/add-product/add-product.component';
+import { AddProductComponent } from './Components/Admin/Product/add-product/add-product.component';
 import { ChangePasswordComponent } from './Components/Password/change-password/change-password.component';
 
-import { EditAccountComponent } from './Components/edit-account/edit-account.component';
+import { EditAccountComponent } from './Components/User/edit-account/edit-account.component';
 import { Routes } from '@angular/router';
 
-import { RegisterationComponent } from './Components/registeration/registeration.component';
+import { RegisterationComponent } from './Components/Authentication/registeration/registeration.component';
 
 import { HomeComponent } from './Components/home/home.component';
 import { WishlistComponent } from './Components/wishlist/wishlist.component';
 import { CartComponent } from './Components/cart/cart.component';
 import { CheckoutComponent } from './Components/checkout/checkout.component';
-import { ProductComponent } from './Components/product/product.component';
-import { DetailsComponent } from './Components/details/details.component';
-import { NotfoundComponent } from './Components/notfound/notfound.component';
+import { ProductComponent } from './Components/Product/Allproduct/product.component';
+import { DetailsComponent } from './Components/Product/details/details.component';
+import { NotfoundComponent } from './Components/Layout/notfound/notfound.component';
 import { ForgetPasswordComponent } from './Components/Password/forget-password/forget-password.component';
 import { OtpComponent } from './Components/Password/otp/otp.component';
-import { AddCategoryComponent } from './Components/add-category/add-category.component';
-import { AddBrandComponent } from './Components/add-brand/add-brand.component';
+import { AddCategoryComponent } from './Components/Admin/Category/add-category/add-category.component';
+import { AddBrandComponent } from './Components/Admin/Brand/add-brand/add-brand.component';
+import { ProfileComponent } from './Components/User/profile/profile.component';
+import { OrderComponent } from './Components/order/orders/order.component';
+import { OrderDetailsComponent } from './Components/order/order-details/order-details.component';
+import { OrderTrackComponent } from './Components/order/order-track/order-track.component';
 
 export const routes: Routes = [
 
@@ -29,9 +33,25 @@ export const routes: Routes = [
   { path: "addBrand", component: AddBrandComponent },
   { path: "product/:id", component: DetailsComponent, title: "productDetails" },
 
-  { path: "changePassword", component: ChangePasswordComponent, title: "change" },
+
   { path: "forgetPassword", component: ForgetPasswordComponent, title: "forget" },
   { path: "forgetPassword/otp", component: OtpComponent, title: "otp" },
+
+  { path: "WishList", component: WishlistComponent, title: "wishlist" },
+  { path: "order", component: OrderComponent, title: "Order" },
+  { path: "order/details/:id", component: OrderDetailsComponent, title: "Order" },
+  { path: "order/track/:id", component: OrderTrackComponent, title: "Order" },
+  {
+    path: "profile", component: ProfileComponent, title: "user profile",
+    children: [
+      { path: "", redirectTo: 'profile/EditAccount', pathMatch: 'full' },
+      { path: 'profile/EditAccount', component: EditAccountComponent, title: "EditAccount" },
+      { path: "profile/changePassword", component: ChangePasswordComponent, title: "change" },
+    ]
+  },
+  { path: "Cart", component: CartComponent, title: "Cart" },
+
+
   // { path: "**", component: NotfoundComponent, title: "Not found" },
 
 
@@ -48,13 +68,14 @@ export const routes: Routes = [
   // { path: 'home', loadComponent: () => import('./Components/home/home.component').then((m) => m.HomeComponent), title: "Home" },
   // {path:'product',loadComponent:()=>import('./Components/product/product.component').then((m)=>m.ProductComponent),title:"product"},
 
-  { path: 'Register', loadComponent: () => import('./Components/registeration/registeration.component').then((m) => m.RegisterationComponent), title: "Register" },
-  { path: 'Login', loadComponent: () => import('./Components/login/login.component').then((m) => m.LoginComponent), title: "Login" },
-  { path: 'WishList', loadComponent: () => import('./Components/wishlist/wishlist.component').then((m) => m.WishlistComponent), title: "WishList" },
-  { path: 'Cart', loadComponent: () => import('./Components/cart/cart.component').then((m) => m.CartComponent), title: "Cart" },
-  { path: 'EditAccount', loadComponent: () => import('./Components/edit-account/edit-account.component').then((m) => m.EditAccountComponent), title: "EditAccount" },
-  { path: 'checkout', loadComponent: () => import('./Components/checkout/checkout.component').then((m) => m.CheckoutComponent), title: "checkout" },
+  { path: 'Register', loadComponent: () => import('./Components/Authentication/registeration/registeration.component').then((m) => m.RegisterationComponent), title: "Register" },
+  { path: 'addreview/:id', loadComponent: () => import('./Components//Product/add-review/add-review.component').then((m) => m.AddReviewComponent), title: "Add Review" },
+  { path: 'contactus', loadComponent: () => import('./Components/Layout/contact-us/contact-us.component').then((m) => m.ContactUsComponent), title: "Contact Us" },
+  { path: 'Login', loadComponent: () => import('./Components/Authentication/login/login.component').then((m) => m.LoginComponent), title: "Login" },
+  // { path: 'WishList', loadComponent: () => import('./Components/wishlist/wishlist.component').then((m) => m.WishlistComponent), title: "WishList" },
+  // { path: 'Cart', loadComponent: () => import('./Components/cart/cart.component').then((m) => m.CartComponent), title: "Cart" },
 
+  { path: 'checkout', loadComponent: () => import('./Components/checkout/checkout.component').then((m) => m.CheckoutComponent), title: "checkout" },
 
 
 ];

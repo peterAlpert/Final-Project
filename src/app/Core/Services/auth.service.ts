@@ -16,7 +16,7 @@ export class AuthService {
   isLogin: BehaviorSubject<boolean>
 
   constructor(private http: HttpClient) {
-    this.token = localStorage.getItem('eToken')
+    this.token = localStorage.getItem('token')
 
     var flag = false
     if (this.token)
@@ -43,7 +43,7 @@ export class AuthService {
 
 
   changePassword(passData: any): Observable<any> {
-    this.token = localStorage.getItem("eToken")
+    this.token = localStorage.getItem("token")
     return this.http.post(`${environment.baseUrl}/Account/UpdatePassword`, passData, {
       headers: new HttpHeaders({
         "authorization": `Bearer ${this.token}`
@@ -54,7 +54,7 @@ export class AuthService {
 
 
   getUserId(): Observable<any> {
-    this.token = localStorage.getItem("eToken")
+    this.token = localStorage.getItem("token")
 
     return this.http.get(`${environment.baseUrl}/Account/getCurrentUserID`, {
       headers: new HttpHeaders({

@@ -1,63 +1,137 @@
-<section class="container">
-  <h2>Billing details</h2>
+<section class="container py-3">
   <div class="row">
-    <div class="col-md-8">
-
-      <div class="mb-2 form-item">
-        <label for="firstName">First Name :</label>
-        <input formControlName="firstName" type="text" id="firstName" class="form-control"/>
+    <div class="col-md-7">
+      <div class="row fs-3">
+        <p>Billing Details</p>
       </div>
 
-      <div class="mb-2 form-item">
-        <label for="lastName">Last Name :</label>
-        <input formControlName="lastName" type="text" id="lastName" class="form-control"/>
-      </div>
+      <form [formGroup]="billingForm">
+        <div class="mb-2 form-item">
+          <label for="firstName">First Name <span class="text-danger">*</span> </label>
+          <input formControlName="firstName" type="text" id="firstName" class="form-control" />
+        </div>
 
-      <div class="mb-2 form-item">
-        <label for="companyName">Company Name :</label>
-        <input formControlName="companyName" type="text" id="companyName" class="form-control"/>
-      </div>
+        <div class="mb-2 form-item">
+          <label for="lastName">Last Name <span class="text-danger">*</span></label>
+          <input formControlName="lastName" type="text" id="lastName" class="form-control" />
+        </div>
 
-      <div class="mb-2 form-item">
-        <label for="Country">Country :</label>
-        <input formControlName="Country" type="text" id="Country" class="form-control"/>
-      </div>
+        <div class="mb-2 form-item">
+          <label for="companyName">Company Name </label>
+          <input formControlName="companyName" type="text" id="companyName" class="form-control" />
+        </div>
 
-      <div class="mb-2 form-item">
-        <label for="streetAddress">Street Address :</label>
-        <input formControlName="streetAddress" type="text" id="streetAddress" class="form-control"/>
-      </div>
+        <div class="mb-2 form-item">
+          <label for="Country">Country <span class="text-danger">*</span></label>
+          <input formControlName="country" type="text" id="Country" class="form-control" />
+        </div>
 
-      <div class="mb-2 form-item">
-        <label for="twonCity ">Twon City :</label>
-        <input formControlName="twonCity" type="text" id="twonCity" class="form-control"/>
-      </div>
+        <div class="mb-2 form-item">
+          <label for="streetAddress">Street Address <span class="text-danger">*</span></label>
+          <input formControlName="streetAddress" type="text" id="streetAddress" class="form-control" />
+        </div>
 
-      <div class="mb-2 form-item">
-        <label for="Phone">Phone :</label>
-        <input formControlName="Phone" type="tel" id="Phone" class="form-control"/>
-      </div>
+        <div class="mb-2 form-item">
+          <label for="twonCity ">Twon City <span class="text-danger">*</span></label>
+          <input formControlName="townCity" type="text" id="twonCity" class="form-control" />
+        </div>
+
+        <div class="mb-2 form-item">
+          <label for="Phone">Phone <span class="text-danger">*</span></label>
+          <input formControlName="phone" type="tel" id="Phone" class="form-control" />
+        </div>
 
 
-    <div class="mb-2 form-item">
-      <label for="email">Email :</label>
-      <input formControlName="email" type="email" id="email" class="form-control"/>
+        <div class="mb-2 form-item">
+          <label for="email">Email <span class="text-danger">*</span></label>
+          <input formControlName="email" type="email" id="email" class="form-control" />
+        </div>
+        @if (billingForm.get('email')?.invalid && billingForm.get('email')?.touched) {
+        <p class="text-danger">email not in format</p>
+        }
+
+        <div class="mb-2 form-item">
+          <label for="postCode">Post Code </label>
+          <input formControlName="postCode" type="text" id="postCode" class="form-control" />
+        </div>
+
+        <div class="mb-2 form-item">
+          <label for="Order">Order Notes</label>
+          <textarea formControlName="orderNotes" id="Order" class="form-control"></textarea>
+        </div>
+      </form>
+      <p><span class="text-danger me-3">*</span> means fields required</p>
     </div>
+    <div class="col-md-5 p-2 ">
+      <div class="row  fs-3">
+        <p>Your Orders</p>
+      </div>
 
 
+      <section class="w-75 m-2 shadow px-4 py-5 bg-light">
+        <div class="row pb-5">
+          <table>
+            <thead>
+              <th class="w-75">product</th>
+              <th class="w-25">Qunatity</th>
+            </thead>
+            <tbody>
+              @for (prod of ['prod1','prod2']; track $index) {
+              <tr>
+                <td> {{prod}}</td>
+                <td>3</td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
 
-    <div class="mb-2 form-item">
-      <label for="postCode">Post Code :</label>
-      <input formControlName="postCode" type="text" id="postCode" class="form-control"/>
-    </div>
+        <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+          <div class="form-check mb-5">
+            <label class="fs-5">Delivery Method</label>
+            <div class="ms-5">
+              <label class="form-check-label">
+                <input type="radio" [value]="0" formControlName="deliveryMethod" class="form-check-input" />
+                Flat rate ($30)
+              </label><br>
+              <label class="form-check-label">
+                <input type="radio" [value]="1" formControlName="deliveryMethod" class="form-check-input" />
+                Local Pickup ($40)
+              </label>
+            </div>
+            @if (orderForm.get('deliveryMethod')?.invalid && (orderForm.get('deliveryMethod')?.touched ||
+            orderForm.get('deliveryMethod')?.dirty)) {
+            <span class="text-danger">This field is required</span>
+            }
 
-    <div class="mb-2 form-item">
-      <label for="Order">Order :</label>
-      <input formControlName="Order" type="text" id="Order" class="form-control"/>
-    </div>
+          </div>
 
-    </div>
-    <div class="col-md-3">
+          <div class="form-check mb-5">
+            <label class="fs-5">Payment Method</label>
+            <div class="ms-5">
+              <label class="form-check-label">
+                <input type="radio" [value]=0 formControlName="paymentMethod" class="form-check-input" />
+                Direct Bank Transfer
+              </label><br>
+              <label class="form-check-label">
+                <input type="radio" [value]=1 formControlName="paymentMethod" class="form-check-input" />
+                Cash On Delivery
+              </label><br>
+              <label class="form-check-label">
+                <input type="radio" [value]=2 formControlName="paymentMethod" class="form-check-input" />
+                Check Payments
+              </label>
+            </div>
+            @if (orderForm.get('paymentMethod')?.invalid && (orderForm.get('paymentMethod')?.touched ||
+            orderForm.get('paymentMethod')?.dirty)) {
+            <span>This field is required</span>
+            }
+          </div>
+
+          <button type="submit" [disabled]="orderForm.invalid" class="btn btn-outline-primary w-100">Place
+            Order</button>
+        </form>
+      </section>
 
     </div>
   </div>

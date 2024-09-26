@@ -23,9 +23,6 @@ export class OtpComponent {
   }
 
   sentOTP() {
-    console.log(this.OneTP);
-    console.log(this.newPassword);
-
     this.otpData = {
       "otp": this.OneTP,
       "email": localStorage.getItem("email"),
@@ -37,7 +34,7 @@ export class OtpComponent {
         this._ToastrService.success("Your Password Changed Sucessfully"),
           localStorage.removeItem("email")
       },
-      error: err => this._ToastrService.warning("  Otp expired")
+      error: err => this._ToastrService.warning("Otp expired")
     })
 
   }

@@ -1,0 +1,31 @@
+<div class="container mx-auto my-5 shadow-lg p-5">
+    <div class="row">
+        <div class="col-4">
+            <div class="text-center fs-2">
+                <p>Welcome, <span class="text-primary fw-bolder">{{username}}</span></p>
+                <span class="fs-6">{{role}}</span>
+            </div>
+            <div class="col-md-12">
+                <div class="text-center">
+                    <img src="assets/profile.jpg" class="circle-rounded w-50 ">
+                </div>
+                <div class="form-group">
+                    <div class="text-primary my-5 text-center">
+                        <a class="text-decoration-none mx-2" routerLink="profile/EditAccount">Edit Profile</a>|
+                        <a class="text-decoration-none mx-2" routerLink="profile/changePassword">Change
+                            password</a><br><br>
+                        <a class="text-decoration-none mx-2" routerLink="/WishList">Go to Wishlist</a>|
+                        <a class="text-decoration-none mx-2" routerLink="/Cart">Go to Cart</a>|
+                        <a class="text-decoration-none mx-2" routerLink="/Orders">Go to Orders</a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-8">
+            <router-outlet />
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<section class="container shadow py-3 px-5 ">
+  <div class="row fs-2 text-center mb-2">
+    <p>Edit Your Profile</p>
+  </div>
+  <form [formGroup]="profileForm">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-2 form-item">
+          <label for="userName">username</label>
+          <input formControlName="userName" readOnly type="text" id="userName" class="form-control opacity-50" />
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="mb-2 form-item">
+          <label for="phone">Phone</label>
+          <input formControlName="phone" type="text" id="phone" class="form-control" />
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="mb-2 form-item">
+          <label for="email">Email</label>
+          <input formControlName="email" type="text" id="email" class="form-control" />
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="mb-2 form-item">
+          <label for="address">Address</label>
+          <input formControlName="address" type="text" id="address" class="form-control" />
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="mb-2 form-item">
+          <label for="image">Upload Image</label>
+          <input formControlName="image" type="file" class="form-control" id="image" name="image"
+            placeholder="Upload Image">
+        </div>
+      </div>
+      <div class="col-md-12 text-center mt-5 w-75 mx-auto ">
+        <button (click)="updateData()" class="btn btn-outline-primary w-75 mb-3">update data</button>
+        <button (click)="deleteAccount()" class="btn btn-outline-danger w-75 mb-3">Delete Account</button>
+      </div>
+    </div>
+  </form>
+</section>
