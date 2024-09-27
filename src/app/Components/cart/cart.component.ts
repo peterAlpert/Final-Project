@@ -8,22 +8,21 @@ import { SharedService } from '../../Core/Services/shared.service';
 import Swal from 'sweetalert2';
 import { ICart } from '../../Core/interfaces/icart';
 import { ICartItem } from '../../Core/interfaces/icart-item';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [SpinnerComponent, RouterLink],
+  imports: [SpinnerComponent, RouterLink, JsonPipe],
   templateUrl: './cart.component.html',
   styles: ''
 })
 export class CartComponent implements OnInit {
   isLoading: boolean = true
-  cartProducts: any
 
   cart: ICart = {} as ICart
   items: ICartItem[] = []
   productQty: number = 1;
-
 
   userId: number = 0
 
@@ -42,27 +41,11 @@ export class CartComponent implements OnInit {
     //get all items in cart
     this._CartService.getcartByUserId(this.userId).subscribe({
       next: res => {
-        // this.cartItems = res.cartItems; console.log(this.cartItems);
         this.cart = res;
         this.items = res.cartItems
 
-        console.log(this.cart);
-        console.log(this.items);
-
-
-      },
-      error: err => console.log(err)
-    })
-
-    //get all products in cart
-    this._CartService.getProductsByUserId(this.userId).subscribe({
-      next: res => {
-        this.cartProducts = res
-        // setTimeout(() => { this._SharedService.updateCartCount(this.cartItems.length) }, 100);
-        this._SharedService.updateCartCount(this.cartProducts.length)
         this.isLoading = false
-      }
-      ,
+      },
       error: err => {
         this._ToastrService.warning("Not Items in Your Cart")
         this.isLoading = false

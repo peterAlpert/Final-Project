@@ -14,7 +14,7 @@ export class CartService {
   }
 
   getcartByUserId(id: number): Observable<any> {
-    return this._HttpClient.get(`${environment.baseUrl}/Cart/user/${id}`)
+    return this._HttpClient.get(`${environment.baseUrl}/Cart/GetCartDetailsByUserId?userId=${id}`)
   }
 
   incQty(id: number): Observable<any> {

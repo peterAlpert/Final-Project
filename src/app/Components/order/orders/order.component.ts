@@ -13,18 +13,23 @@ import { Router, RouterLink } from '@angular/router';
   styles: ''
 })
 export class OrderComponent implements OnInit {
-  orderList: Iorder[] = []
+  orderList: any
+  userId: number = 0
 
 
   constructor(
     private _OrderService: OrderService,
     private _Router: Router
   ) {
+
+    this.userId = Number(localStorage.getItem('userId'))
   }
 
   ngOnInit(): void {
-    this._OrderService.getAll().subscribe({
-      next: res => { this.orderList = res; }
+    this._OrderService.getByUserId(this.userId).subscribe({
+      next: res => {
+        this.orderList = res; console.log(res);
+      }
       ,
       error: err => console.warn(err)
     })

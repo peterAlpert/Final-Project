@@ -1,7 +1,11 @@
+import { IProduct } from "./iproduct";
+
 export interface ICartItem {
-    "id": number,
-    "quantity": number,
-    "userId": number,
+    "id": number
+    "price": number
+    "userId": number
+    "quantity": number
     "productId": number
+    "product": IProduct
 }
 

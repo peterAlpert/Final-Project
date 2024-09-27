@@ -19,7 +19,7 @@ export class OrderService {
   }
 
   getByUserId(userId: number) {
-    return this._HttpClient.get(`${environment.baseUrl}/Orders/${userId}`)
+    return this._HttpClient.get(`${environment.baseUrl}/Orders/GetOrdersByUserId?userId=${userId}`)
   }
 
   delete(id: number): Observable<any> {

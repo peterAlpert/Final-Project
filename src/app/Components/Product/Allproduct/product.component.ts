@@ -24,7 +24,7 @@ import { SharedService } from '../../../Core/Services/shared.service';
 })
 export class ProductComponent implements OnInit {
   isLoading: boolean = true;
-  products: IProduct[] = [] as IProduct[];
+  products: IProduct[] = [];
   prod: IProduct = {} as IProduct;
   searchInput: string = "";
   userId: any
@@ -132,9 +132,11 @@ export class ProductComponent implements OnInit {
   addToCart(prod: IProduct) {
     this.cartItem = {
       'id': 1,
-      'quantity': 1,
+      'price': prod.price,
       'userId': this.userId,
-      'productId': prod.id
+      'productId': prod.id,
+      'quantity': 1,
+      'product': prod
     }
 
     if (!this.IsLogeed()) {

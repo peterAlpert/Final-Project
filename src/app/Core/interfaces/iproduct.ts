@@ -4,8 +4,8 @@ export interface IProduct {
     description: string
     price: number
     stockQuantity: number
-    categoryId: number
     brandId: number
     brand: Object
+    categoryId: number
     category: object
 }

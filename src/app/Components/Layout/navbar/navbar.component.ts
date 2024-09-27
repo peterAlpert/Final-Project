@@ -1,12 +1,13 @@
+
+import { WhishlistService } from './../../../Core/Services/whishlist.service';
+import { CartService } from './../../../Core/Services/cart.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../Core/Services/auth.service';
-import { WhishlistService } from '../../../Core/Services/whishlist.service';
 import Swal from 'sweetalert2';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SharedService } from '../../../Core/Services/shared.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-navbar',
@@ -17,29 +18,31 @@ import { SharedService } from '../../../Core/Services/shared.service';
 })
 export class NavbarComponent implements OnInit {
   userId: number = 0;
-  IsLogged: boolean = false
-
-  token: string | null
   wishListCount: number = 0
   cartCount: number = 0
+  orderCount: number = 0
+
+  IsLogged: boolean = false
+  token: string | null
+
 
   constructor(
     private _Router: Router,
     private _ToastrService: ToastrService,
     private _AuthService: AuthService,
-    private _SharedService: SharedService
+    private _CartService: CartService,
+    private _WhishlistService: WhishlistService,
   ) {
     this.userId = Number(localStorage.getItem('userId'))
     this.token = localStorage.getItem("token");
 
     this._AuthService.isLogin.subscribe({ next: res => this.IsLogged = res })
-
-
   }
 
   ngOnInit(): void {
-    this._SharedService.wishListCount.subscribe(res => this.wishListCount = res)
-    this._SharedService.cartCount.subscribe(res => this.cartCount = res)
+    this._WhishlistService.getAll(this.userId).subscribe({ next: res => this.wishListCount = res.length })
+    this._CartService.getcartByUserId(this.userId).subscribe({ next: res => this.cartCount = res.cartItems.length })
+    // this._OrderService.getByUserId(this.userId).subscribe({ next: res => this.orderCount = res.length})
   }
 
   //sign out
