@@ -13,11 +13,19 @@ export class CartService {
     return this._HttpClient.post(`${environment.baseUrl}/cartitem/createcartitem`, cartitemObj)
   }
 
-  getItemById(id: number): Observable<any> {
-    return this._HttpClient.get(`${environment.baseUrl}/cartitem/create cartitem/${id}`)
+  getcartByUserId(id: number): Observable<any> {
+    return this._HttpClient.get(`${environment.baseUrl}/Cart/GetCartDetailsByUserId?userId=${id}`)
   }
 
-  getCartByUserId(id: number) {
+  incQty(id: number): Observable<any> {
+    return this._HttpClient.post(`${environment.baseUrl}/cartitem/IncreaseQuantity?cartItemId=${id}`, {})
+  }
+
+  decQty(id: number): Observable<any> {
+    return this._HttpClient.post(`${environment.baseUrl}/cartitem/DecreaseQuantity?cartItemId=${id}`, {})
+  }
+
+  getProductsByUserId(id: number) {
     return this._HttpClient.get(`${environment.baseUrl}/cart/user/${id}/products`)
   }
 

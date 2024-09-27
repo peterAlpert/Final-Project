@@ -1,0 +1,36 @@
+<div class="container">
+    <section class="shadow p-5 m-5 w-75 mx-auto">
+        <h2 class="text-center mb-5">Orders List</h2>
+        <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th>Order Id</th>
+                    <th>Product</th>
+                    <th>quantity</th>
+                    <th>Price</th>
+                    <th>date</th>
+                    <th>Status</th>
+                    <th>Details</th>
+                    <th>Track</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (order of orderList; track order.orderId) {
+                @for (item of order.items; track $index) {
+                <tr>
+                    <td>{{order.orderId}}</td>
+                    <td>{{order.items[$index].productName}}</td>
+                    <td>{{order.items[$index].quantity}}</td>
+                    <td>{{order.items[$index].price |currency}}</td>
+                    <td>{{order.orderDate | date}}</td>
+                    <td>{{order.status}}</td>
+                    <td><a class="btn btn-outline-dark border-0" (click)="goToDetails(order.orderId)">Details</a></td>
+                    <td><a class="btn btn-outline-dark border-0" (click)="goToTrack(order.orderId)">Track</a></td>
+                </tr>
+                }
+                }
+            </tbody>
+        </table>
+
+    </section>
+</div>

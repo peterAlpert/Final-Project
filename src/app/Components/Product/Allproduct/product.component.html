@@ -1,0 +1,54 @@
+@if (isLoading) {<app-spinner></app-spinner>}
+<section role="button" class="container-fluid bg-light">
+  <h2 class="main-title py-5">All Products</h2>
+  <div class="row my-3 mx-auto ">
+
+    <div class="input-group me-1">
+      <div class="form-outline w-75">
+        <input type="search" id="form1" class="form-control border border-3" [(ngModel)]="searchInput" />
+      </div>
+      <button type="button" class="btn btn-secondary" (click)="search()">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+
+  </div>
+
+  <div class="row">
+    @for (prod of products; track prod.id) {
+    <div class="col-md-4 rounded-5">
+      <div class="card mb-3 shadow-lg p-3 rounded-5" style="max-width: 540px">
+        <div class="row g-0">
+          <div class="col-md-4 py-5">
+            <img [src]="mainSrc" class="card-img-top" (mouseover)="changeImage()" (mouseout)="resetImage()" />
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <div class="my-3">
+                <i [ngClass]="{'fa-solid text-danger': isInWishlist(prod.id)}" (click)="addToWhishlist(prod)"
+                  class="fa-regular fa-heart fa-2xl d-flex justify-content-end"></i>
+              </div>
+
+              <h5 class="card-title">{{prod.name}}</h5>
+              <p class="card-text">
+                <small class="text-body-secondary">{{prod.price}}</small>
+              </p>
+              <button (click)="deleteProd(prod)" class="btn btn-danger my-1 w-100" type="button">
+                delete
+              </button>
+              <button routerLink="{{prod.id}}" class="btn btn-info my-1 w-100" type="button">
+                Details
+              </button>
+              <button (click)="addToCart(prod)" class="btn btn-primary my-1 w-100" type="button">
+                Add To Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</section>
+
+<!-- <h1>{{products[0].Name}}</h1> -->
