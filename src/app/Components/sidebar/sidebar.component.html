@@ -1,0 +1,32 @@
+
+ <section class="container  p-0 m-0">
+
+<div class="navigation p-3 " [class.expanded]="isExpanded">
+  <ul>
+    <li *ngFor="let item of navigationItems; let i = index"
+        [class.active]="item.showCrud">
+      <a (click)="toggleCrud(i)">
+        <span class="icon" [ngClass]="item.icon"></span>
+        <span class="title">{{ item.title }}</span>
+        <span *ngIf="item.title === 'Products' || item.title === 'Brands' || item.title === 'Category' || item.title === 'User' "
+              class="arrow" [class.down]="item.showCrud">▶</span>
+      </a>
+      <ul [@crudAnimation]="item.showCrud ? 'open' : 'closed'"
+          *ngIf="item.title === 'Products' || item.title === 'Brands' || item.title === 'Category' || item.title === 'User' "
+          class="crud-operations">
+        <li><a [routerLink]="[item.link, 'create']">Create</a></li>
+        <li><a [routerLink]="[item.link, 'read']">Read</a></li>
+        <li><a [routerLink]="[item.link, 'update']">Update</a></li>
+        <li><a [routerLink]="[item.link, 'delete']">Delete</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+<button class="toggle-btn" (click)="toggleExpand()">
+  {{ isExpanded ? '◀' : '▶' }}
+</button>
+
+
+</section>
+

@@ -1,0 +1,22 @@
+<div class="container-fluid ">
+  <div class="dashboard-container ">
+    
+    <app-sidebar (toggleSidebar)="toggleSidebar()"></app-sidebar>
+
+    <div class="main-content" [class.active]="isSidebarActive">
+      <div class="topbar">
+        <div class="toggle" (click)="toggleSidebar()">
+
+        </div>
+
+      </div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+

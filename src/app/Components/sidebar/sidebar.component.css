@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
+
+
+
+.navigation {
+  width: 250px;
+  background-color: #09c;
+  color: white;
+  height: 150vh;
+  transition: width 0.3s ease;
+
+}
+.navigation.expanded {
+  width: 60px;
+}
+.navigation ul {
+  list-style-type: none;
+  padding: 0;
+}
+.navigation li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.navigation li:hover, .navigation li.active {
+  background-color: #34495e;
+}
+.navigation a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.icon {
+  margin-right: 10px;
+  font-size: 20px;
+}
+.title {
+  flex-grow: 1;
+}
+.arrow {
+  transition: transform 0.3s ease;
+}
+.arrow.down {
+  transform: rotate(90deg);
+}
+.crud-operations {
+  margin-left: 20px;
+  overflow: hidden;
+}
+.crud-operations li {
+  padding: 5px 0;
+}
+.toggle-btn {
+  position: absolute;
+  top: 10px;
+  right: -30px;
+  background-color: #09c;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}

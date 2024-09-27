@@ -15,12 +15,18 @@ import { DetailsComponent } from './Components/Product/details/details.component
 import { NotfoundComponent } from './Components/Layout/notfound/notfound.component';
 import { ForgetPasswordComponent } from './Components/Password/forget-password/forget-password.component';
 import { OtpComponent } from './Components/Password/otp/otp.component';
+
+import { AddCategoryComponent } from './Components/add-category/add-category.component';
+import { AddBrandComponent } from './Components/add-brand/add-brand.component';
+import { DashboardComponent } from './Components/dashboard/dashboard.component';
+
 import { AddCategoryComponent } from './Components/Admin/Category/add-category/add-category.component';
 import { AddBrandComponent } from './Components/Admin/Brand/add-brand/add-brand.component';
 import { ProfileComponent } from './Components/User/profile/profile.component';
 import { OrderComponent } from './Components/order/orders/order.component';
 import { OrderDetailsComponent } from './Components/order/order-details/order-details.component';
 import { OrderTrackComponent } from './Components/order/order-track/order-track.component';
+
 
 export const routes: Routes = [
 
@@ -37,6 +43,9 @@ export const routes: Routes = [
   { path: "forgetPassword", component: ForgetPasswordComponent, title: "forget" },
   { path: "forgetPassword/otp", component: OtpComponent, title: "otp" },
 
+
+  { path: "dashboard", component:DashboardComponent , title: "dashboard" },
+
   { path: "WishList", component: WishlistComponent, title: "wishlist" },
   { path: "order", component: OrderComponent, title: "Order" },
   { path: "order/details/:id", component: OrderDetailsComponent, title: "Order" },
@@ -50,6 +59,7 @@ export const routes: Routes = [
     ]
   },
   { path: "Cart", component: CartComponent, title: "Cart" },
+
 
 
   // { path: "**", component: NotfoundComponent, title: "Not found" },
