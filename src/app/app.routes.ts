@@ -17,6 +17,7 @@ import { ForgetPasswordComponent } from './Components/Password/forget-password/f
 import { OtpComponent } from './Components/Password/otp/otp.component';
 import { AddCategoryComponent } from './Components/add-category/add-category.component';
 import { AddBrandComponent } from './Components/add-brand/add-brand.component';
+import { DashboardComponent } from './Components/dashboard/dashboard.component';
 
 export const routes: Routes = [
 
@@ -32,6 +33,10 @@ export const routes: Routes = [
   { path: "changePassword", component: ChangePasswordComponent, title: "change" },
   { path: "forgetPassword", component: ForgetPasswordComponent, title: "forget" },
   { path: "forgetPassword/otp", component: OtpComponent, title: "otp" },
+
+  { path: "dashboard", component:DashboardComponent , title: "dashboard" },
+
+
   // { path: "**", component: NotfoundComponent, title: "Not found" },
 
 
