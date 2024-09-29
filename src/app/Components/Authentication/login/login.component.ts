@@ -1,3 +1,6 @@
+import { CartService } from './../../../Core/Services/cart.service';
+import { WhishlistService } from './../../../Core/Services/whishlist.service';
+import { SharedService } from './../../../Core/Services/shared.service';
 import { BehaviorSubject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
@@ -15,6 +18,9 @@ import Swal from 'sweetalert2';
   styles: ''
 })
 export class LoginComponent {
+  cartCount: any
+  wishlistCount: any
+
   userId: number = 0;
   loginForm: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
@@ -24,7 +30,10 @@ export class LoginComponent {
   constructor(
     private _AuthService: AuthService,
     private _Router: Router,
-    private _ToastrService: ToastrService
+    private _ToastrService: ToastrService,
+    private _SharedService: SharedService,
+    private _WhishlistService: WhishlistService,
+    private _CartService: CartService
   ) { }
 
   ngOnInit(): void {
@@ -41,7 +50,17 @@ export class LoginComponent {
 
 
       this._AuthService.login(userData).subscribe({
-        next: (response) => { //data tmam
+        next: (response) => {
+          this._SharedService.wishListCount.subscribe(res => this.wishlistCount = res)
+          this._SharedService.cartCount.subscribe(res => this.cartCount = res)
+
+
+          // this.cartCount = this._CartService.getCartCount()
+          // this._CartService.setCartCount(this.cartCount);
+
+          // this.wishlistCount = this._WhishlistService.getWishlistCount()
+          // this._WhishlistService.setWishlistCount(this.wishlistCount)
+
           localStorage.setItem('token', response.token);
           this.isLoading = false;
           Swal.fire({

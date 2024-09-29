@@ -1,9 +1,10 @@
+import { CheckoutService } from './../../Core/Services/checkout.service';
 
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from './../../Core/Services/cart.service';
 import { Component, OnInit } from '@angular/core';
 import { SpinnerComponent } from '../Layout/spinner/spinner.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SharedService } from '../../Core/Services/shared.service';
 import Swal from 'sweetalert2';
 import { ICart } from '../../Core/interfaces/icart';
@@ -30,7 +31,9 @@ export class CartComponent implements OnInit {
   constructor(
     private _CartService: CartService,
     private _ToastrService: ToastrService,
-    private _SharedService: SharedService
+    private _SharedService: SharedService,
+    private _CheckoutService: CheckoutService,
+    private _Router: Router
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +46,7 @@ export class CartComponent implements OnInit {
       next: res => {
         this.cart = res;
         this.items = res.cartItems
+        this._SharedService.updateCartCount(this.items.length)
 
         this.isLoading = false
       },
@@ -87,6 +91,7 @@ export class CartComponent implements OnInit {
 
   }
 
+
   deleteItem(productId: number) {
     Swal.fire({
       title: 'Are You Sure?',
@@ -120,10 +125,38 @@ export class CartComponent implements OnInit {
         })
       }
     });
-
-
-
   }
 
+  proceedToCheckout() {
+    const items = []
+    for (let i = 0; i < this.items.length; i++) {
+      items.push({
+        "price": this.items[i].product.price,
+        "cartItemId": this.items[i].id,
+        "userId": this.userId,
+        "productId": this.items[i].productId,
+        "quantity": this.items[i].quantity
+      })
+    }
+    const checkout = {
+      'userID': this.userId,
+      'cartItems': items
+    }
 
+    //proceed to checkout to ceate order
+    this._CheckoutService.proceedToCheckout(checkout).subscribe({
+      next: res => {
+
+        console.log(res);
+        const orderId = { id: res.id };
+        console.log(orderId);
+
+        this._Router.navigate(['/checkout'], { queryParams: { orderId: JSON.stringify(orderId) } });
+        //this._Router.navigate(['/checkout'])
+      },
+      error: err => console.warn(checkout)
+
+    })
+
+  }
 }

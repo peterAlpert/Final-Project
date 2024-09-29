@@ -27,7 +27,7 @@
 
     <div class="mb-2 form-item">
       <label for="password">Password</label>
-      <input formControlName="password" type="password" id="password" class="form-control" />
+      <input formControlName="password" #pass1 type="password" id="password" class="form-control" />
 
       <div *ngIf="
         registerForm.get('password')?.errors &&
@@ -43,7 +43,10 @@
 
     <div class="mb-2 form-item">
       <label for="rePassword">rePassword</label>
-      <input type="password" id="rePassword" class="form-control" />
+      <input type="password" #pass2 id="rePassword" class="form-control" />
+      @if (pass1.value != pass2.value) {
+      <p class="text-danger">passwords Not equal</p>
+      }
 
       <!-- <div *ngIf="
         registerForm.get('rePassword')?.errors &&

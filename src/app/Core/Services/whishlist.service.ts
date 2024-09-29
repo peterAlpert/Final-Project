@@ -2,12 +2,21 @@ import { IFavlistuserproduct } from './../interfaces/ifavlistuserproduct';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WhishlistService {
+
+  // private wishlistData = new BehaviorSubject<number>(0);
+  // wishListCount = this.wishlistData.asObservable();
+  // setWishlistCount(count: number) {
+  //   this.wishlistData.next(count);
+  // }
+  // getWishlistCount() {
+  //   this.wishlistData.value;
+  // }
 
   constructor(private _HttpClient: HttpClient) {
 

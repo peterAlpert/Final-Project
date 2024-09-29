@@ -34,6 +34,7 @@ export class WishlistComponent implements OnInit {
       next: res => {
         this.wishlistItems = res
 
+
         this._SharedService.updateWishlistCount(this.wishlistItems.length)
         this.isLoading = false
       },
@@ -42,6 +43,11 @@ export class WishlistComponent implements OnInit {
         this.isLoading = false
       }
     })
+  }
+
+  addToCart(item: any) {
+    this._SharedService.addToCart(item.product)
+
   }
 
   removeItemFromList(productId: number) {

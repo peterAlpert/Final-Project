@@ -16,8 +16,7 @@ import { NotfoundComponent } from './Components/Layout/notfound/notfound.compone
 import { ForgetPasswordComponent } from './Components/Password/forget-password/forget-password.component';
 import { OtpComponent } from './Components/Password/otp/otp.component';
 
-import { AddCategoryComponent } from './Components/add-category/add-category.component';
-import { AddBrandComponent } from './Components/add-brand/add-brand.component';
+
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 
 import { AddCategoryComponent } from './Components/Admin/Category/add-category/add-category.component';
@@ -44,7 +43,7 @@ export const routes: Routes = [
   { path: "forgetPassword/otp", component: OtpComponent, title: "otp" },
 
 
-  { path: "dashboard", component:DashboardComponent , title: "dashboard" },
+  { path: "dashboard", component: DashboardComponent, title: "dashboard" },
 
   { path: "WishList", component: WishlistComponent, title: "wishlist" },
   { path: "order", component: OrderComponent, title: "Order" },

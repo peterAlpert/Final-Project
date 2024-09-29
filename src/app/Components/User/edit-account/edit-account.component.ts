@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { AuthService } from './../../../Core/Services/auth.service';
 import { SharedService } from './../../../Core/Services/shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
@@ -21,7 +23,9 @@ export class EditAccountComponent implements OnInit {
     private _ProfileService: ProfileService,
     private _FormBuilder: FormBuilder,
     private _ToastrService: ToastrService,
-    private _SharedService: SharedService
+    private _SharedService: SharedService,
+    private _AuthService: AuthService,
+    private _Router: Router
   ) {
     this.profileForm = this._FormBuilder.group({
       userName: ['', Validators.required],
@@ -60,41 +64,73 @@ export class EditAccountComponent implements OnInit {
 
 
   deleteAccount() {
+    // Swal.fire({
+    //   title: 'Are You Sure?',
+    //   text: 'Check Your Data before delete',
+    //   icon: 'question',
+    //   showCancelButton: true,
+    //   confirmButtonColor: '#d33',
+    //   cancelButtonColor: '#3085d6',
+    //   confirmButtonText: 'Yes, Delete Account',
+    //   cancelButtonText: 'Cancel'
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
+    //     this.executeDelete();
+    //   }
+    // });
+
     Swal.fire({
-      title: 'Are You Sure?',
-      text: 'Check Your Data before delete',
-      icon: 'warning',
+      title: 'Confirm Deletion',
+      text: 'Please enter your password to confirm account deletion.',
+      input: 'password',
+      inputPlaceholder: 'Password',
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, Delete Account',
-      cancelButtonText: 'Cancel'
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      preConfirm: (password) => {
+        if (!password) {
+          Swal.showValidationMessage('You need to enter your password');
+          return false;
+        }
+        const isValid = this.checkPassword(password);
+        console.log('Is password valid?', isValid);
+        return isValid ? true : Promise.reject('Incorrect password.');
+      }
     }).then((result) => {
+      console.log('Result:', result);
       if (result.isConfirmed) {
         this.executeDelete();
       }
+
+    }).catch(error => {
+
+      Swal.fire('Error!', error, 'error');
     });
+  }
+
+  checkPassword(password: string): boolean {
+    const correctPassword = '@Peter123';
+    return password === correctPassword;
   }
 
   executeDelete() {
     this._ProfileService.delete().subscribe({
       next: () => {
-        Swal.fire(
-          'Done',
-          'Your Account Deleted Successfuly',
-          'success'
-        );
+        Swal.fire('Deleted!', 'Your account has been successfully deleted.', 'success');
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId")
+        this._AuthService.isLogin.next(false);
+        this._ToastrService.success("Sign out sucessfully")
+        this._Router.navigate(['/home'])
       },
       error: () => {
-        Swal.fire(
-          'Wrong!',
-          'something wrong happened in process',
-          'error'
-        );
+        Swal.fire('Error!', 'connection error', 'error');
       }
     })
 
 
   }
+
+
 
 }
