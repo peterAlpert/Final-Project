@@ -15,39 +15,45 @@
   </div>
 
   <div class="row">
-    @for (prod of products; track prod.id) {
-    <div class="col-md-4 rounded-5">
+    <div class="col-md-4 rounded-5" *ngFor="let prod of products | paginate: { itemsPerPage: 3, currentPage: page }">
       <div class="card mb-3 shadow-lg p-3 rounded-5" style="max-width: 540px">
         <div class="row g-0">
           <div class="col-md-4 py-5">
             <img [src]="mainSrc" class="card-img-top" (mouseover)="changeImage()" (mouseout)="resetImage()" />
           </div>
           <div class="col-md-8">
-            <div class="card-body">
-              <div class="my-3">
-                <i [ngClass]="{'fa-solid text-danger': isInWishlist(prod.id)}" (click)="addToWhishlist(prod)"
-                  class="fa-regular fa-heart fa-2xl d-flex justify-content-end"></i>
-              </div>
+            <div class="row my-2">
+              <section class=" text-end mb-3 ">
+                <i class="fa-solid fa-info text-info fa-2xl me-3" routerLink="{{prod.id}}"></i>
+                <i class="fa-solid text-dark fa-cart-plus fa-2xl me-3" (click)="addToCart(prod)"></i>
 
+                <i [ngClass]="{'fa-solid text-danger': isInWishlist(prod.id)}" (click)="addToWhishlist(prod)"
+                  class="fa-regular fa-heart fa-2xl redHover"></i>
+              </section>
+            </div>
+            <div class="card-body">
               <h5 class="card-title">{{prod.name}}</h5>
               <p class="card-text">
                 <small class="text-body-secondary">{{prod.price}}</small>
               </p>
-              <button (click)="deleteProd(prod)" class="btn btn-danger my-1 w-100" type="button">
-                delete
-              </button>
-              <button routerLink="{{prod.id}}" class="btn btn-info my-1 w-100" type="button">
-                Details
-              </button>
-              <button (click)="addToCart(prod)" class="btn btn-primary my-1 w-100" type="button">
+              <p class="card-text">
+                <small class="text-body-secondary">{{prod.description}}</small>
+              </p>
+
+              <!-- <button routerLink="{{prod.id}}" class="btn btn-info my-1 w-25" type="button"><i
+                  class="fa-solid fa-info fa-2xl bg-info"></i>
+              </button> -->
+              <!-- <button (click)="addToCart(prod)" class="btn btn-primary my-1 w-100" type="button">
                 Add To Cart
-              </button>
+              </button> -->
             </div>
           </div>
         </div>
       </div>
     </div>
-    }
+  </div>
+  <div class="row text-center py-3 mt-3">
+    <pagination-controls (pageChange)="page = $event"></pagination-controls><br><br><br><br>
   </div>
 </section>
 

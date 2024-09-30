@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class CartService {
+
   constructor(private _HttpClient: HttpClient) { }
 
   add(cartitemObj: {}) {
@@ -32,4 +33,6 @@ export class CartService {
   deleteItem(userId: number, productId: number): Observable<any> {
     return this._HttpClient.delete(`${environment.baseUrl}/CartItem/RemoveItemFromcart?userId=${userId}&productId=${productId}`)
   }
+
+
 }

@@ -18,20 +18,19 @@
   <owl-carousel-o [options]="customOptionsCatgories">
     <ng-template carouselSlide>
       <div class="row gx-3">
+        @for (item of categories; track $index) {
         <div class="col-md-2  image-container">
           <div class="card py-4 shadow-lg d-flex flex-column align-content-between slider-hight">
-
             <img src="assets/cat-1.webp" class="card-img-top w-25 mx-auto  hover-image" alt="...">
-
-
             <div class="card-body text-center">
-              <h5 class="card-text">Tablet</h5>
+              <h5 class="card-text">{{item.name}}</h5>
             </div>
           </div>
         </div>
+        }
 
 
-        <div class="col-md-2  image-container">
+        <!-- <div class="col-md-2  image-container">
           <div class="card py-4 shadow-lg d-flex flex-column align-content-between  slider-hight ">
             <img src="assets/cat-2.webp" class="card-img-top w-25 mx-auto hover-image" alt="...">
             <div class="card-body text-center">
@@ -76,12 +75,12 @@
               <h5 class="card-text">Drone & Flycam</h5>
             </div>
           </div>
-        </div>
+        </div> -->
 
 
       </div>
     </ng-template>
-    <ng-template carouselSlide>
+    <!-- <ng-template carouselSlide>
       <div class="row gx-3">
 
         <div class="col-md-2  image-container">
@@ -140,7 +139,7 @@
         </div>
 
       </div>
-    </ng-template>
+    </ng-template> -->
   </owl-carousel-o>
 
   <!-- <div class="row">
@@ -183,6 +182,7 @@
 </section>
 
 <!-- products -->
+<app-product />
 <section role="button" class="container-fluid bg-light">
   <h2 class="main-title py-5">Deals of The Day</h2>
 

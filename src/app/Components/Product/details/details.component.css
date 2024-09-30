@@ -18,3 +18,13 @@
 
     border-radius: 50%;
 }
+
+.star {
+    font-size: 35px;
+    color: gray;
+    cursor: pointer;
+}
+
+.filled {
+    color: gold;
+}

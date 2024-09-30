@@ -16,7 +16,7 @@
         <p>{{item.product.description}}</p>
       </div>
       <div class="col-md-2 ">
-        <button class="fa-solid border-0 fs-3 fa-cart-plus bg-light me-2"></button>
+        <button (click)="addToCart(item)" class="fa-solid border-0 fs-3 fa-cart-plus bg-light me-2"></button>
         <button (click)="removeItemFromList(item.productId)"
           class="fa-solid border-0 fs-3 fa-trash-can text-danger bg-light"></button>
       </div>

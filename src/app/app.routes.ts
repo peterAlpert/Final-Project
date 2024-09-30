@@ -49,16 +49,8 @@ export const routes: Routes = [
 
 
 
-
-
-
-
-
   { path: "forgetPassword", component: ForgetPasswordComponent, title: "forget" },
   { path: "forgetPassword/otp", component: OtpComponent, title: "otp" },
-
-
-
 
   { path: "WishList", component: WishlistComponent, title: "wishlist" },
   { path: "order", component: OrderComponent, title: "Order" },

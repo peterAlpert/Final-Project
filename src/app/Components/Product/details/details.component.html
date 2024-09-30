@@ -1,5 +1,5 @@
 <section class="container  p-5 my-5 ">
-    <div class="row g-5  ">
+    <div class="row g-5 shadow  ">
         <div class="col-md-4 ">
             <div class="border border-light-subtle border-1">
                 <img src="assets/watch1.jpg" class="w-100 " />
@@ -7,34 +7,13 @@
         </div>
         <div class="col-md-8 ">
             <h4 class="py-2">{{prodcut.name}}</h4>
-
-            <span>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-            </span>
-
             <h3 class="py-2">{{prodcut.price}}$</h3>
 
             <p>{{prodcut.description}}</p>
 
             <div class="row py-4">
-                <!-- <div class="col-md-4">
-
-                    <div class="border border-light-subtle border-1 ">
-                        <div class="d-flex justify-content-between py-2 px-3 rounded-3">
-                            <span class="d-block fw-medium circle main-circle-hover">-</span>
-                            <span class="d-block fw-medium  "> 1</span>
-                            <span class="d-block fw-medium  circle main-circle-hover">+</span>
-                        </div>
-
-
-                    </div>
-                </div> -->
                 <div class="col-md-4">
-                    <button class="btn w-100 py-2 btn-outline-primary">Add To Cart</button>
+                    <button (click)="addToCart()" class="btn w-100 py-2 btn-outline-primary">Add To Cart</button>
 
                 </div>
                 <div class="col-md-4">
@@ -44,20 +23,25 @@
                 </div>
                 <div class="col-md-2"></div>
                 <div class="col-md-2 ">
-                    <div class=" border-1 py-2 px-2 rounded-3 w-75 text-center">
-                        <i class="fa-regular fa-heart fa-xl"></i>
-                    </div>
+                    <i (click)="addToWishlist()" [ngClass]="heartStyle"></i>
 
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <button type="button" class="btn btn-outline-primary main-btn-blue-hover   w-100 ">Buy it
-                        Now
-                    </button>
                 </div>
             </div>
         </div>
     </div>
+
+    @if(reviews.length > 0){
+    <div class="row mt-5">
+        <h2 class="text-center">Product Reviews</h2>
+        @for (review of reviews; track $index) {
+
+        <section class="w-75 mx-auto my-3 shadow p-3">
+            Comment:<span class="fs-3 ms-4 mb-5">{{review.comment}}</span><br>
+            <span class="me-5">Rating:</span><ng-container *ngFor="let star of stars; let i = index">
+                <span class="star" [ngClass]="{'filled': i < review.rating}">★</span>
+            </ng-container>
+        </section>
+        }
+    </div>
+    }
 </section>

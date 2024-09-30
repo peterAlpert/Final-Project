@@ -1,3 +1,4 @@
+import { SharedService } from './../../../Core/Services/shared.service';
 
 import { WhishlistService } from './../../../Core/Services/whishlist.service';
 import { CartService } from './../../../Core/Services/cart.service';
@@ -18,8 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class NavbarComponent implements OnInit {
   userId: number = 0;
-  wishListCount: number = 0
-  cartCount: number = 0
+  wishListCount: any
+  cartCount: any
   orderCount: number = 0
 
   IsLogged: boolean = false
@@ -32,6 +33,7 @@ export class NavbarComponent implements OnInit {
     private _AuthService: AuthService,
     private _CartService: CartService,
     private _WhishlistService: WhishlistService,
+    private _SharedService: SharedService
   ) {
     this.userId = Number(localStorage.getItem('userId'))
     this.token = localStorage.getItem("token");
@@ -40,8 +42,37 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._WhishlistService.getAll(this.userId).subscribe({ next: res => this.wishListCount = res.length })
-    this._CartService.getcartByUserId(this.userId).subscribe({ next: res => this.cartCount = res.cartItems.length })
+    this._CartService.getcartByUserId(this.userId).subscribe({
+      next: res => {
+        this.cartCount = res.cartItems.length;
+        this._SharedService.updateCartCount(this.cartCount);
+      },
+      error: err => {
+        this.cartCount = 0;
+        this._SharedService.updateCartCount(this.cartCount);
+      }
+    });
+
+    this._WhishlistService.getAll(this.userId).subscribe({
+      next: res => {
+        this.wishListCount = res.length;
+        this._SharedService.updateWishlistCount(this.wishListCount);
+      },
+      error: err => {
+        this.wishListCount = 0;
+        this._SharedService.updateWishlistCount(this.wishListCount);
+      }
+    });
+
+
+    this._SharedService.wishListCount.subscribe(res => this.wishListCount = res)
+    this._SharedService.cartCount.subscribe(res => this.cartCount = res)
+    // this.wishListCount = this._SharedService.getwishlistCount();
+    // this.cartCount = this._SharedService.getCartCount();
+    // this._WhishlistService.wishListCount.subscribe(res => this.wishListCount = res)
+    // this._CartService.cartCount.subscribe(res => this.cartCount = res)
+    // this._WhishlistService.getAll(this.userId).subscribe({ next: res => this.wishListCount = res.length })
+    // this._CartService.getcartByUserId(this.userId).subscribe({ next: res => this.cartCount = res.cartItems.length })
     // this._OrderService.getByUserId(this.userId).subscribe({ next: res => this.orderCount = res.length})
   }
 
@@ -50,7 +81,7 @@ export class NavbarComponent implements OnInit {
     Swal.fire({
       title: 'Sign out',
       text: 'Are You Sure',
-      icon: 'success',
+      icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Confirm',
       cancelButtonText: 'Cancel'

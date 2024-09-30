@@ -29,7 +29,7 @@ export class ProfileService {
   delete(): Observable<any> {
     this.token = localStorage.getItem("token")
 
-    return this._HttpClient.delete(`${environment.baseUrl}/appuser/deleteprofile`, {
+    return this._HttpClient.delete(`${environment.baseUrl}/appuser/DeleteProfile`, {
       headers: new HttpHeaders({ "authorization": `Bearer ${this.token}` })
     })
 

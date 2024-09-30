@@ -14,8 +14,13 @@ export class ReviewService {
   getAll(): Observable<any> {
     return this._HttpClient.get(`${environment.baseUrl}/review`)
   }
+
   getById(id: number): Observable<any> {
     return this._HttpClient.get(`${environment.baseUrl}/review/${id}`)
+  }
+
+  getByProdId(prodId: number): Observable<any> {
+    return this._HttpClient.get(`${environment.baseUrl}/review/reviewsByProdId/${prodId}`)
   }
 
   add(review: Ireview): Observable<any> {

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { JsonPipe } from '@angular/common';
 import { AuthService } from '../../../Core/Services/auth.service';
 import { Component } from '@angular/core';
@@ -18,7 +19,8 @@ export class OtpComponent {
 
   constructor(
     private _AuthService: AuthService,
-    private _ToastrService: ToastrService
+    private _ToastrService: ToastrService,
+    private _Router: Router
   ) {
   }
 
@@ -33,6 +35,7 @@ export class OtpComponent {
       next: () => {
         this._ToastrService.success("Your Password Changed Sucessfully"),
           localStorage.removeItem("email")
+        this._Router.navigate(['/Login'])
       },
       error: err => this._ToastrService.warning("Otp expired")
     })

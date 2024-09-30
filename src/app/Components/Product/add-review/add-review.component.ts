@@ -1,10 +1,11 @@
 import { ToastrService } from 'ngx-toastr';
 import { ReviewService } from './../../../Core/Services/review.service';
 import { Ireview } from './../../../Core/interfaces/ireview';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-add-review',
   standalone: true,
@@ -23,7 +24,8 @@ export class AddReviewComponent {
     private _FormBuilder: FormBuilder,
     private _ActivatedRoute: ActivatedRoute,
     private _ReviewService: ReviewService,
-    private _ToastrService: ToastrService
+    private _ToastrService: ToastrService,
+    private _Location: Location
   ) {
     this.reviewForm = this._FormBuilder.group({
       comment: ['', Validators.required],
@@ -47,9 +49,11 @@ export class AddReviewComponent {
         comment: this.reviewForm.value.comment,
         rating: this.rating
       }
+      console.log(this.review);
+
 
       this._ReviewService.add(this.review).subscribe({
-        next: () => this._ToastrService.success("Yor Review added successfully"),
+        next: () => { this._ToastrService.success("Yor Review added successfully"); this._Location.back() },
         error: err => console.log(err)
       })
     }
