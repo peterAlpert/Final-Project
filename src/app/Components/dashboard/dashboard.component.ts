@@ -18,4 +18,12 @@ export class DashboardComponent {
   toggleSidebar(): void {
     this.isSidebarActive = !this.isSidebarActive;
   }
+
+
+  isProductsSubmenuOpen = false;
+
+  toggleProductsSubmenu() {
+    this.isProductsSubmenuOpen = !this.isProductsSubmenuOpen;
+  }
+
 }

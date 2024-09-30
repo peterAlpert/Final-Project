@@ -43,3 +43,17 @@ body {
 
 
 }
+
+
+.btn-back
+{
+
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}

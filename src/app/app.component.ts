@@ -8,7 +8,7 @@ import { RegisterationComponent } from "./Components/Authentication/registeratio
 import { SharedService } from './Core/Services/shared.service';
 import { WhishlistService } from './Core/Services/whishlist.service';
 import { CartService } from './Core/Services/cart.service';
-
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -18,10 +18,15 @@ import { CartService } from './Core/Services/cart.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+  constructor(private location: Location) { }
   title = 'Final-Project';
 
   goToUp(): void {
     window.scrollTo(0, 0)
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 

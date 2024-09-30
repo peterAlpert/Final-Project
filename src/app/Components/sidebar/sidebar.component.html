@@ -1,32 +1,122 @@
 
- <section class="container  p-0 m-0">
 
-<div class="navigation p-3 " [class.expanded]="isExpanded">
+<div class="navigation">
   <ul>
-    <li *ngFor="let item of navigationItems; let i = index"
-        [class.active]="item.showCrud">
-      <a (click)="toggleCrud(i)">
-        <span class="icon" [ngClass]="item.icon"></span>
-        <span class="title">{{ item.title }}</span>
-        <span *ngIf="item.title === 'Products' || item.title === 'Brands' || item.title === 'Category' || item.title === 'User' "
-              class="arrow" [class.down]="item.showCrud">▶</span>
+    <li>
+      <a routerLink="/dashboard">
+        <span class="icon"> <i class="fa-solid fa-gauge"></i> </span>
+        <span class="title fw-bolder">Dashboard</span>
       </a>
-      <ul [@crudAnimation]="item.showCrud ? 'open' : 'closed'"
-          *ngIf="item.title === 'Products' || item.title === 'Brands' || item.title === 'Category' || item.title === 'User' "
-          class="crud-operations">
-        <li><a [routerLink]="[item.link, 'create']">Create</a></li>
-        <li><a [routerLink]="[item.link, 'read']">Read</a></li>
-        <li><a [routerLink]="[item.link, 'update']">Update</a></li>
-        <li><a [routerLink]="[item.link, 'delete']">Delete</a></li>
-      </ul>
+    </li>
+
+
+    <li role="button">
+      <a (click)="toggleProductsSubmenu()" [class.active]="isProductsSubmenuOpen" routerLink="ViewAllProducts">
+        <span class="icon"><i class="fa-solid fa-cart-shopping fa-info"></i> </span>
+        <span class="title fw-bolder"> Product</span>
+      </a>
+
+    </li>
+
+    <li role="button">
+      <a (click)="toggleProductsSubmenu()" [class.active]="isProductsSubmenuOpen">
+        <span class="icon"><i class="fa-solid fa-cart-shopping"></i> </span>
+        <span class="title fw-bolder">Brands</span>
+      </a>
+
+    </li>
+
+    <li role="button">
+      <a (click)="toggleProductsSubmenu()" [class.active]="isProductsSubmenuOpen">
+        <span class="icon"><i class="fa-solid fa-cart-shopping"></i> </span>
+        <span class="title fw-bolder">Category</span>
+      </a>
+
+    </li>
+
+    <li role="button">
+      <a (click)="toggleProductsSubmenu()" [class.active]="isProductsSubmenuOpen">
+        <span class="icon"><i class="fa-solid fa-cart-shopping"></i> </span>
+        <span class="title fw-bolder">Users</span>
+      </a>
+
+    </li>
+
+
+
+
+    <li>
+      <a href="/dashboard/messages">
+        <!-- <span class="icon"><ion-icon name="chatbubble-outline"></ion-icon></span> -->
+        <span class="title fw-bolder">Messages</span>
+      </a>
+    </li>
+    <li>
+      <a href="/dashboard/help">
+        <!-- <span class="icon"><ion-icon name="help-outline"></ion-icon></span> -->
+        <span class="title fw-bolder">Help</span>
+      </a>
+    </li>
+    <li>
+      <a href="/dashboard/settings">
+        <!-- <span class="icon"><ion-icon name="settings-outline"></ion-icon></span> -->
+        <span class="title fw-bolder">Settings</span>
+      </a>
+    </li>
+    <li>
+      <a href="/logout">
+        <!-- <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span> -->
+        <span class="title fw-bolder">Sign Out</span>
+      </a>
     </li>
   </ul>
 </div>
 
-<button class="toggle-btn" (click)="toggleExpand()">
-  {{ isExpanded ? '◀' : '▶' }}
-</button>
 
 
-</section>
+
+<!-- <div class="navigation">
+  <ul>
+    <li *ngFor="let item of navigationItems">
+      <a [routerLink]="item.link" (click)="item.hasSubmenu && toggleProductsSubmenu()">
+        <span class="icon"></span>
+        <span class="title fw-bolder">{{ item.title }}</span>
+      </a>
+
+      <ol  class="submenu unlist py-1 text-center fs-6 fw-medium " *ngIf="item.hasSubmenu && showProductsSubmenu" style="background-color:#eee ; ">
+
+        <li >View</li>
+        <li >Add</li>
+        <li>Update</li>
+        <li>Delete</li>
+
+      </ol>
+
+    </li>
+
+  </ul>
+</div> -->
+
+<!-- <div class="sidebar" [class.active]="isActive">
+  <ul>
+    <li *ngFor="let item of navigationItems">
+      <a [routerLink]="item.link" (click)="item.hasSubmenu && toggleProductsSubmenu()">
+        <span class="icon"></span>
+        <span class="title">{{ item.title }}</span>
+      </a>
+      <ol *ngIf="item.hasSubmenu && showProductsSubmenu">
+        <li>View</li>
+        <li>Add</li>
+        <li>Update</li>
+        <li>Delete</li>
+      </ol>
+    </li>
+  </ul>
+</div> -->
+
+
+
+
+
+
 

@@ -16,8 +16,7 @@ import { NotfoundComponent } from './Components/Layout/notfound/notfound.compone
 import { ForgetPasswordComponent } from './Components/Password/forget-password/forget-password.component';
 import { OtpComponent } from './Components/Password/otp/otp.component';
 
-import { AddCategoryComponent } from './Components/add-category/add-category.component';
-import { AddBrandComponent } from './Components/add-brand/add-brand.component';
+
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 
 import { AddCategoryComponent } from './Components/Admin/Category/add-category/add-category.component';
@@ -26,25 +25,40 @@ import { ProfileComponent } from './Components/User/profile/profile.component';
 import { OrderComponent } from './Components/order/orders/order.component';
 import { OrderDetailsComponent } from './Components/order/order-details/order-details.component';
 import { OrderTrackComponent } from './Components/order/order-track/order-track.component';
+import { ViewAllProductsComponent } from './Components/Admin/Product/view-all-products/view-all-products.component';
+import { UpdateProductComponent } from './Components/Admin/Product/update-product/update-product.component';
+import { AddUserComponent } from './Components/Admin/User/add-user/add-user.component';
+import { ViewAllUsersComponent } from './Components/Admin/User/view-all-users/view-all-users.component';
+import { SideNavbarComponent } from './Components/Admin-dashboard/side-navbar/side-navbar.component';
+import { ViewAllBrandComponent } from './Components/Admin/Brand/view-all-brand/view-all-brand.component';
+import { ViewAllCategoryComponent } from './Components/Admin/Category/view-all-category/view-all-category.component';
+import { UpdateBrandComponent } from './Components/Admin/Brand/update-brand/update-brand.component';
+import { UpdateCategoryComponent } from './Components/Admin/Category/update-category/update-category.component';
+
 
 
 export const routes: Routes = [
 
   { path: "", redirectTo: "home", pathMatch: 'prefix' },
   { path: "home", component: HomeComponent, title: "Home" },
-
+//products
   { path: "product", component: ProductComponent, title: "product" },
-  { path: "addProduct", component: AddProductComponent },
-  { path: "addCategory", component: AddCategoryComponent },
-  { path: "addBrand", component: AddBrandComponent },
+
+
   { path: "product/:id", component: DetailsComponent, title: "productDetails" },
+
+
+
+
+
+
 
 
   { path: "forgetPassword", component: ForgetPasswordComponent, title: "forget" },
   { path: "forgetPassword/otp", component: OtpComponent, title: "otp" },
 
 
-  { path: "dashboard", component:DashboardComponent , title: "dashboard" },
+
 
   { path: "WishList", component: WishlistComponent, title: "wishlist" },
   { path: "order", component: OrderComponent, title: "Order" },
@@ -60,7 +74,58 @@ export const routes: Routes = [
   },
   { path: "Cart", component: CartComponent, title: "Cart" },
 
+  {path:"OrderTrack",component:OrderTrackComponent,title:"OrderTrack"},
 
+  //dashbord'
+
+  // {path:"sideNabar",component:SideNavbarComponent,title:"sideNavbar"},
+  // {path:"dashboard-app",component:DashboardComponent,title:"dashboard-app"},
+
+  //{path:"addProduct",component:AddProductComponent,title:"addProduct"},
+
+
+  // {path:"updateProduct/:id",component:UpdateProductComponent,title:"updateProduct"},
+
+  {path:"productDetails/:id",component:DetailsComponent,title:"Details of Product"},
+
+
+
+
+  { path: "dashboard", component:DashboardComponent , title: "dashboard" ,
+
+    children: [
+
+  { path: "ViewAllProducts", component: ViewAllProductsComponent , title:"View All Products"},
+  { path: "ViewAllProducts/addProduct", component: AddProductComponent , title:"Add Product"},
+  { path: "ViewAllProducts/updateProduct/:id", component: UpdateProductComponent , title:"update Product"},
+  {path:"ViewAllProducts/productDetails/:id",component:DetailsComponent,title:"Details of Product"},
+
+
+      { path: "ViewAllBrand", component: ViewAllBrandComponent , title:"View All Brand "},
+      { path: "ViewAllBrand/addBrand", component: AddBrandComponent ,title:"Add Brand"},
+      { path: "ViewAllBrand/updateBrand/:id", component: UpdateBrandComponent ,title:"update Brand"},
+
+
+
+
+      { path: "ViewAllCategory", component: ViewAllCategoryComponent , title:"View All Category"},
+    { path: "ViewAllCategory/addCategory", component: AddCategoryComponent , title:"Add Category" },
+    { path: "ViewAllCategory/updateCategor:id", component: UpdateCategoryComponent , title:"Update Category" },
+
+
+
+
+      { path: "ViewAllUsers", component: ViewAllUsersComponent , title:"View All Users"},
+      { path: "addUser", component: AddUserComponent ,title:"AddUser"},
+      { path: "ViewAllUsers", component: ViewAllUsersComponent ,title:"View All Users"},
+
+
+
+
+      ]
+
+
+  },
 
   // { path: "**", component: NotfoundComponent, title: "Not found" },
 

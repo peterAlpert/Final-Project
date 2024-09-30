@@ -1,22 +1,106 @@
-<div class="container-fluid ">
-  <div class="dashboard-container ">
-    
-    <app-sidebar (toggleSidebar)="toggleSidebar()"></app-sidebar>
+<div class="dashboard-container">
 
-    <div class="main-content" [class.active]="isSidebarActive">
-      <div class="topbar">
-        <div class="toggle" (click)="toggleSidebar()">
 
-        </div>
 
-      </div>
-      <router-outlet></router-outlet>
-    </div>
-  </div>
+  <!-- <app-sidebar (toggleSidebar)="toggleSidebar()"></app-sidebar> -->
 
+
+
+<div class="navigation py-2">
+  <ul>
+
+
+    <li class="my-4 ">
+      <a href="#">
+          <span class="icon">
+            <i class="fa-solid fa-house fa-2x"></i>
+          </span>
+          <span class="title" class="fs-5 fw-bolder my-3">Brand Name</span>
+      </a>
+  </li>
+
+    <li>
+      <a routerLink="/dashboard">
+        <span class="icon"> <i class="fa-solid fa-gauge fa-2x "></i> </span>
+        <span class="title fw-bolder"> Dashboard</span>
+      </a>
+    </li>
+
+
+    <li role="button" class="my-2">
+      <a (click)="toggleProductsSubmenu()" [class.active]="isProductsSubmenuOpen" routerLink="ViewAllProducts">
+        <span class="icon"><i class="fa-solid fa-cart-shopping fa-2x"></i> </span>
+        <span class="title fw-bolder"> Product</span>
+      </a>
+
+    </li>
+
+    <li role="button">
+      <a (click)="toggleProductsSubmenu()" [class.active]="isProductsSubmenuOpen" routerLink="ViewAllBrands">
+        <span class="icon">
+
+          <i class="fa-brands fa-bandcamp fa-2x"></i></span>
+        <span class="title fw-bolder">Brands</span>
+      </a>
+
+    </li>
+
+    <li role="button">
+      <a (click)="toggleProductsSubmenu()" [class.active]="isProductsSubmenuOpen" routerLink="ViewAllCategory" >
+        <span class="icon"><i class="fa-solid fa-layer-group fa-2x"></i> </span>
+        <span class="title fw-bolder">Category</span>
+      </a>
+
+    </li>
+
+    <li role="button">
+      <a (click)="toggleProductsSubmenu()" [class.active]="isProductsSubmenuOpen"  routerLink="ViewAllUsers">
+        <span class="icon">
+
+
+          <i class="fa-solid fa-users-line fa-2x"></i> </span>
+        <span class="title fw-bolder">Users</span>
+      </a>
+
+    </li>
+
+
+
+
+    <li>
+      <a href="/dashboard/messages">
+        <!-- <span class="icon"><ion-icon name="chatbubble-outline"></ion-icon></span> -->
+        <span class="title fw-bolder">Messages</span>
+      </a>
+    </li>
+    <li>
+      <a href="/dashboard/help">
+        <!-- <span class="icon"><ion-icon name="help-outline"></ion-icon></span> -->
+        <span class="title fw-bolder">Help</span>
+      </a>
+    </li>
+    <li>
+      <a href="/dashboard/settings">
+        <!-- <span class="icon"><ion-icon name="settings-outline"></ion-icon></span> -->
+        <span class="title fw-bolder">Settings</span>
+      </a>
+    </li>
+    <li>
+      <a href="/logout">
+        <!-- <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span> -->
+        <span class="title fw-bolder">Sign Out</span>
+      </a>
+    </li>
+  </ul>
 </div>
 
+  <div class="main-content" [class.active]="isSidebarActive">
+    <div class="topbar">
+      <div class="toggle" (click)="toggleSidebar()">
 
-
-
-
+      </div>
+      <!-- Add other topbar content here -->
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+
+<div class="product-dashboard">
+  <div class="d-flex justify-content-between">
+
+    <h2 class="fs-2 fw-bolder my-4">Product Dashboard</h2>
+
+    <button [routerLink]="['/dashboard/ViewAllProducts/addProduct']" type="button" class="btn text-white fw-bolder fs-5 p-3  rounded-3" style="background-color:#2a2185 ;"> Add New Product</button>
+
+  </div>
+
+
+  <div *ngIf="loading">Loading products...</div>
+
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+
+  <table *ngIf="!loading && !error && products.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th>Brand</th>
+        <th>description</th>
+        <th>In Stock</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.id }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.price | currency }}</td>
+        <td>{{ product.categoryId }}</td>
+        <td>{{ product.brandId }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.stockQuantity ? 'Yes' : 'No' }}</td>
+        <td>
+          <button type="button" class="btn btn-blue  mx-2" [routerLink]="['/dashboard/ViewAllProducts/updateProduct', product.id]" > Update</button>
+          <button type="button" class="btn btn-teal  mx-2" [routerLink]="['/dashboard/ViewAllProducts/productDetails/{{product.id}}']"> Details</button>
+          <button type="button" class="btn btn-coral mx-2" (click)="deleteProd(product.id)" > Delete</button>
+
+
+
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && !error && products.length === 0">
+    No products found.
+  </div>
+</div>
