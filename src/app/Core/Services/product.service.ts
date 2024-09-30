@@ -33,6 +33,11 @@ export class ProductService {
   //   this._HttpClient.post(`${environment.baseUrl}/product/${Id}`)
   // }
 
+  update(Id:number)
+  {
+    this._HttpClient.put(`${environment.baseUrl}/product/${Id}`,this.productData);
+  }
+
   delete(Id: number): Observable<any> {
     return this._HttpClient.delete(`${environment.baseUrl}/product/${Id}`)
   }

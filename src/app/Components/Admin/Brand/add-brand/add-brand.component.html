@@ -1,31 +1,44 @@
-<section class="container my-5">
-    <h3>Add New Products</h3>
+<section class="container my-3">
+  <div class="shadow-lg p-5">
+    <h3>Add New Brand</h3>
     <div class="row">
         <div class="col-md-6">
 
-            <form>
+            <form  [formGroup]="addBrandForm">
                 <div class="mb-2 form-item">
-                    <label for="firstName"> Name :</label>
-                    <input formControlName="firstName" type="text" id="firstName" class="form-control" />
+                    <label for="name"> Name :</label>
+                    <input formControlName="name" type="text" id="name" class="form-control" />
+
+
+                    <div *ngIf="addBrandForm.get('name')?.errors && addBrandForm.get('name')?.touched"
+                        class="alert alert-danger p-1  small w-50 mx-auto">
+                        <p class="mb-0" *ngIf="addBrandForm.get('name')?.getError('required')">Name of Brand is
+                            Required</p>
+                    </div>
                 </div>
 
                 <div class="mb-2 form-item">
-
-                    <label for="category"> category :</label>
-                    <select class="form-select" aria-label="Default select example">
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-
-                </div>
-
+                  <label for="category"> category :</label>
+                  <input formControlName="categoryId" type="number" id="category" class="form-control" />
+                  <div *ngIf="addBrandForm.get('category')?.errors && addBrandForm.get('category')?.touched"
+                      class="alert alert-danger p-1  small w-50 mx-auto">
+                      <p class="mb-0" *ngIf="addBrandForm.get('category')?.getError('required')">Name of category is
+                          Required</p>
+                  </div>
+              </div>
 
 
+              <button (click)="addBrand()" class="rounded mt-3 d-block ms-auto btn btn-outline-success ">Add New
+                Brand </button>
             </form>
 
 
         </div>
+        <div class="col-md-6">
+          <img src="assets/addBrand.jpeg" alt="" class="w-100">
+        </div>
     </div>
+  </div>
+
 
 </section>

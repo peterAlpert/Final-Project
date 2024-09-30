@@ -1,38 +1,47 @@
-<section class="w-50 mx-auto shadow rounded p-5 my-4 bg-main-light">
+<section class="w-50 mx-auto shadow-lg rounded-5 p-5 my-5 bg-main-light">
   <div class="text-center fs-2 mb-2">
-    <span>Login Now</span>
+    <span class=" main-blue fw-medium">Login Now</span>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <div class="mb-2 form-item">
+          <label for="username" class="fw-medium">User Name:</label>
+          <input formControlName="username" type="text" id="username" class="form-control" />
+
+          <div *ngIf="loginForm.get('username')?.errors && loginForm.get('username')?.touched">
+            <p class="text-danger" *ngIf="loginForm.get('username')?.getError('required')">Name is Required</p>
+          </div>
+        </div>
+
+        <div class="mb-2 form-item">
+          <label for="password" class="fw-medium" >Password :</label>
+          <input formControlName="password" type="password" id="password" class="form-control" />
+
+          <div *ngIf="
+            loginForm.get('password')?.errors &&
+            loginForm.get('password')?.touched">
+            <p class="text-danger" *ngIf="loginForm.get('password')?.getError('required')">
+              password is Required
+            </p>
+          </div>
+
+        </div>
+
+        <button [disabled]="loginForm.invalid" class=" rounded mt-3 d-block ms-auto  btn btn-outline-primary w-100 my-4 ">
+          Login
+        </button>
+        <div class="text-center text-primary"><a routerLink="/forgetPassword" class="text-decoration-none">Forget Password
+            ?</a></div>
+      </form>
+      </div>
+      <div class="col-md-6">
+        <img src="assets/online-shopping-and-digital-marketing-concept-vector.jpg" alt="" class="w-100">
+      </div>
   </div>
 
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-    <div class="mb-2 form-item">
-      <label for="username">username </label>
-      <input formControlName="username" type="text" id="username" class="form-control" />
-
-      <div *ngIf="loginForm.get('username')?.errors && loginForm.get('username')?.touched">
-        <p class="text-danger" *ngIf="loginForm.get('username')?.getError('required')">Name is Required</p>
-      </div>
-    </div>
-
-    <div class="mb-2 form-item">
-      <label for="password">Password </label>
-      <input formControlName="password" type="password" id="password" class="form-control" />
-
-      <div *ngIf="
-        loginForm.get('password')?.errors &&
-        loginForm.get('password')?.touched">
-        <p class="text-danger" *ngIf="loginForm.get('password')?.getError('required')">
-          password is Required
-        </p>
-      </div>
-
-    </div>
-
-    <button [disabled]="loginForm.invalid" class=" rounded mt-3 d-block ms-auto  btn btn-outline-primary w-100 my-4 ">
-      Login
-    </button>
-    <div class="text-center text-primary"><a routerLink="/forgetPassword" class="text-decoration-none">Forget Password
-        ?</a></div>
-  </form>
 
 </section>
