@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../../../Core/Services/category.service';
 import { ToastrService } from 'ngx-toastr';
 import { Icategory } from '../../../../Core/interfaces/icategory';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { BrandService } from '../../../../Core/Services/brand.service';
+import { Ibrand } from '../../../../Core/interfaces/ibrand';
 
 @Component({
   selector: 'app-add-category',
@@ -12,14 +14,17 @@ import { CommonModule } from '@angular/common';
   templateUrl: './add-category.component.html',
   styles: ``
 })
-export class AddCategoryComponent {
+export class AddCategoryComponent implements OnInit {
 
 
   caregoryData :Icategory ={} as Icategory;
 
+  Brands :Ibrand[] = [] ;
+
 
   constructor(
   private _CategoryService:CategoryService,
+  private _BrandService:BrandService,
     private _ToastrService: ToastrService
   ) { }
 
@@ -28,6 +33,22 @@ export class AddCategoryComponent {
     brandId: new FormControl('', [Validators.required]),
 
   })
+
+  ngOnInit(): void {
+    this._BrandService.getAll().subscribe({
+      next:(response)=>{
+        console.log(response);
+        this.Brands = response
+
+
+      },
+      error:(err)=>{
+        console.log(err);
+
+
+      }
+    })
+  }
 
 
   addCategory(): void {

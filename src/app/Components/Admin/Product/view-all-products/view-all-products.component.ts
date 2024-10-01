@@ -59,6 +59,8 @@ export class ViewAllProductsComponent {
       if (result.isConfirmed) {
         this._ProductService.delete(productId).subscribe({
           next: () => {
+
+            this.products = this.products.filter(item => item.id != productId)
             console.log(productId);
 
 

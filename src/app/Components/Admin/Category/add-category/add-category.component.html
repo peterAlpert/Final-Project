@@ -17,16 +17,17 @@
                   </div>
               </div>
 
-
               <div class="mb-2 form-item">
-                <label for="brands"> brands :</label>
-                <input formControlName="brandId" type="number" id="brands" class="form-control" />
-                <div *ngIf="addCategoryForm.get('brands')?.errors && addCategoryForm.get('brands')?.touched"
-                    class="alert alert-danger p-1  small w-50 mx-auto">
-                    <p class="mb-0" *ngIf="addCategoryForm.get('brands')?.getError('required')">Name of brands is
-                        Required</p>
+                <label for="brandId">Brand:</label>
+                <select formControlName="brandId" id="brandId" class="form-select">
+
+                  <option *ngFor="let brand of Brands" [value]="brand.id">{{brand.name}}</option>
+                </select>
+                <div *ngIf="addCategoryForm.get('brandId')?.errors && addCategoryForm.get('brandId')?.touched"
+                     class="alert alert-danger p-1 small w-50 mx-auto">
+                  <p class="mb-0" *ngIf="addCategoryForm.get('brandId')?.getError('required')">Brand is Required</p>
                 </div>
-            </div>
+              </div>
 
 
             <button (click)="addCategory()" class="rounded mt-3 d-block ms-auto btn btn-outline-success ">Add New

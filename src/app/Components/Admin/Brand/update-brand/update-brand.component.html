@@ -5,16 +5,11 @@
     <div class="row">
         <div class="col-md-6">
 
-            <form >
-
-
-
-
-
+            <form  [formGroup]="updateBrandForm">
 
                 <div class="mb-2 form-item">
-                    <label for="category"> category :</label>
-                    <input formControlName="categoryId" type="number" id="category" class="form-control" />
+                    <label for="category"> Brand :</label>
+                    <input formControlName="name" type="number" id="Brand" class="form-control" />
                     <!-- <div *ngIf="updateBrandForm.get('category')?.errors && updateBrandForm.get('category')?.touched"
                         class="alert alert-danger p-1  small w-50 mx-auto">
                         <p class="mb-0" *ngIf="updateBrandForm.get('category')?.getError('required')">Name of category is
@@ -23,8 +18,8 @@
                 </div>
 
                 <div class="mb-2 form-item">
-                    <label for="brands"> brands :</label>
-                    <input formControlName="brandId" type="number" id="brands" class="form-control" />
+                    <label for="category"> category :</label>
+                    <input formControlName="brands" type="number" id="category" class="form-control" />
                     <!-- <div *ngIf="updateBrandForm.get('brands')?.errors && updateBrandForm.get('brands')?.touched"
                         class="alert alert-danger p-1  small w-50 mx-auto">
                         <p class="mb-0" *ngIf="updateBrandForm.get('brands')?.getError('required')">Name of brands is
@@ -35,7 +30,7 @@
 
 
                 <button class="rounded mt-3 d-block ms-auto btn btn-outline-primary " > Update
-                    Product </button>
+                    Brand </button>
 
 
             </form>

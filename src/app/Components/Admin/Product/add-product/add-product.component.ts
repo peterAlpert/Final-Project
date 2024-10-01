@@ -76,7 +76,10 @@ export class AddProductComponent implements OnInit {
   addProduct(): void {
     this.productData = this.addProductForm.value;
     this._ProductService.addProduct(this.productData).subscribe({
-      next: () => this._ToastrService.success(`Product Add successful in website ElDokan`),
+      next: () => {
+        this.addProductForm.reset();
+        this._ToastrService.success(`Product Add successful in website ElDokan`)
+      },
       error: () => this._ToastrService.warning(`Product does not Add successful in website ElDokan`)
     })
   }
