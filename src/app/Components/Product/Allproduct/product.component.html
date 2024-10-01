@@ -1,15 +1,22 @@
 @if (isLoading) {<app-spinner></app-spinner>}
-<section role="button" class="container-fluid bg-light">
-  <h2 class="main-title py-5">All Products</h2>
+<section role="button" class="container-fluid bg-light my-4 py-2">
+  <h2 class="main-title  main-blue fw-medium text-center my-2">All Products</h2>
   <div class="row my-3 mx-auto ">
 
-    <div class="input-group me-1">
-      <div class="form-outline w-75">
-        <input type="search" id="form1" class="form-control border border-3" [(ngModel)]="searchInput" />
+    <div class="input-group my-3">
+      <div class="form-outline w-50 mx-auto row g-0">
+        <div class="col-md-10">
+          <input type="search" id="form1" class="form-control border border-3" [(ngModel)]="searchInput" />
+        </div>
+        <div class="col-md-2">
+
+        <button type="button" class="btn btn-secondary" (click)="search()">
+          <i class="fas fa-search"></i>
+        </button>
+        </div>
+
       </div>
-      <button type="button" class="btn btn-secondary" (click)="search()">
-        <i class="fas fa-search"></i>
-      </button>
+
     </div>
 
   </div>
@@ -21,31 +28,43 @@
           <div class="col-md-4 py-5">
             <img [src]="mainSrc" class="card-img-top" (mouseover)="changeImage()" (mouseout)="resetImage()" />
           </div>
-          <div class="col-md-8">
+          <div class="col-md-8 ">
             <div class="row my-2">
               <section class=" text-end mb-3 ">
-                <i class="fa-solid fa-info text-info fa-2xl me-3" routerLink="{{prod.id}}"></i>
-                <i class="fa-solid text-dark fa-cart-plus fa-2xl me-3" (click)="addToCart(prod)"></i>
+
+
 
                 <i [ngClass]="{'fa-solid text-danger': isInWishlist(prod.id)}" (click)="addToWhishlist(prod)"
                   class="fa-regular fa-heart fa-2xl redHover"></i>
               </section>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">{{prod.name}}</h5>
-              <p class="card-text">
-                <small class="text-body-secondary">{{prod.price}}</small>
-              </p>
-              <p class="card-text">
-                <small class="text-body-secondary">{{prod.description}}</small>
-              </p>
+            <div class="card-body ">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h5 class="card-title fw-medium fs-4">{{prod.name}}</h5>
+                  <p class="card-text">
+                    <small class="text-body-secondary fs-5"> {{  prod.price | currency:'USD' }} </small>
+                  </p>
+                  <p class="card-text">
+                    <small class="text-body-secondary">{{prod.description}}</small>
+                  </p>
+                </div>
+                <div>
+                  <button routerLink="{{prod.id}}" class="btn btn-outline-primary  my-4  ">Details
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </button>
 
-              <!-- <button routerLink="{{prod.id}}" class="btn btn-info my-1 w-25" type="button"><i
-                  class="fa-solid fa-info fa-2xl bg-info"></i>
-              </button> -->
-              <!-- <button (click)="addToCart(prod)" class="btn btn-primary my-1 w-100" type="button">
-                Add To Cart
-              </button> -->
+                </div>
+              </div>
+
+
+
+
+
+               <button (click)="addToCart(prod)" class="btn btn-primary my-1 w-100 mx-auto" type="button">
+                Add To Cart   <i class="fa-solid text-dark fa-cart-plus fa-2 text-white " ></i>
+              </button>
+
             </div>
           </div>
         </div>

@@ -1,29 +1,43 @@
 @if (isLoading) {<app-spinner></app-spinner>}
 <div class="my-5">
   <div class="row text-center">
-    <div class="col-12 m-4"><span class="fs-1">Wishlist</span></div>
+    <div class="col-12 m-4"><h2 class="main-title  main-blue fw-medium text-center my-2"  >Wishlist</h2></div>
   </div>
   @if(wishlistItems.length>0){
-  @for (item of wishlistItems; track item.id) {
-  <section class="container mx-auto py-1">
-    <div class="row mx-auto shadow rounded-5 p-3 my-2">
-      <div class="col-md-3">
-        <img src="assets/watch1.jpg" alt="" class="w-75 rounded">
-      </div>
-      <div class="col-md-7">
-        <h1>{{item.product.name}}</h1>
-        <p>{{item.product.price}}</p>
-        <p>{{item.product.description}}</p>
-      </div>
-      <div class="col-md-2 ">
-        <button (click)="addToCart(item)" class="fa-solid border-0 fs-3 fa-cart-plus bg-light me-2"></button>
-        <button (click)="removeItemFromList(item.productId)"
-          class="fa-solid border-0 fs-3 fa-trash-can text-danger bg-light"></button>
-      </div>
 
-    </div>
-  </section>
+    <div class="container">
+      <div class="row">
+ @for (item of wishlistItems; track item.id) {
+        <div class="col-md-6">
+          <section class="container mx-auto py-1">
+            <div class="row mx-auto shadow rounded-5 p-3 my-2">
+              <div class="col-md-4 ">
+                <img src="assets/watch1.jpg" alt="" class="w-100 rounded">
+              </div>
+              <div class="col-md-7 ">
+                <h4 class="main-blue fw-medium">{{item.product.name}}</h4>
+                <p class="fw-medium fs-5">{{item.product.price | currency}}</p>
+                <p>{{item.product.description}}</p>
+
+                  <button class="btn btn-primary fw-medium d-block ms-auto" (click)="addToCart(item)">Add To Cart <i class="fa-solid border-0 fs-6 fa-cart-plus " ></i></button>
+
+
+              </div>
+              <div class="col-md-1 ">
+
+                <button (click)="removeItemFromList(item.productId)"
+                  class="fa-solid border-0 fs-4 fa-trash-can "></button>
+              </div>
+
+            </div>
+          </section>
+
+        </div>
+
   }
+      </div>
+    </div>
+
   }
   @else {
   <section class="container mx-auto py-1">

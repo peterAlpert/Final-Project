@@ -4,7 +4,7 @@
 
     <h2 class="fs-2 fw-bolder my-4">Brands Dashboard</h2>
 
-    <button routerLink="/addBrand" type="button" class="btn text-white fw-bolder fs-5 p-3  rounded-3" style="background-color:#2a2185 ;"> Add New Brand</button>
+    <button [routerLink]="['/dashboard/ViewAllBrand/addBrand']"   type="button" class="btn text-white fw-bolder fs-5 p-3  rounded-3" style="background-color:#2a2185 ;"> Add New Brand</button>
 
   </div>
 
@@ -30,8 +30,8 @@
         <td>{{ Brand.category }}</td>
 
         <td>
-          <button type="button" class="btn btn-blue  mx-2" routerLink="" > Update</button>
-          <button type="button" class="btn btn-teal  mx-2" routerLink=""> Details</button>
+          <button type="button" class="btn btn-blue  mx-2" [routerLink]="['/dashboard/ViewAllBrand/updateBrand/', Brand.id]" > Update</button>
+
           <button type="button" class="btn btn-coral mx-2"  > Delete</button>
 
 

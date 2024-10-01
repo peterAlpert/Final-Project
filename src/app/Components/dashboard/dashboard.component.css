@@ -12,11 +12,12 @@
 .navigation {
   position: fixed;
   width: 250px;
-  height: 400%;
+  height: 200%;
   background: var(--blue);
   border-left: 10px solid var(--blue);
   transition: 0.5s;
   overflow: hidden;
+
 }
 .navigation.active {
   width: 80px;

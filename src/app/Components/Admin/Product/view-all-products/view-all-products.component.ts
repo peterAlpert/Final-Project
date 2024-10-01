@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { ProductService } from '../../../../Core/Services/product.service';
 import { IProduct } from '../../../../Core/interfaces/iproduct';
 import { CommonModule } from '@angular/common';
-
+import Swal from 'sweetalert2';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -29,6 +29,8 @@ export class ViewAllProductsComponent {
     this.loading = true;
     this._ProductService.GetAll().subscribe({
       next: (data) => {
+        console.log(data);
+
         this.products = data;
         this.loading = false;
       },
@@ -41,20 +43,52 @@ export class ViewAllProductsComponent {
   }
 
 
-  deleteProd(productID :number) {
-    this._ProductService.delete(productID).subscribe({
 
-      next: (response) => {
+  deleteProd(productId: number) {
 
-        this._ToastrService.success("product delete successfuly for Website El-Doken")
-       },
-      error: (err) => {
 
-        this._ToastrService.warning("product does not delete successfuly for Website El-Doken")
+    Swal.fire({
+      title: 'Are You Sure?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, Delete Item',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._ProductService.delete(productId).subscribe({
+          next: () => {
+            console.log(productId);
 
+
+            this._ToastrService.show("Item deleted from your Website El-Dokan")
+
+            Swal.fire(
+              'Done',
+              'item Deleted Successfuly from El-Dokan',
+              'success'
+            );
+          },
+          error: err => {
+            console.log(productId);
+
+            console.log(err);
+
+
+            Swal.fire(
+              'Wrong!',
+              'something wrong happened in process',
+              'error'
+            );
+
+
+          }
+        })
       }
-    })
-
+    });
   }
+
+
 
 }

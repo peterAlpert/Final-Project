@@ -4,7 +4,7 @@
 
     <h2 class="fs-2 fw-bolder my-4">category Dashboard</h2>
 
-    <button routerLink="/addCategory" type="button" class="btn text-white fw-bolder fs-5 p-3  rounded-3" style="background-color:#2a2185 ;"> Add New Category</button>
+    <button  [routerLink]="['/dashboard/ViewAllCategory/addCategory']" type="button" class="btn text-white fw-bolder fs-5 p-3  rounded-3" style="background-color:#2a2185 ;"> Add New Category</button>
 
   </div>
 
@@ -30,8 +30,8 @@
 
 
         <td>
-          <button type="button" class="btn btn-blue  mx-2" routerLink="" > Update</button>
-          <button type="button" class="btn btn-teal  mx-2" routerLink=""> Details</button>
+          <button type="button" class="btn btn-blue  mx-2" [routerLink]="['/dashboard/ViewAllCategory/updateCategor', category.id]"> Update</button>
+
           <button type="button" class="btn btn-coral mx-2"  > Delete</button>
 
 

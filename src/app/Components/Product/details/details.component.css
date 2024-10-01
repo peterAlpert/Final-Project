@@ -1,14 +1,21 @@
 .main-btn-blue-hover:hover {
     background-color: #1395E8;
     color: white;
+    border:none
 
 }
 
 .circle {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    text-align: center;
+    width: 60px;
+    height: 45px;
+
+
+    border: 2px solid #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
 
 }
 

@@ -2,6 +2,11 @@
 
 
 
+
+
+
+
+
   <!-- <app-sidebar (toggleSidebar)="toggleSidebar()"></app-sidebar> -->
 
 
@@ -15,7 +20,7 @@
           <span class="icon">
             <i class="fa-solid fa-house fa-2x"></i>
           </span>
-          <span class="title" class="fs-5 fw-bolder my-3">Brand Name</span>
+          <span class="title" class="fs-5 fw-bolder my-3">El-Dokan</span>
       </a>
   </li>
 
@@ -61,38 +66,51 @@
           <i class="fa-solid fa-users-line fa-2x"></i> </span>
         <span class="title fw-bolder">Users</span>
       </a>
-
     </li>
 
+    <li role="button">
+      <a (click)="toggleProductsSubmenu()" [class.active]="isProductsSubmenuOpen"  routerLink="ViewAllUsers">
+        <span class="icon">
+          <i class="fa-regular fa-folder-open fa-2x"></i>
 
-
-
-    <li>
-      <a href="/dashboard/messages">
-        <!-- <span class="icon"><ion-icon name="chatbubble-outline"></ion-icon></span> -->
-        <span class="title fw-bolder">Messages</span>
+       </span>
+        <span class="title fw-bolder">orders</span>
       </a>
     </li>
-    <li>
-      <a href="/dashboard/help">
-        <!-- <span class="icon"><ion-icon name="help-outline"></ion-icon></span> -->
-        <span class="title fw-bolder">Help</span>
+
+    <li role="button">
+      <a (click)="toggleProductsSubmenu()" [class.active]="isProductsSubmenuOpen"  routerLink="ViewAllUsers">
+        <span class="icon">
+
+          <i class="fa-solid fa-id-card fa-2x"></i>
+       </span>
+        <span class="title fw-bolder">Register</span>
       </a>
     </li>
-    <li>
-      <a href="/dashboard/settings">
-        <!-- <span class="icon"><ion-icon name="settings-outline"></ion-icon></span> -->
-        <span class="title fw-bolder">Settings</span>
+    <li role="button">
+      <a (click)="toggleProductsSubmenu()" [class.active]="isProductsSubmenuOpen"  routerLink="ViewAllUsers">
+        <span class="icon">
+          <i class="fa-solid fa-user-pen fa-2x"></i>
+ </span>
+        <span class="title fw-bolder">Add Role</span>
       </a>
     </li>
-    <li>
+
+
+
+
+
+
+    <li >
       <a href="/logout">
-        <!-- <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span> -->
+        <span class="icon"><i class="fa-solid fa-arrow-right-to-bracket fa-2x"></i></span>
         <span class="title fw-bolder">Sign Out</span>
       </a>
     </li>
   </ul>
 </div>
+
+
 
   <div class="main-content" [class.active]="isSidebarActive">
     <div class="topbar">
@@ -104,3 +122,5 @@
     <router-outlet></router-outlet>
   </div>
 </div>
+
+

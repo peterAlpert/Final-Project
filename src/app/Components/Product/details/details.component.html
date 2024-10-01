@@ -1,29 +1,35 @@
-<section class="container  p-5 my-5 ">
-    <div class="row g-5 shadow  ">
+<section class="container p-5  my-5 ">
+    <div class="row g-3 shadow-lg   rounded-5  w-75 mx-auto px-5 py-3">
+      <h3 class="main-title  main-blue fw-medium text-center ">Details of Product </h3>
         <div class="col-md-4 ">
-            <div class="border border-light-subtle border-1">
-                <img src="assets/watch1.jpg" class="w-100 " />
+            <div class="border border-light-subtle border-2 rounded-4 p-2 text-center">
+                <img src="assets/watch1.jpg" class="w-100" />
             </div>
         </div>
         <div class="col-md-8 ">
-            <h4 class="py-2">{{prodcut.name}}</h4>
-            <h3 class="py-2">{{prodcut.price}}$</h3>
+            <h4 class="py-2 fw-medium">{{prodcut.name}}</h4>
+            <h6 class="py-2">{{prodcut.price}}$</h6>
 
             <p>{{prodcut.description}}</p>
 
             <div class="row py-4">
-                <div class="col-md-4">
-                    <button (click)="addToCart()" class="btn w-100 py-2 btn-outline-primary">Add To Cart</button>
+                <div class="col-md-5">
+                    <button (click)="addToCart()" class="btn w-100 py-2 btn-primary">Add To Cart <i class="fa-solid fa-cart-plus"></i> </button>
 
                 </div>
-                <div class="col-md-4">
-                    <button class="btn w-100 py-2 btn-outline-info" routerLink="/addreview/{{prodID}}">Add
-                        Review</button>
+                <div class="col-md-5">
+                    <button class="btn w-100 py-2 btn-outline-primary" routerLink="/addreview/{{prodID}}">Add
+                        Review
+                        <i class="fa-regular fa-comment"></i></button>
 
                 </div>
-                <div class="col-md-2"></div>
-                <div class="col-md-2 ">
-                    <i (click)="addToWishlist()" [ngClass]="heartStyle"></i>
+                <div class="col-md-2  ">
+                  <div class="circle rounded-2  main-btn-blue-hover">
+                    <i (click)="addToWishlist()" [ngClass]="heartStyle" class="fa-solid fa-heart fa-2xs "></i>
+
+                  </div>
+
+
 
                 </div>
             </div>
@@ -44,4 +50,5 @@
         }
     </div>
     }
-</section>
+</section><br>
+<br><br>
