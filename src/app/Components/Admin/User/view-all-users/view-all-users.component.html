@@ -1,48 +1,44 @@
-
-
 <div class="product-dashboard">
   <div class="d-flex justify-content-between">
 
     <h2 class="fs-2 fw-bolder my-4">User Dashboard</h2>
 
-    <button  type="button" class="btn text-white fw-bolder fs-5 p-3  rounded-3" style="background-color:#2a2185 ;"> Add New User</button>
+    <!-- <button type="button" class="btn text-white fw-bolder fs-5 p-3  rounded-3" style="background-color:#2a2185 ;"> Add
+      New User</button> -->
 
   </div>
 
 
-  <div *ngIf="loading">Loading User...</div>
+  <!-- <div *ngIf="loading">Loading User...</div> -->
 
   <div *ngIf="error" class="error-message">{{ error }}</div>
 
-  <table *ngIf="!loading && !error && users.length > 0">
+  <table class="table table-bordered">
     <thead>
       <tr>
         <th>Username</th>
         <th>Email</th>
         <th>Address</th>
         <th>Phone Number</th>
-        <th>Profile Image</th>
         <th>Action</th>
 
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users">
+      @for (user of users; track $index) {
+      <tr>
         <td>{{ user.userName }}</td>
         <td>{{ user.email }}</td>
         <td>{{ user.address }}</td>
-        <td>{{ user.phoneNumber }}</td>
-        <td><img [src]="user.profileImageURL" alt="Profile" width="50"></td>
+        <td>{{ user.phone }}</td>
         <td>
-          <button type="button" class="btn btn-blue  mx-2"  > Update</button>
-          <button type="button" class="btn btn-teal  mx-2"> Details</button>
-          <button type="button" class="btn btn-coral mx-2" > Delete</button>
-
-
-
+          <!-- <button type="button" class="btn btn-blue  mx-2"> Update</button>
+          <button type="button" class="btn btn-teal  mx-2"> Details</button> -->
+          <button type="button" class="btn btn-coral mx-2" (click)="block(user)"> Block</button>
 
         </td>
       </tr>
+      }
 
     </tbody>
   </table>

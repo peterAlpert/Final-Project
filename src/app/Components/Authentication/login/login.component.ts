@@ -83,13 +83,13 @@ export class LoginComponent {
           }
 
         },
-        error: () => {
+        error: (err) => {
           this.isLoading = false;
 
           Swal.fire({
             icon: 'error',
             title: 'Wrong!',
-            text: 'UserName or Password Invalid'
+            text: `${JSON.stringify(err.error.Username)}`
           });
         }
       })

@@ -1,21 +1,19 @@
-import { CommonModule } from '@angular/common';
-import { Component, SimpleChanges } from '@angular/core';
-import { FormControl, FormControlOptions, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../../../Core/Services/auth.service';
-import { Router } from '@angular/router';
-import { LoginComponent } from '../login/login.component';
+import { Component } from '@angular/core';
+import { IUser } from '../../../../Core/interfaces/iuser';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../../../Core/Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { IUser } from '../../../Core/interfaces/iuser';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-registeration',
+  selector: 'app-register-admin',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, LoginComponent],
-  providers: [AuthService],
-  templateUrl: './registeration.component.html',
-  styles: ''
+  imports: [ReactiveFormsModule, CommonModule],
+  templateUrl: './register-admin.component.html',
+  styles: ``
 })
-export class RegisterationComponent {
+export class RegisterAdminComponent {
+
   userData: IUser = {} as IUser;
   errMsg: string = ''; //==>false ,"dfgdf"===>true
   isLoading: boolean = false;
@@ -29,29 +27,27 @@ export class RegisterationComponent {
 
   })
 
-  constructor(private _AuthService: AuthService, private _Router: Router, private _ToastrService: ToastrService) { }
+  constructor(
+    private _AuthService: AuthService,
+    private _ToastrService: ToastrService
+  ) { }
 
   register(): void {
     this.isLoading = true;
 
-    //console.log(this.userData);
-
     if (this.registerForm.valid) {
 
-      this._AuthService.register(this.registerForm.value).subscribe({
+      this._AuthService.registerAdmin(this.registerForm.value).subscribe({
         next: () => {
           this._ToastrService.success(`Welcome  ${this.registerForm.value.userName}  to our website El-Dokan`);
           this.registerForm.reset();
-          this._Router.navigateByUrl('Login');
         },
         error: (err: any) => {
           console.log(err);
-
           this.errMsg = err.error.UserInputErrors
           this.isLoading = false;
         }
       });
     }
   }
-
 }

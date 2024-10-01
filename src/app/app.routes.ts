@@ -37,6 +37,7 @@ import { UpdateBrandComponent } from './Components/Admin/Brand/update-brand/upda
 import { UpdateCategoryComponent } from './Components/Admin/Category/update-category/update-category.component';
 import { ContactUsComponent } from './Components/Layout/contact-us/contact-us.component';
 import { LoginComponent } from './Components/Authentication/login/login.component';
+import { RegisterAdminComponent } from './Components/Admin/RegisterAdmin/register-admin/register-admin.component';
 
 
 
@@ -111,14 +112,11 @@ export const routes: Routes = [
           { path: "ViewAllBrand/updateBrand/:id", component: UpdateBrandComponent, title: "update Brand" },
 
 
-
-
           { path: "ViewAllCategory", component: ViewAllCategoryComponent, title: "View All Category" },
           { path: "ViewAllCategory/addCategory", component: AddCategoryComponent, title: "Add Category" },
           { path: "ViewAllCategory/updateCategor/:id", component: UpdateCategoryComponent, title: "Update Category" },
 
-
-
+          { path: "registerAdmin", component: RegisterAdminComponent, title: "Register new Admin" },
 
           { path: "ViewAllUsers", component: ViewAllUsersComponent, title: "View All Users" },
           { path: "addUser", component: AddUserComponent, title: "AddUser" },

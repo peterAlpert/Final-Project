@@ -29,6 +29,7 @@ export class AuthService {
     return this.http.post(environment.baseUrl + '/Account/Register', userData)
   }
 
+
   login(userData: any): Observable<any> {
     return this.http.post(environment.baseUrl + '/Account/Login', userData)
   }
@@ -73,6 +74,23 @@ export class AuthService {
 
   }
 
+  blockUser(userId: number): Observable<any> {
+    this.token = localStorage.getItem("token");
+    return this.http.post(`${environment.baseUrl}/AppUser/BlockUser?userId=${userId}`, {}, {
+      headers: new HttpHeaders({
+        "authorization": `Bearer ${this.token}`
+      })
+    })
 
+  }
+
+  registerAdmin(userData: IUser): Observable<any> {
+    this.token = localStorage.getItem("token");
+    return this.http.post(environment.baseUrl + '/Account/RegisterAsAdmin', userData, {
+      headers: new HttpHeaders({
+        "authorization": `Bearer ${this.token}`
+      })
+    })
+  }
 
 }
