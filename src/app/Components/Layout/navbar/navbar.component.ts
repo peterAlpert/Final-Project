@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit {
   wishListCount: any
   cartCount: any
   orderCount: number = 0
+  isAdmin: string = ''
 
   IsLogged: boolean = false
   token: string | null
@@ -37,6 +38,8 @@ export class NavbarComponent implements OnInit {
   ) {
     this.userId = Number(localStorage.getItem('userId'))
     this.token = localStorage.getItem("token");
+    this.isAdmin = localStorage.getItem('isAdmin')!
+
 
     this._AuthService.isLogin.subscribe({ next: res => this.IsLogged = res })
   }
@@ -67,33 +70,12 @@ export class NavbarComponent implements OnInit {
 
     this._SharedService.wishListCount.subscribe(res => this.wishListCount = res)
     this._SharedService.cartCount.subscribe(res => this.cartCount = res)
-    // this.wishListCount = this._SharedService.getwishlistCount();
-    // this.cartCount = this._SharedService.getCartCount();
-    // this._WhishlistService.wishListCount.subscribe(res => this.wishListCount = res)
-    // this._CartService.cartCount.subscribe(res => this.cartCount = res)
-    // this._WhishlistService.getAll(this.userId).subscribe({ next: res => this.wishListCount = res.length })
-    // this._CartService.getcartByUserId(this.userId).subscribe({ next: res => this.cartCount = res.cartItems.length })
-    // this._OrderService.getByUserId(this.userId).subscribe({ next: res => this.orderCount = res.length})
+
   }
 
   //sign out
   SignOut() {
-    Swal.fire({
-      title: 'Sign out',
-      text: 'Are You Sure',
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonText: 'Confirm',
-      cancelButtonText: 'Cancel'
-    }).then(res => {
-      if (res.isConfirmed) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("userId")
-        this._AuthService.isLogin.next(false);
-        this._ToastrService.success("Sign out sucessfully")
-        this._Router.navigate(['/home'])
-      }
-    });
+    this._SharedService.SignOut();
   }
 
 }

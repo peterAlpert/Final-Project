@@ -1,7 +1,9 @@
 @if (isLoading) {<app-spinner></app-spinner>}
 <section class="container-fluid p-5">
   <div class="row text-center">
-    <div class="col-12 m-4"><h2 class="main-title  main-blue fw-medium text-center my-2">Cart</h2></div>
+    <div class="col-12 m-4">
+      <h2 class="main-title  main-blue fw-medium text-center my-2">Cart</h2>
+    </div>
   </div>
   <div class="row  mx-auto w-75">
     @if (items.length>0) {
@@ -19,8 +21,7 @@
       <div class="  p-2 d-flex justify-content-between align-content-center align-items-center">
 
         <div class="col-md-1 ">
-          <button (click)="deleteItem(item.productId)"
-            class="fa-solid border-0  fa-trash-can  circle"></button>
+          <button (click)="deleteItem(item.productId)" class="fa-solid border-0  fa-trash-can  circle"></button>
         </div>
         <div class="col-md-3 ">
           <div class="border border-3 w-50 border-light d-flex justify-content-between">
@@ -56,15 +57,12 @@
           </div>
         </div>
 
-
-
-
       </div>
     </div>
     }
     <div class="row">
       <div class="text-center mt-5">
-        <button class="btn btn-outline-primary rounded-3 w-75 btn-lg " (click)="proceedToCheckout()">Proceed to
+        <button class="btn btn-outline-primary rounded-3 w-75 btn-lg " routerLink="/checkout">Proceed to
           CheckOut</button>
       </div>
     </div>

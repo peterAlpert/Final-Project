@@ -6,6 +6,7 @@ import { AuthService } from './auth.service';
 import { WhishlistService } from './whishlist.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IProduct } from '../interfaces/iproduct';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class SharedService implements OnInit {
     private _CartService: CartService,
     private _WhishlistService: WhishlistService,
     private _ToastrService: ToastrService,
+    private _AuthService: AuthService,
     private _Router: Router
   ) {
     this.userId = Number(localStorage.getItem('userId'))
@@ -145,6 +147,26 @@ export class SharedService implements OnInit {
   }
   isInWishlist(productId: number): boolean {
     return this.wishlistIds.includes(productId);
+  }
+
+  SignOut() {
+    Swal.fire({
+      title: 'Sign out',
+      text: 'Are You Sure',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel'
+    }).then(res => {
+      if (res.isConfirmed) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("isAdmin")
+        this._AuthService.isLogin.next(false);
+        this._ToastrService.success("Sign out sucessfully")
+        this._Router.navigate(['/home'])
+      }
+    });
   }
 
 }

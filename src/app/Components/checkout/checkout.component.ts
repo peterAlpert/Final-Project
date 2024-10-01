@@ -5,11 +5,14 @@ import { CartService } from './../../Core/Services/cart.service';
 import { Component, OnInit } from '@angular/core';
 import { ICartItem } from '../../Core/interfaces/icart-item';
 import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { Iitem } from '../../Core/interfaces/iitem';
+import { CurrencyPipe } from '@angular/common';
+import { IcheckoutRes } from '../../Core/interfaces/icheckout-res';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CurrencyPipe],
   templateUrl: './checkout.component.html',
   styles: ''
 })
@@ -17,10 +20,11 @@ export class CheckoutComponent implements OnInit {
   proceedToCheckout: any
   userId: number = 0
   orderId: any
-  cartItems: ICartItem[] = []
+  cartItem: ICartItem[] = []
   billingForm: FormGroup
   orderForm: FormGroup;
-
+  items: Iitem[] = []
+  checkoutRes: IcheckoutRes = {} as IcheckoutRes
 
   constructor(
     private _CartService: CartService,
@@ -34,7 +38,7 @@ export class CheckoutComponent implements OnInit {
     this.userId = Number(localStorage.getItem('userId'))
 
     this.orderForm = this._FormBuilder.group({
-      deliveryMethod: [false, Validators.required],
+      // deliveryMethod: [false, Validators.required],
       paymentMethod: [false, Validators.required]
     });
 
@@ -54,39 +58,83 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //get orderId
-    this._ActivatedRoute.queryParams.subscribe(params => {
-      if (params['orderId']) {
-        this.orderId = JSON.parse(params['orderId']);
-      }
-      console.log(this.orderId.id); // تحقق من القيم المستلمة
-    });
 
+    //get orderId
+    // this._ActivatedRoute.queryParams.subscribe(params => {
+    //   if (params['orderId']) {
+    //     this.orderId = JSON.parse(params['orderId']);
+    //   }
+    //   console.log(this.orderId.id);
+    // });
+
+
+
+    this._CartService.getcartByUserId(this.userId).subscribe({
+      next: res => {
+        this.cartItem = res.cartItems;
+      }
+    })
+
+    setTimeout(() => {
+      for (let i = 0; i < this.cartItem.length; i++) {
+        this.items.push({
+          "price": this.cartItem[i].product.price,
+          "cartItemId": this.cartItem[i].id,
+          "userId": this.userId,
+          "productId": this.cartItem[i].productId,
+          "quantity": this.cartItem[i].quantity
+        })
+      }
+    }, 100);
+
+
+    const checkout = {
+      'userID': this.userId,
+      'cartItems': this.items
+    }
+
+
+
+    setTimeout(() => {
+      this._CheckoutService.proceedToCheckout(checkout).subscribe({
+        next: res => { console.log(res); this.checkoutRes = res },
+        error: err => console.log(err)
+      })
+
+    }, 100);
 
   }
 
 
   onSubmit() {
-    const placeOrderDTO = {
-      'OrderId': this.orderId.id,
-      'billingDetails': this.billingForm.value,
-      "shipping": this.orderForm.get('deliveryMethod')?.value,
-      'paymentMethod': this.orderForm.get('paymentMethod')?.value,
-    }
 
-    if (this.orderForm.valid && this.billingForm.valid) {
+    setTimeout(() => {
+      const placeOrderDTO = {
+        'orderDTO': this.checkoutRes,
+        'userId': this.userId,
+        'billingDetails': this.billingForm.value,
+        'paymentMethod': this.orderForm.get('paymentMethod')?.value,
+      }
+      console.log(placeOrderDTO);
+      if (this.orderForm.valid && this.billingForm.valid) {
 
-      //placr order 
-      this._CheckoutService.placeOrder(placeOrderDTO).subscribe({
-        next: res => {
-          this._ToastrService.success("Your Order Placed Successfully, check your email for order id to track Your order"); console.log(res);
-        },
-        error: err => console.warn(err)
-      })
-    }
-    else {
-      this._ToastrService.warning("Please fill All required fields")
-    }
+        //placr order 
+        this._CheckoutService.placeOrder(placeOrderDTO).subscribe({
+          next: res => {
+            console.log(res);
+            this._ToastrService.success("Your Order Placed Successfully, check your email for order id to track Your order"); console.log(res);
+          },
+          error: err => console.warn(err)
+        })
+      }
+      else {
+        this._ToastrService.warning("Please fill All required fields")
+      }
+
+    }, 500);
+
+
+
   }
 
 }

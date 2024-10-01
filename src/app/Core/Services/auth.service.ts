@@ -63,4 +63,16 @@ export class AuthService {
     })
   }
 
+  getAllUsers(): Observable<any> {
+    this.token = localStorage.getItem("token");
+    return this.http.get(`${environment.baseUrl}/AppUser/getAllUsers`, {
+      headers: new HttpHeaders({
+        "authorization": `Bearer ${this.token}`
+      })
+    })
+
+  }
+
+
+
 }

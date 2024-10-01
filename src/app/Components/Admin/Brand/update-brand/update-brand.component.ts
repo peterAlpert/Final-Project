@@ -14,56 +14,47 @@ import { Icategory } from '../../../../Core/interfaces/icategory';
   templateUrl: './update-brand.component.html',
 
 })
-export class UpdateBrandComponent  implements OnInit{
-  updateBrandForm:FormGroup;
-  BrandId:number=0;
-  category :Icategory ={} as Icategory;
+export class UpdateBrandComponent implements OnInit {
+  updateBrandForm: FormGroup;
+  BrandId: number = 0;
+  category: any
   constructor(
 
-    private _CategoryService:CategoryService,
-    private _BrandService:BrandService,
+    private _CategoryService: CategoryService,
+    private _BrandService: BrandService,
     private _ToastrService: ToastrService,
     private _FormBuilder: FormBuilder,
-    private _ActivatedRoute:ActivatedRoute
+    private _ActivatedRoute: ActivatedRoute
   ) {
     this.updateBrandForm = this._FormBuilder.group({
-      id:[0],
-      name: ['', Validators.required],
-      category:[[]],
-      isDeleted:[false],
+
+      name: ['', Validators.required]
 
     });
 
     this.BrandId = Number(this._ActivatedRoute.snapshot.paramMap.get('id'))
 
-}
+  }
 
-ngOnInit(): void {
+  ngOnInit(): void {
 
-  this._BrandService.getById(this.BrandId).subscribe({
-    next:(response)=>{
-      this.category = response;
+    this._BrandService.getById(this.BrandId).subscribe({
+      next: (response) => {
+        this.category = response;
 
-      console.log(this.category);
+        console.log(this.category);
 
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
 
+    setTimeout(() => {
+      this.updateBrandForm.patchValue(this.category)
 
-    },
-    error:(err)=>{
-      console.log(err);
+    }, 100);
 
+  }
 
-    }
-  })
-
-
-  setTimeout(() => {
-    this.updateBrandForm.patchValue(this.category)
-
-  }, 100);
-
-
-
-
-}
 }

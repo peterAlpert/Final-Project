@@ -54,14 +54,8 @@ export class LoginComponent {
           this._SharedService.wishListCount.subscribe(res => this.wishlistCount = res)
           this._SharedService.cartCount.subscribe(res => this.cartCount = res)
 
-
-          // this.cartCount = this._CartService.getCartCount()
-          // this._CartService.setCartCount(this.cartCount);
-
-          // this.wishlistCount = this._WhishlistService.getWishlistCount()
-          // this._WhishlistService.setWishlistCount(this.wishlistCount)
-
           localStorage.setItem('token', response.token);
+
           this.isLoading = false;
           Swal.fire({
             icon: 'success',
@@ -71,7 +65,6 @@ export class LoginComponent {
           this.loginForm.reset();
 
           this._AuthService.isLogin.next(true);
-          this._Router.navigate(['home'])
 
           //set userId in localstorage
           this._AuthService.getUserId().subscribe({
@@ -80,6 +73,15 @@ export class LoginComponent {
               localStorage.setItem("userId", this.userId.toString())
             }
           })
+
+          if (response.roles[0] == "admin") {
+            this._Router.navigate(['dashboard'])
+            localStorage.setItem('isAdmin', 'true')
+          }
+          else if (response.roles[0] == null) {
+            this._Router.navigate(['home'])
+          }
+
         },
         error: () => {
           this.isLoading = false;

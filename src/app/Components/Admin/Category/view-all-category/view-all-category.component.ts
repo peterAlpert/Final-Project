@@ -8,17 +8,17 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-view-all-category',
   standalone: true,
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './view-all-category.component.html',
   styleUrl: './view-all-category.component.css'
 })
 export class ViewAllCategoryComponent {
 
-  categories: Icategory[] = [] ;
+  categories: Icategory[] = [];
   loading: boolean = true;
   error: string | null = null;
 
-  constructor(private _CategoryService: CategoryService ,private _ToastrService:ToastrService) {}
+  constructor(private _CategoryService: CategoryService, private _ToastrService: ToastrService) { }
 
 
   ngOnInit(): void {
@@ -39,6 +39,17 @@ export class ViewAllCategoryComponent {
         console.error('Error fetching categories :', err);
       }
     });
+  }
+
+  deleteCategory(cateId: number) {
+    this._CategoryService.remove(cateId).subscribe({
+      next: res => {
+        this.categories = this.categories.filter(item => item.id != cateId)
+        this._ToastrService.success("Category Deleted")
+      },
+      error: err => console.log(err)
+
+    })
   }
 
 }

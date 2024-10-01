@@ -8,17 +8,17 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-view-all-brand',
   standalone: true,
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './view-all-brand.component.html',
   styleUrl: './view-all-brand.component.css'
 })
 export class ViewAllBrandComponent {
 
- Brands: Ibrand[] = [] ;
+  Brands: Ibrand[] = [];
   loading: boolean = true;
   error: string | null = null;
 
-  constructor(private _BrandService : BrandService,private _ToastrService:ToastrService) {}
+  constructor(private _BrandService: BrandService, private _ToastrService: ToastrService) { }
 
 
   ngOnInit(): void {
@@ -39,6 +39,19 @@ export class ViewAllBrandComponent {
         console.error('Error fetching Brands:', err);
       }
     });
+  }
+
+  deleteBrand(brandId: number) {
+    console.log(brandId);
+
+    this._BrandService.remove(brandId).subscribe({
+      next: res => {
+        this._ToastrService.success("brand deleted");
+        this.Brands = this.Brands.filter(item => item.id != brandId)
+      },
+      error: err => console.log(err)
+    })
+
   }
 
 }

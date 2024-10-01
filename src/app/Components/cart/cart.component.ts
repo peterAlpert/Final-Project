@@ -127,7 +127,36 @@ export class CartComponent implements OnInit {
     });
   }
 
-  proceedToCheckout() {
+  // proceedToCheckout() {
+  //   const items = []
+  //   for (let i = 0; i < this.items.length; i++) {
+  //     items.push({
+  //       "price": this.items[i].product.price,
+  //       "cartItemId": this.items[i].id,
+  //       "userId": this.userId,
+  //       "productId": this.items[i].productId,
+  //       "quantity": this.items[i].quantity
+  //     })
+  //   }
+  //   const checkout = {
+  //     'userID': this.userId,
+  //     'cartItems': items
+  //   }
 
-  }
+  //   //proceed to checkout to ceate order
+  //   this._CheckoutService.proceedToCheckout(checkout).subscribe({
+  //     next: res => {
+
+  //       console.log(res);
+  //       const orderId = { id: res.id };
+  //       console.log(orderId);
+
+  //       this._Router.navigate(['/checkout'], { queryParams: { orderId: JSON.stringify(orderId) } });
+  //       //this._Router.navigate(['/checkout'])
+  //     },
+  //     error: err => console.warn(checkout)
+
+  //   })
+
+  // }
 }

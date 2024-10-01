@@ -2,43 +2,45 @@
   <div class="shadow-lg p-5">
     <h3>Add New Brand</h3>
     <div class="row">
-        <div class="col-md-6">
+      <div class="col-md-6">
 
-            <form  [formGroup]="addBrandForm">
-                <div class="mb-2 form-item">
-                    <label for="name"> Name :</label>
-                    <input formControlName="name" type="text" id="name" class="form-control" />
-
-
-                    <div *ngIf="addBrandForm.get('name')?.errors && addBrandForm.get('name')?.touched"
-                        class="alert alert-danger p-1  small w-50 mx-auto">
-                        <p class="mb-0" *ngIf="addBrandForm.get('name')?.getError('required')">Name of Brand is
-                            Required</p>
-                    </div>
-                </div>
-
-                <div class="mb-2 form-item">
-                  <label for="category"> category :</label>
-                  <input formControlName="categoryId" type="number" id="category" class="form-control" />
-                  <div *ngIf="addBrandForm.get('category')?.errors && addBrandForm.get('category')?.touched"
-                      class="alert alert-danger p-1  small w-50 mx-auto">
-                      <p class="mb-0" *ngIf="addBrandForm.get('category')?.getError('required')">Name of category is
-                          Required</p>
-                  </div>
-              </div>
-
-              
+        <form [formGroup]="addBrandForm">
+          <div class="mb-2 form-item">
+            <label for="name"> Name :</label>
+            <input formControlName="name" type="text" id="name" class="form-control" />
 
 
-              <button (click)="addBrand()" class="rounded mt-3 d-block ms-auto btn btn-outline-success ">Add New
-                Brand </button>
-            </form>
+            <div *ngIf="addBrandForm.get('name')?.errors && addBrandForm.get('name')?.touched"
+              class="alert alert-danger p-1  small w-50 mx-auto">
+              <p class="mb-0" *ngIf="addBrandForm.get('name')?.getError('required')">Name of Brand is
+                Required</p>
+            </div>
+          </div>
+
+          <div class="mb-2 form-item">
+            <label for="categoryId">Category:</label>
+            <select formControlName="categoryId" id="categoryId" class="form-select">
+
+              <option *ngFor="let category of Categories" [value]="category.id">{{category.name}}</option>
+            </select>
+            <div *ngIf="addBrandForm.get('categoryId')?.errors && addBrandForm.get('categoryId')?.touched"
+              class="alert alert-danger p-1 small w-50 mx-auto">
+              <p class="mb-0" *ngIf="addBrandForm.get('categoryId')?.getError('required')">Category is Required</p>
+            </div>
+          </div>
 
 
-        </div>
-        <div class="col-md-6">
-          <img src="assets/addBrand.jpeg" alt="" class="w-100">
-        </div>
+
+
+          <button (click)="addBrand()" class="rounded mt-3 d-block ms-auto btn btn-outline-success ">Add New
+            Brand </button>
+        </form>
+
+
+      </div>
+      <div class="col-md-6">
+        <img src="assets/addBrand.jpeg" alt="" class="w-100">
+      </div>
     </div>
   </div>
 

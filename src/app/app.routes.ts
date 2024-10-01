@@ -36,6 +36,7 @@ import { ViewAllCategoryComponent } from './Components/Admin/Category/view-all-c
 import { UpdateBrandComponent } from './Components/Admin/Brand/update-brand/update-brand.component';
 import { UpdateCategoryComponent } from './Components/Admin/Category/update-category/update-category.component';
 import { ContactUsComponent } from './Components/Layout/contact-us/contact-us.component';
+import { LoginComponent } from './Components/Authentication/login/login.component';
 
 
 
@@ -61,6 +62,10 @@ export const routes: Routes = [
       { path: "forgetPassword", component: ForgetPasswordComponent, title: "forget" },
       { path: "forgetPassword/otp", component: OtpComponent, title: "otp" },
 
+      { path: "Register", component: RegisterationComponent, title: "Register" },
+      { path: "Login", component: LoginComponent, title: "Login" },
+
+
       { path: "WishList", component: WishlistComponent, title: "wishlist" },
       { path: "order", component: OrderComponent, title: "Order" },
       { path: "order/details/:id", component: OrderDetailsComponent, title: "Order" },
@@ -74,18 +79,12 @@ export const routes: Routes = [
         ]
       },
       { path: "Cart", component: CartComponent, title: "Cart" },
+      { path: "checkout", component: CheckoutComponent, title: "checkout" },
 
       { path: "OrderTrack", component: OrderTrackComponent, title: "OrderTrack" },
 
 
       { path: "productDetails/:id", component: DetailsComponent, title: "Details of Product" },
-
-
-
-
-
-
-
 
 
     ]
@@ -124,9 +123,6 @@ export const routes: Routes = [
           { path: "ViewAllUsers", component: ViewAllUsersComponent, title: "View All Users" },
           { path: "addUser", component: AddUserComponent, title: "AddUser" },
           { path: "ViewAllUsers", component: ViewAllUsersComponent, title: "View All Users" },
-
-
-
 
         ]
 
