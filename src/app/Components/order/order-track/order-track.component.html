@@ -1,22 +1,26 @@
-<section class="container mx-auto  my-2 ">
-  <div class="text-center w-50 mx-auto my-5">
-    <h2>Track Your Order</h2>
+<section class="container mx-auto  my-5 ">
+  <div class="text-center w-50 mx-auto ">
+    <h3 class="main-blue">Track Your Order</h3>
     <p>To track your order please enter your Order ID in the box below and press the “Track” button. This was given to
       you on your receipt and in the confirmation email you should have received.</p>
     <img src="assets/order-tracking.png" alt="" class="w-100 ">
   </div>
 
-  <div class="w-75 mx-auto mt-5">
+  <div class="w-75 mx-auto ">
     <div class="d-flex justify-content-between">
       <h5>Product</h5>
       <h5>Total</h5>
 
     </div>
     <hr class="border  border-2 opacity-50">
-    <div class="d-flex justify-content-between">
+    <div >
       @for (item of orderItems; track $index) {
-      <span>{{item.productName}}</span>
-      <span>{{item.price}}</span>
+        <div class="d-flex justify-content-between">
+          <div >{{item.productName}}</div>
+
+          <div>{{item.price}}</div>
+        </div>
+
       }
 
 
