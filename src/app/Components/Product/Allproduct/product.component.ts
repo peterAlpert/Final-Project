@@ -55,7 +55,7 @@ export class ProductComponent implements OnInit {
         next: (res: any) => { this.products = res; this.isLoading = false },
         error: (err: any) => { console.log(err); this.isLoading = true }
       })
-    }, 200);
+    }, 3000);
 
     this._AuthService.getUserId().subscribe({ next: res => this.userId = res })
 

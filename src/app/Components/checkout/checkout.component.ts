@@ -38,7 +38,7 @@ export class CheckoutComponent implements OnInit {
     this.userId = Number(localStorage.getItem('userId'))
 
     this.orderForm = this._FormBuilder.group({
-      // deliveryMethod: [false, Validators.required],
+
       paymentMethod: [false, Validators.required]
     });
 
@@ -59,13 +59,6 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
 
-    //get orderId
-    // this._ActivatedRoute.queryParams.subscribe(params => {
-    //   if (params['orderId']) {
-    //     this.orderId = JSON.parse(params['orderId']);
-    //   }
-    //   console.log(this.orderId.id);
-    // });
 
 
 
@@ -118,7 +111,7 @@ export class CheckoutComponent implements OnInit {
       console.log(placeOrderDTO);
       if (this.orderForm.valid && this.billingForm.valid) {
 
-        //placr order 
+        //placr order
         this._CheckoutService.placeOrder(placeOrderDTO).subscribe({
           next: res => {
             console.log(res);

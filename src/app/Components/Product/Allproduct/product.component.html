@@ -25,15 +25,20 @@
     <div class="col-md-4 rounded-5" *ngFor="let prod of products | paginate: { itemsPerPage: 3, currentPage: page }">
       <div class="card mb-3 shadow-lg p-3 rounded-5" style="max-width: 540px">
         <div class="row g-0">
-          <div class="col-md-4 py-5">
-            <img [src]="mainSrc" class="card-img-top" (mouseover)="changeImage()" (mouseout)="resetImage()" />
+          <div class="col-md-4 py-5 ">
+            <div class="bg-warning">
+              <img [src]="mainSrc" class="card-img-top" (mouseover)="changeImage()" (mouseout)="resetImage()" />
+            </div>
+
+            <div>
+
+
+            </div>
           </div>
+
           <div class="col-md-8 ">
             <div class="row my-2">
-              <section class=" text-end mb-3 ">
-
-
-
+              <section class=" text-end  ">
                 <i [ngClass]="{'fa-solid text-danger': isInWishlist(prod.id)}" (click)="addToWhishlist(prod)"
                   class="fa-regular fa-heart fa-2xl redHover"></i>
               </section>
@@ -41,7 +46,7 @@
             <div class="card-body ">
               <div class="d-flex justify-content-between">
                 <div>
-                  <h5 class="card-title fw-medium fs-4">{{prod.name}}</h5>
+                  <h6 class="card-title fw-medium fs-5">{{prod.name}}</h6>
                   <p class="card-text">
                     <small class="text-body-secondary fs-5"> {{  prod.price | currency:'USD' }} </small>
                   </p>
@@ -49,31 +54,40 @@
                     <small class="text-body-secondary">{{prod.description}}</small>
                   </p>
                 </div>
-                <div>
-                  <button routerLink="{{prod.id}}" class="btn btn-outline-primary  my-4  ">Details
-                    <i class="fa-solid fa-arrow-right"></i>
-                  </button>
+              </div>
 
-                </div>
+              <div class=" d-flex justify-content-between align-items-center">
+
+                <button (click)="addToCart(prod)" class="btn btn-primary my-1 mx-auto" type="button">
+                  Add To Cart   <i class="fa-solid text-dark fa-cart-plus fa-2 text-white " ></i>
+                </button>
+
+                <button routerLink="{{prod.id}}" class="btn btn-outline-primary  my-4 btn-sm  ">Details
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
               </div>
 
 
 
 
 
-               <button (click)="addToCart(prod)" class="btn btn-primary my-1 w-100 mx-auto" type="button">
-                Add To Cart   <i class="fa-solid text-dark fa-cart-plus fa-2 text-white " ></i>
-              </button>
+
 
             </div>
           </div>
+
         </div>
       </div>
     </div>
   </div>
   <div class="row text-center py-3 mt-3">
-    <pagination-controls (pageChange)="page = $event"></pagination-controls><br><br><br><br>
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+
   </div>
 </section>
 
+
+
+
+<br><br><br><br>
 <!-- <h1>{{products[0].Name}}</h1> -->
