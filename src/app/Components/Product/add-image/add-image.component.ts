@@ -14,22 +14,26 @@ export class AddImageComponent implements OnInit {
   userId: number = 0
   image: string | ArrayBuffer | null = null;
   imageSrc: string = ''
-  files: FileList | null = null
+  // files: FileList | null = null
 
+  files: File[] = []
 
+  images: any[] = []
 
   constructor(private _ImageService: ImageService) {
 
     this.userId = Number(localStorage.getItem('userId'))
 
   }
+
   ngOnInit(): void {
-    const formData = new FormData();
-    formData.append('folderName', 'folderName');
-    formData.append('productId', '1');
+    this._ImageService.gellAll(1).subscribe({
+      next: res => {
+        this.images = res
+        console.log(this.images);
 
-    // إضافة الملفات
-
+      }
+    })
 
   }
 
@@ -44,44 +48,58 @@ export class AddImageComponent implements OnInit {
   //   }
   // }
 
-  selectedFiles: File[] = [];
+
+  // onFileSelected(event: any) {
+  //   const files: FileList = event.target.files;
+  //   // this.files = [];
+
+  //   for (let i = 0; i < files.length; i++) {
+  //     this.files.push(files[i]);
+  //   }
+
+  //   console.log(this.files);
+
+
+  // }
 
   onFileSelected(event: any) {
-    //   this.files = event.target.files;
-    //   this.selectedFiles = Array.from(); 
+    const files: FileList = event.target.files;
+    this.files = [];
 
-    //   this.files.forEach(file => {
-    //     formData.append('files', file); 
-    // });
-
-
-  }
-
-  upload() {
-    if (this.image) {
-      this.sendImage(this.image);
-    }
-  }
-
-  sendImage(image: string | ArrayBuffer) {
-    const base64String = (image as string).split(',')[1];
-
-    const picDTO = {
-      imageData: Array.from(base64String).join(''),
-      userId: this.userId
+    for (let i = 0; i < files.length; i++) {
+      this.files.push(files[i]);
     }
 
-    this._ImageService.addImage(picDTO).subscribe({
-      next: res => {
-        console.log(picDTO);
-        console.log('Image uploaded successfully!', res);
-      },
-      error: err => {
-        console.log(picDTO);
-        console.log(err);
-      }
-    })
+    console.log(this.files);
+
   }
+
+
+  // upload() {
+  //   if (this.image) {
+  //     this.sendImage(this.image);
+  //   }
+  // }
+
+  // sendImage(image: string | ArrayBuffer) {
+  //   const base64String = (image as string).split(',')[1];
+
+  //   const picDTO = {
+  //     imageData: Array.from(base64String).join(''),
+  //     userId: this.userId
+  //   }
+
+  //   this._ImageService.addImage(picDTO).subscribe({
+  //     next: res => {
+  //       console.log(picDTO);
+  //       console.log('Image uploaded successfully!', res);
+  //     },
+  //     error: err => {
+  //       console.log(picDTO);
+  //       console.log(err);
+  //     }
+  //   })
+  // }
 
   getImage() {
     this._ImageService.getImage(this.userId).subscribe({
@@ -92,6 +110,24 @@ export class AddImageComponent implements OnInit {
 
       }
     })
+  }
+
+  sendImage() {
+
+    const formData = new FormData();
+    this.files.forEach((file) => {
+      formData.append('files', file)
+    })
+
+    this._ImageService.addProductImg(formData).subscribe({
+      next: res => {
+        console.log(res);
+      },
+      error: err => {
+        console.log(err);
+      }
+    })
+
   }
 
 }

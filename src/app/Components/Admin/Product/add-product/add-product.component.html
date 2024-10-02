@@ -8,7 +8,7 @@
             <label for="name">Name:</label>
             <input formControlName="name" type="text" id="name" class="form-control" />
             <div *ngIf="addProductForm.get('name')?.errors && addProductForm.get('name')?.touched"
-                 class="alert alert-danger p-1 small w-50 mx-auto">
+              class="alert alert-danger p-1 small w-50 mx-auto">
               <p class="mb-0" *ngIf="addProductForm.get('name')?.getError('required')">Name of Product is Required</p>
             </div>
           </div>
@@ -22,7 +22,17 @@
             <label for="price">Price:</label>
             <input formControlName="price" type="number" id="price" class="form-control" />
             <div *ngIf="addProductForm.get('price')?.errors && addProductForm.get('price')?.touched"
-                 class="alert alert-danger p-1 small w-50 mx-auto">
+              class="alert alert-danger p-1 small w-50 mx-auto">
+              <p class="mb-0" *ngIf="addProductForm.get('price')?.getError('required')">Price is Required</p>
+            </div>
+          </div>
+
+          <div class="mb-2 form-item">
+            <label for="images">images:</label>
+            <input formControlName="images" multiple (change)="onFileSelected($event)" type="file" id="images"
+              class="form-control" />
+            <div *ngIf="addProductForm.get('price')?.errors && addProductForm.get('price')?.touched"
+              class="alert alert-danger p-1 small w-50 mx-auto">
               <p class="mb-0" *ngIf="addProductForm.get('price')?.getError('required')">Price is Required</p>
             </div>
           </div>
@@ -31,19 +41,20 @@
             <label for="stockQuantity">Stock Quantity:</label>
             <input formControlName="stockQuantity" type="number" id="stockQuantity" class="form-control" />
             <div *ngIf="addProductForm.get('stockQuantity')?.errors && addProductForm.get('stockQuantity')?.touched"
-                 class="alert alert-danger p-1 small w-50 mx-auto">
-              <p class="mb-0" *ngIf="addProductForm.get('stockQuantity')?.getError('required')">Stock Quantity is Required</p>
+              class="alert alert-danger p-1 small w-50 mx-auto">
+              <p class="mb-0" *ngIf="addProductForm.get('stockQuantity')?.getError('required')">Stock Quantity is
+                Required</p>
             </div>
           </div>
 
           <div class="mb-2 form-item">
             <label for="categoryId">Category:</label>
-            <select formControlName="categoryId" id="categoryId" class="form-select" >
+            <select formControlName="categoryId" id="categoryId" class="form-select">
 
               <option *ngFor="let category of Categories" [value]="category.id">{{category.name}}</option>
             </select>
             <div *ngIf="addProductForm.get('categoryId')?.errors && addProductForm.get('categoryId')?.touched"
-                 class="alert alert-danger p-1 small w-50 mx-auto">
+              class="alert alert-danger p-1 small w-50 mx-auto">
               <p class="mb-0" *ngIf="addProductForm.get('categoryId')?.getError('required')">Category is Required</p>
             </div>
           </div>
@@ -55,12 +66,13 @@
               <option *ngFor="let brand of Brands" [value]="brand.id">{{brand.name}}</option>
             </select>
             <div *ngIf="addProductForm.get('brandId')?.errors && addProductForm.get('brandId')?.touched"
-                 class="alert alert-danger p-1 small w-50 mx-auto">
+              class="alert alert-danger p-1 small w-50 mx-auto">
               <p class="mb-0" *ngIf="addProductForm.get('brandId')?.getError('required')">Brand is Required</p>
             </div>
           </div>
 
-          <button (click)="addProduct()" class="rounded mt-3 d-block ms-auto btn btn-outline-success">Add New Product</button>
+          <button (click)="addProduct()" class="rounded mt-3 d-block ms-auto btn btn-outline-success">Add New
+            Product</button>
         </form>
       </div>
 

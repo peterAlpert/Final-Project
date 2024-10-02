@@ -1,8 +1,15 @@
 <div class="container">
+    <!-- F:\ITI - .net\Final
+    Project\E-Commerce_API_Angular_Project\E-Commerce_API_Angular_Project\assets\Images\products\7f05b015-dd9e-4294-bb61-763f651a7663.jpg -->
+
     <section class="w-75 mx-auto">
+        <img src="F:\ITI - .net\Final Project\E-Commerce_API_Angular_Project\E-Commerce_API_Angular_Project\assets\Images\products\7f05b015-dd9e-4294-bb61-763f651a7663.jpg"
+            width="500">
+        <img [src]="this.images[0].image" width="500">
+        <img [src]="this.images[1].image" width="500">
         <img [src]="this.imageSrc" width="500">
         <input type="file" multiple (change)="onFileSelected($event)">
-        <button class="btn btn-primary" (click)="upload()"> add image</button>
+        <button class="btn btn-primary" (click)="sendImage()"> add image</button>
         <button class="btn btn-info" (click)="getImage()"> get image</button>
     </section>
 </div>

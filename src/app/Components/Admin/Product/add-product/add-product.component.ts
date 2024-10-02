@@ -22,12 +22,13 @@ export class AddProductComponent implements OnInit {
   productData: IProduct = {} as IProduct;
   Categories: Icategory[] = [];
   Brands: Ibrand[] = [];
+  files: File[] = []
 
 
   constructor(
     private _ProductService: ProductService,
-    private _CategoryService:CategoryService,
-    private _BrandService:BrandService,
+    private _CategoryService: CategoryService,
+    private _BrandService: BrandService,
     private _ToastrService: ToastrService
   ) { }
 
@@ -36,6 +37,7 @@ export class AddProductComponent implements OnInit {
     description: new FormControl('', [Validators.required]),
     price: new FormControl('', [Validators.required]),
     stockQuantity: new FormControl('', [Validators.required]),
+    images: new FormControl([], [Validators.required]),
     categoryId: new FormControl('', [Validators.required]),
     brandId: new FormControl('', [Validators.required]),
 
@@ -43,13 +45,13 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit(): void {
     this._CategoryService.getAll().subscribe({
-      next:(response)=>{
+      next: (response) => {
         //console.log(response);
         this.Categories = response
 
 
       },
-      error:(err)=>{
+      error: (err) => {
         console.log(err);
 
 
@@ -58,13 +60,13 @@ export class AddProductComponent implements OnInit {
 
 
     this._BrandService.getAll().subscribe({
-      next:(response)=>{
+      next: (response) => {
         console.log(response);
         this.Brands = response
 
 
       },
-      error:(err)=>{
+      error: (err) => {
         console.log(err);
 
 
@@ -74,6 +76,11 @@ export class AddProductComponent implements OnInit {
   }
 
   addProduct(): void {
+    const formData = new FormData();
+    this.files.forEach((file) => {
+      formData.append('files', file)
+    })
+
     this.productData = this.addProductForm.value;
     this._ProductService.addProduct(this.productData).subscribe({
       next: () => {
@@ -82,6 +89,18 @@ export class AddProductComponent implements OnInit {
       },
       error: () => this._ToastrService.warning(`Product does not Add successful in website ElDokan`)
     })
+  }
+
+  onFileSelected(event: any) {
+    const files: FileList = event.target.files;
+    this.files = [];
+
+    for (let i = 0; i < files.length; i++) {
+      this.files.push(files[i]);
+    }
+
+    console.log(this.files);
+
   }
 
 }

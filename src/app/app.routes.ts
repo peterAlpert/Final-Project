@@ -38,6 +38,7 @@ import { LoginComponent } from './Components/Authentication/login/login.componen
 import { RegisterAdminComponent } from './Components/Admin/RegisterAdmin/register-admin/register-admin.component';
 import { AddImageComponent } from './Components/Product/add-image/add-image.component';
 import { BankTransferComponent } from './Components/order/bank-transfer/bank-transfer.component';
+import { AddReviewComponent } from './Components/Product/add-review/add-review.component';
 
 
 
@@ -67,6 +68,7 @@ export const routes: Routes = [
       { path: "Register", component: RegisterationComponent, title: "Register" },
       { path: "Login", component: LoginComponent, title: "Login" },
       { path: "BankTransfer", component: BankTransferComponent, title: "Card" },
+      { path: "addreview/:id", component: AddReviewComponent, title: "Add Review" },
 
 
       { path: "WishList", component: WishlistComponent, title: "wishlist" },

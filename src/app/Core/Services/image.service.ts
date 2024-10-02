@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -20,6 +20,14 @@ export class ImageService {
 
   getImage(userId: number): Observable<any> {
     return this._HttpClient.get(`${environment.baseUrl}/ImageTest/getImg?userId=${userId}`)
+  }
+
+  addProductImg(files: any): Observable<any> {
+    return this._HttpClient.post(`${environment.baseUrl}/ImageTest/addImageList`, files)
+  }
+
+  gellAll(prodId: number): Observable<any> {
+    return this._HttpClient.get(`${environment.baseUrl}/ImageTest/getProductImgages?productId=${prodId}`)
   }
 
 }
