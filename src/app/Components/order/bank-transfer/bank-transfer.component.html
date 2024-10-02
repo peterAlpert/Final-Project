@@ -1,0 +1,35 @@
+<div class="container mt-5">
+    <section class="w-50 shadow mx-auto my-5 p-5">
+        <h2 class="text-center">Card Data</h2>
+        <form [formGroup]="visaForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label for="cardNumber" class="form-label">ID</label>
+                <input type="text" class="form-control" id="cardNumber" formControlName="cardNumber" required>
+                <div *ngIf="visaForm.get('cardNumber')?.invalid && visaForm.get('cardNumber')?.touched"
+                    class="text-danger">
+                    ID is required and consist of 14 digit
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="cardHolder" class="form-label">Card Name</label>
+                <input type="text" class="form-control" id="cardHolder" formControlName="cardHolder" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="expiryDate" class="form-label">Expiry Date</label>
+                <input type="month" class="form-control" id="expiryDate" formControlName="expiryDate" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="cvv" class="form-label">CVV</label>
+                <input type="text" class="form-control" id="cvv" formControlName="cvv" required>
+                <div *ngIf="visaForm.get('cvv')?.invalid && visaForm.get('cvv')?.touched" class="text-danger">
+                    CVV is required and consists of 3 digit
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" [disabled]="visaForm.invalid">send</button>
+        </form>
+    </section>
+</div>

@@ -2,17 +2,18 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CheckoutService } from './../../Core/Services/checkout.service';
 import { CartService } from './../../Core/Services/cart.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ICartItem } from '../../Core/interfaces/icart-item';
 import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Iitem } from '../../Core/interfaces/iitem';
 import { CurrencyPipe } from '@angular/common';
 import { IcheckoutRes } from '../../Core/interfaces/icheckout-res';
+import { BankTransferComponent } from "../order/bank-transfer/bank-transfer.component";
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [ReactiveFormsModule, CurrencyPipe],
+  imports: [ReactiveFormsModule, CurrencyPipe, BankTransferComponent],
   templateUrl: './checkout.component.html',
   styles: ''
 })
@@ -25,6 +26,9 @@ export class CheckoutComponent implements OnInit {
   orderForm: FormGroup;
   items: Iitem[] = []
   checkoutRes: IcheckoutRes = {} as IcheckoutRes
+  isVisible: boolean = false;
+  visaForm: FormGroup;
+
 
   constructor(
     private _CartService: CartService,
@@ -55,6 +59,14 @@ export class CheckoutComponent implements OnInit {
       orderNotes: ['']
     });
 
+
+    this.visaForm = this._FormBuilder.group({
+      cardNumber: ['', [Validators.required, Validators.pattern('^[0-9]{14}$')]],
+      cardHolder: ['', Validators.required],
+      expiryDate: ['', Validators.required],
+      cvv: ['', [Validators.required, Validators.pattern('^[0-9]{3}$')]],
+    });
+
   }
 
   ngOnInit(): void {
@@ -77,17 +89,14 @@ export class CheckoutComponent implements OnInit {
       }
     }, 100);
 
-
     const checkout = {
       'userID': this.userId,
       'cartItems': this.items
     }
 
-
-
     setTimeout(() => {
       this._CheckoutService.proceedToCheckout(checkout).subscribe({
-        next: res => { console.log(res); this.checkoutRes = res },
+        next: res => this.checkoutRes = res,
         error: err => console.log(err)
       })
 
@@ -97,7 +106,17 @@ export class CheckoutComponent implements OnInit {
 
 
   onSubmit() {
+    if (this.orderForm.controls['paymentMethod'].value == 0) {
+      this.isVisible = !this.isVisible;
+    }
+    else if (this.orderForm.controls['paymentMethod'].value == 1) {
+      this.placeOrder()
+    }
 
+
+  }
+
+  placeOrder() {
     setTimeout(() => {
       const placeOrderDTO = {
         'orderDTO': this.checkoutRes,
@@ -105,26 +124,25 @@ export class CheckoutComponent implements OnInit {
         'billingDetails': this.billingForm.value,
         'paymentMethod': this.orderForm.get('paymentMethod')?.value,
       }
-      console.log(placeOrderDTO);
       if (this.orderForm.valid && this.billingForm.valid) {
 
         //placr order 
         this._CheckoutService.placeOrder(placeOrderDTO).subscribe({
           next: res => {
-            console.log(res);
             this._ToastrService.success("Your Order Placed Successfully, check your email for order id to track Your order"); console.log(res);
           },
           error: err => console.warn(err)
         })
+        if (this.visaForm.valid) {
+          console.log(this.visaForm.value);
+
+        }
       }
       else {
         this._ToastrService.warning("Please fill All required fields")
       }
 
     }, 500);
-
-
-
   }
 
 }
