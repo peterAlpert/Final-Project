@@ -1,8 +1,8 @@
-< class="container py-3">
+<div class="container  my-5">
   <div class="row">
     <div class="col-md-7">
       <div class="row fs-3">
-        <p>Billing Details</p>
+        <h4 class="main-blue">Billing Details</h4>
       </div>
       <form [formGroup]="billingForm">
         <div class="mb-2 form-item">
@@ -13,11 +13,6 @@
         <div class="mb-2 form-item">
           <label for="lastName">Last Name <span class="text-danger">*</span></label>
           <input formControlName="lastName" type="text" id="lastName" class="form-control" />
-        </div>
-
-        <div class="mb-2 form-item">
-          <label for="companyName">Company Name </label>
-          <input formControlName="companyName" type="text" id="companyName" class="form-control" />
         </div>
 
         <div class="mb-2 form-item">
@@ -61,15 +56,15 @@
       </form>
       <p><span class="text-danger me-3">*</span> means fields required</p>
     </div>
-    <div class="col-md-5 p-2 ">
-      <div class="row  fs-3">
-        <p>Your Orders</p>
+    <div class="col-md-5 p-2 border border-2 border-light-subtle rounded-5" >
+      <div class="row  fs-3 ">
+        <h4 class="main-blue text-center">Your Orders</h4>
       </div>
 
 
-      <section class="w-75 m-2 shadow px-4 py-5 bg-light">
-        <div class="row pb-5">
-          <table class="table border">
+      <section class=" m-2 shadow px-4 py-5 bg-light">
+        <div class="row">
+          <table class="table main-blue">
             <thead>
               <th class="w-25">product</th>
               <th class="w-25">Qunatity</th>
@@ -86,31 +81,37 @@
             </tbody>
           </table>
         </div>
-        <div>
-          <p>TotalPrice : {{checkoutRes.totalAmount | currency}}</p>
-          <p>delivery cost 30$</p>
-          <p>TotalPrice after delivery : {{checkoutRes.totalAmount+30 | currency}}</p>
+        <div class="mb-4">
+          <h6 class="fw-bolder"><span class="main-blue">TotalPrice: </span>{{checkoutRes.totalAmount | currency}}</h6>
+          <h6 class="fw-bolder"><span class="main-blue">
+            delivery cost </span> 30$</h6>
+          <h6 class="fw-bolder" > <span class="main-blue">TotalPrice after delivery : </span>{{checkoutRes.totalAmount+30 | currency}}</h6>
 
         </div>
 
         <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
 
-          <div class="form-check mb-5">
-            <label class="fs-5">Payment Method</label>
-            <div class="ms-5">
-              <label class="form-check-label">
-                <input type="radio" [value]=0 formControlName="paymentMethod" class="form-check-input" />
-                Direct Bank Transfer
-              </label><br>
-              <label class="form-check-label">
-                <input type="radio" [value]=1 formControlName="paymentMethod" class="form-check-input" />
-                Cash On Delivery
-              </label><br>
-              <label class="form-check-label">
-                <input type="radio" [value]=2 formControlName="paymentMethod" class="form-check-input" />
-                Check Payments
-              </label>
-            </div>
+          <div class="form-check mb-3">
+            <label class="fs-5 text-start fw-bolder d-block my-2">Payment Method</label>
+
+
+              <div class="text-start">
+                <label class="form-check-label ">
+                  <input type="radio" [value]=0 formControlName="paymentMethod" class="form-check-input" />
+                  Direct Bank Transfer
+                </label>
+              </div>
+
+              <div class="text-start">
+                <label class="form-check-label">
+                  <input type="radio" [value]=1 formControlName="paymentMethod" class="form-check-input" />
+                  Cash On Delivery
+                </label>
+              </div>
+
+
+
+
             @if (orderForm.get('paymentMethod')?.invalid && (orderForm.get('paymentMethod')?.touched ||
             orderForm.get('paymentMethod')?.dirty)) {
             <span>This field is required</span>
