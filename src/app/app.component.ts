@@ -5,9 +5,6 @@ import { FooterComponent } from "./Components/Layout/footer/footer.component";
 import { HomeComponent } from './Components/home/home.component';
 
 import { RegisterationComponent } from "./Components/Authentication/registeration/registeration.component";
-import { SharedService } from './Core/Services/shared.service';
-import { WhishlistService } from './Core/Services/whishlist.service';
-import { CartService } from './Core/Services/cart.service';
 import { Location } from '@angular/common';
 
 @Component({

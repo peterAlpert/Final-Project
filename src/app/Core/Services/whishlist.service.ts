@@ -9,14 +9,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class WhishlistService {
 
-  // private wishlistData = new BehaviorSubject<number>(0);
-  // wishListCount = this.wishlistData.asObservable();
-  // setWishlistCount(count: number) {
-  //   this.wishlistData.next(count);
-  // }
-  // getWishlistCount() {
-  //   this.wishlistData.value;
-  // }
 
   constructor(private _HttpClient: HttpClient) {
 

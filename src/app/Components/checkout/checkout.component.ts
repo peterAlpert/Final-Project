@@ -59,16 +59,6 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
 
-    //get orderId
-    // this._ActivatedRoute.queryParams.subscribe(params => {
-    //   if (params['orderId']) {
-    //     this.orderId = JSON.parse(params['orderId']);
-    //   }
-    //   console.log(this.orderId.id);
-    // });
-
-
-
     this._CartService.getcartByUserId(this.userId).subscribe({
       next: res => {
         this.cartItem = res.cartItems;

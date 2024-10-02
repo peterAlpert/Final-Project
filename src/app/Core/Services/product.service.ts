@@ -29,12 +29,8 @@ export class ProductService {
     return this._HttpClient.post(environment.baseUrl + `/Product`, productData)
   }
 
-  // update(Id:number){
-  //   this._HttpClient.post(`${environment.baseUrl}/product/${Id}`)
-  // }
-
-  update(productData :IProduct):Observable<any>  {
-   return this._HttpClient.post(`${environment.baseUrl}/product/${productData.id}`,this.productData);
+  update(productData: IProduct): Observable<any> {
+    return this._HttpClient.post(`${environment.baseUrl}/product/${productData.id}`, this.productData);
   }
 
   delete(Id: number): Observable<any> {

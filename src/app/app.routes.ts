@@ -1,5 +1,4 @@
-import { DashboardAdminComponent } from './Layout/dashboard-admin/dashboard-admin.component';
-import { WebsiteComponent } from './Layout/website/website.component';
+
 import { AddProductComponent } from './Components/Admin/Product/add-product/add-product.component';
 import { ChangePasswordComponent } from './Components/Password/change-password/change-password.component';
 
@@ -14,7 +13,6 @@ import { CartComponent } from './Components/cart/cart.component';
 import { CheckoutComponent } from './Components/checkout/checkout.component';
 import { ProductComponent } from './Components/Product/Allproduct/product.component';
 import { DetailsComponent } from './Components/Product/details/details.component';
-import { NotfoundComponent } from './Components/Layout/notfound/notfound.component';
 import { ForgetPasswordComponent } from './Components/Password/forget-password/forget-password.component';
 import { OtpComponent } from './Components/Password/otp/otp.component';
 
@@ -38,6 +36,7 @@ import { UpdateCategoryComponent } from './Components/Admin/Category/update-cate
 import { ContactUsComponent } from './Components/Layout/contact-us/contact-us.component';
 import { LoginComponent } from './Components/Authentication/login/login.component';
 import { RegisterAdminComponent } from './Components/Admin/RegisterAdmin/register-admin/register-admin.component';
+import { AddImageComponent } from './Components/Product/add-image/add-image.component';
 
 
 
@@ -56,6 +55,7 @@ export const routes: Routes = [
       { path: "cotactus", component: ContactUsComponent, title: "cotactus" },
       //products
       { path: "product", component: ProductComponent, title: "product" },
+      { path: "addImage", component: AddImageComponent, title: "add new image" },
 
 
       { path: "product/:id", component: DetailsComponent, title: "productDetails" },
@@ -101,6 +101,7 @@ export const routes: Routes = [
 
         children: [
 
+          { path: "", redirectTo: "ViewAllProducts", pathMatch: 'prefix' },
           { path: "ViewAllProducts", component: ViewAllProductsComponent, title: "View All Products" },
           { path: "ViewAllProducts/addProduct", component: AddProductComponent, title: "Add Product" },
           { path: "ViewAllProducts/updateProduct/:id", component: UpdateProductComponent, title: "update Product" },
@@ -123,55 +124,8 @@ export const routes: Routes = [
           { path: "ViewAllUsers", component: ViewAllUsersComponent, title: "View All Users" },
 
         ]
-
-
-      },
-
-
+      }
     ]
-
   }
-
-
-
-
-
-  //dashbord'
-
-  // {path:"sideNabar",component:SideNavbarComponent,title:"sideNavbar"},
-  // {path:"dashboard-app",component:DashboardComponent,title:"dashboard-app"},
-
-  //{path:"addProduct",component:AddProductComponent,title:"addProduct"},
-
-
-  // {path:"updateProduct/:id",component:UpdateProductComponent,title:"updateProduct"},
-
-
-
-
-
-  //nesreen
-
-
-
-  // { path: "**", component: NotfoundComponent, title: "Not found" },
-
-
-  // {path:"Register",component:RegisterationComponent,title:"Register"},
-  // {path:"Login",component:LoginComponent,title:"Login"},
-
-  // {path:"WishList",component:WishlistComponent,title:"WishList"},
-  // {path:"Cart",component:CartComponent,title:"Cart"},
-
-  // {path:"checkout",component:CheckoutComponent,title:"checkout"},
-
-  //using lazeloading
-
-  // { path: 'home', loadComponent: () => import('./Components/home/home.component').then((m) => m.HomeComponent), title: "Home" },
-  // {path:'product',loadComponent:()=>import('./Components/product/product.component').then((m)=>m.ProductComponent),title:"product"},
-
-
-
-
 
 ];

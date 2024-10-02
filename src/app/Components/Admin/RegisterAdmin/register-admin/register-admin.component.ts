@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { IUser } from '../../../../Core/interfaces/iuser';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -29,7 +30,8 @@ export class RegisterAdminComponent {
 
   constructor(
     private _AuthService: AuthService,
-    private _ToastrService: ToastrService
+    private _ToastrService: ToastrService,
+    private _Router: Router
   ) { }
 
   register(): void {
@@ -39,8 +41,8 @@ export class RegisterAdminComponent {
 
       this._AuthService.registerAdmin(this.registerForm.value).subscribe({
         next: () => {
-          this._ToastrService.success(`Welcome  ${this.registerForm.value.userName}  to our website El-Dokan`);
-          this.registerForm.reset();
+          this._ToastrService.success(`Welcome  ${this.registerForm.value.userName} to our website El-Dokan As Admin `);
+          this._Router.navigate(['dashboard'])
         },
         error: (err: any) => {
           console.log(err);

@@ -21,16 +21,7 @@
                 </tr>
                 @for (item of order.items; track $index) {
 
-                <!-- <tr>
-                    <td></td>
-                    <td>{{order.items[$index].productName}}</td>
-                    <td>{{order.items[$index].quantity}}</td>
-                    <td>{{order.items[$index].price |currency}}</td>
-                    <td>{{order.orderDate | date}}</td>
 
-                    <td>{{status}}</td>
-
-                </tr> -->
                 }
                 }
             </tbody>
@@ -39,7 +30,10 @@
     </section>
     }
 
-    <!-- @else{
-    <app-order-track />
-    } -->
+    @else{
+    <section class="shadow p-5 m-5 w-75 mx-auto">
+        <h2 class="text-center mb-5">No Orders</h2>
+    </section>
+
+    }
 </div>
