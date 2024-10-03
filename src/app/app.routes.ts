@@ -1,4 +1,3 @@
-
 import { AddProductComponent } from './Components/Admin/Product/add-product/add-product.component';
 import { ChangePasswordComponent } from './Components/Password/change-password/change-password.component';
 
@@ -15,7 +14,6 @@ import { ProductComponent } from './Components/Product/Allproduct/product.compon
 import { DetailsComponent } from './Components/Product/details/details.component';
 import { ForgetPasswordComponent } from './Components/Password/forget-password/forget-password.component';
 import { OtpComponent } from './Components/Password/otp/otp.component';
-
 
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 
@@ -40,96 +38,188 @@ import { AddImageComponent } from './Components/Product/add-image/add-image.comp
 import { BankTransferComponent } from './Components/order/bank-transfer/bank-transfer.component';
 import { AddReviewComponent } from './Components/Product/add-review/add-review.component';
 
-
-
 export const routes: Routes = [
-
   //website
 
   {
     path: '',
     // canActivate:[authGuard],
-    loadComponent: () => import('./Layout/website/website.component').then((m) => m.WebsiteComponent),
+    loadComponent: () =>
+      import('./Layout/website/website.component').then(
+        (m) => m.WebsiteComponent
+      ),
     children: [
-
-      { path: "", redirectTo: "home", pathMatch: 'prefix' },
-      { path: "home", component: HomeComponent, title: "Home" },
-      { path: "cotactus", component: ContactUsComponent, title: "cotactus" },
+      { path: '', redirectTo: 'home', pathMatch: 'prefix' },
+      { path: 'home', component: HomeComponent, title: 'Home' },
+      { path: 'cotactus', component: ContactUsComponent, title: 'cotactus' },
       //products
-      { path: "product", component: ProductComponent, title: "product" },
-      { path: "addImage", component: AddImageComponent, title: "add new image" },
-
-
-      { path: "product/:id", component: DetailsComponent, title: "productDetails" },
-
-      { path: "forgetPassword", component: ForgetPasswordComponent, title: "forget" },
-      { path: "forgetPassword/otp", component: OtpComponent, title: "otp" },
-
-      { path: "Register", component: RegisterationComponent, title: "Register" },
-      { path: "Login", component: LoginComponent, title: "Login" },
-      { path: "BankTransfer", component: BankTransferComponent, title: "Card" },
-      { path: "addreview/:id", component: AddReviewComponent, title: "Add Review" },
-
-
-      { path: "WishList", component: WishlistComponent, title: "wishlist" },
-      { path: "order", component: OrderComponent, title: "Order" },
-      { path: "order/details/:id", component: OrderDetailsComponent, title: "Order" },
-      { path: "order/track/:id", component: OrderTrackComponent, title: "Order" },
+      { path: 'product', component: ProductComponent, title: 'product' },
       {
-        path: "profile", component: ProfileComponent, title: "user profile",
-        children: [
-          { path: "", redirectTo: 'profile/EditAccount', pathMatch: 'full' },
-          { path: 'profile/EditAccount', component: EditAccountComponent, title: "EditAccount" },
-          { path: "profile/changePassword", component: ChangePasswordComponent, title: "change" },
-        ]
+        path: 'addImage',
+        component: AddImageComponent,
+        title: 'add new image',
       },
-      { path: "Cart", component: CartComponent, title: "Cart" },
-      { path: "checkout", component: CheckoutComponent, title: "checkout" },
 
-      { path: "OrderTrack", component: OrderTrackComponent, title: "OrderTrack" },
+      {
+        path: 'product/:id',
+        component: DetailsComponent,
+        title: 'productDetails',
+      },
 
+      {
+        path: 'forgetPassword',
+        component: ForgetPasswordComponent,
+        title: 'forget',
+      },
+      { path: 'forgetPassword/otp', component: OtpComponent, title: 'otp' },
 
-      { path: "productDetails/:id", component: DetailsComponent, title: "Details of Product" },
+      {
+        path: 'Register',
+        component: RegisterationComponent,
+        title: 'Register',
+      },
+      { path: 'Login', component: LoginComponent, title: 'Login' },
+      { path: 'BankTransfer', component: BankTransferComponent, title: 'Card' },
+      {
+        path: 'addreview/:id',
+        component: AddReviewComponent,
+        title: 'Add Review',
+      },
 
+      { path: 'WishList', component: WishlistComponent, title: 'wishlist' },
+      { path: 'order', component: OrderComponent, title: 'Order' },
+      {
+        path: 'order/details/:id',
+        component: OrderDetailsComponent,
+        title: 'Order',
+      },
+      {
+        path: 'order/track/:id',
+        component: OrderTrackComponent,
+        title: 'Order',
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        title: 'user profile',
+        children: [
+          { path: '', redirectTo: 'profile/EditAccount', pathMatch: 'full' },
+          {
+            path: 'profile/EditAccount',
+            component: EditAccountComponent,
+            title: 'EditAccount',
+          },
+          {
+            path: 'profile/changePassword',
+            component: ChangePasswordComponent,
+            title: 'change',
+          },
+        ],
+      },
+      { path: 'Cart', component: CartComponent, title: 'Cart' },
+      { path: 'checkout', component: CheckoutComponent, title: 'checkout' },
 
-    ]
+      {
+        path: 'OrderTrack',
+        component: OrderTrackComponent,
+        title: 'OrderTrack',
+      },
+
+      {
+        path: 'productDetails/:id',
+        component: DetailsComponent,
+        title: 'Details of Product',
+      },
+    ],
   },
 
   {
-    path: '', loadComponent: () => import('./Layout/dashboard-admin/dashboard-admin.component').then((m) => m.DashboardAdminComponent),
+    path: '',
+    loadComponent: () =>
+      import('./Layout/dashboard-admin/dashboard-admin.component').then(
+        (m) => m.DashboardAdminComponent
+      ),
 
     children: [
-
       {
-        path: "dashboard", component: DashboardComponent, title: "dashboard",
+        path: 'dashboard',
+        component: DashboardComponent,
+        title: 'dashboard',
 
         children: [
+          { path: '', redirectTo: 'ViewAllProducts', pathMatch: 'prefix' },
+          {
+            path: 'ViewAllProducts',
+            component: ViewAllProductsComponent,
+            title: 'View All Products',
+          },
+          {
+            path: 'ViewAllProducts/addProduct',
+            component: AddProductComponent,
+            title: 'Add Product',
+          },
+          {
+            path: 'ViewAllProducts/updateProduct/:id',
+            component: UpdateProductComponent,
+            title: 'update Product',
+          },
+          {
+            path: 'ViewAllProducts/productDetails/:id',
+            component: DetailsComponent,
+            title: 'Details of Product',
+          },
 
-          { path: "", redirectTo: "ViewAllProducts", pathMatch: 'prefix' },
-          { path: "ViewAllProducts", component: ViewAllProductsComponent, title: "View All Products" },
-          { path: "ViewAllProducts/addProduct", component: AddProductComponent, title: "Add Product" },
-          { path: "ViewAllProducts/updateProduct/:id", component: UpdateProductComponent, title: "update Product" },
-          { path: "ViewAllProducts/productDetails/:id", component: DetailsComponent, title: "Details of Product" },
+          {
+            path: 'ViewAllBrands',
+            component: ViewAllBrandComponent,
+            title: 'View All Brand ',
+          },
+          {
+            path: 'ViewAllBrand/addBrand',
+            component: AddBrandComponent,
+            title: 'Add Brand',
+          },
+          {
+            path: 'ViewAllBrand/updateBrand/:id',
+            component: UpdateBrandComponent,
+            title: 'update Brand',
+          },
 
+          {
+            path: 'ViewAllCategory',
+            component: ViewAllCategoryComponent,
+            title: 'View All Category',
+          },
+          {
+            path: 'ViewAllCategory/addCategory',
+            component: AddCategoryComponent,
+            title: 'Add Category',
+          },
+          {
+            path: 'ViewAllCategory/updateCategor/:id',
+            component: UpdateCategoryComponent,
+            title: 'Update Category',
+          },
 
-          { path: "ViewAllBrands", component: ViewAllBrandComponent, title: "View All Brand " },
-          { path: "ViewAllBrand/addBrand", component: AddBrandComponent, title: "Add Brand" },
-          { path: "ViewAllBrand/updateBrand/:id", component: UpdateBrandComponent, title: "update Brand" },
+          {
+            path: 'registerAdmin',
+            component: RegisterAdminComponent,
+            title: 'Register new Admin',
+          },
 
-
-          { path: "ViewAllCategory", component: ViewAllCategoryComponent, title: "View All Category" },
-          { path: "ViewAllCategory/addCategory", component: AddCategoryComponent, title: "Add Category" },
-          { path: "ViewAllCategory/updateCategor/:id", component: UpdateCategoryComponent, title: "Update Category" },
-
-          { path: "registerAdmin", component: RegisterAdminComponent, title: "Register new Admin" },
-
-          { path: "ViewAllUsers", component: ViewAllUsersComponent, title: "View All Users" },
-          { path: "addUser", component: AddUserComponent, title: "AddUser" },
-          { path: "ViewAllUsers", component: ViewAllUsersComponent, title: "View All Users" },
-
-        ]
-      }
-    ]
-  }
-
+          {
+            path: 'ViewAllUsers',
+            component: ViewAllUsersComponent,
+            title: 'View All Users',
+          },
+          { path: 'addUser', component: AddUserComponent, title: 'AddUser' },
+          {
+            path: 'ViewAllUsers',
+            component: ViewAllUsersComponent,
+            title: 'View All Users',
+          },
+        ],
+      },
+    ],
+  },
 ];

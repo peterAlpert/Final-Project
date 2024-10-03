@@ -4,7 +4,14 @@ import { SharedService } from './../../../Core/Services/shared.service';
 import { BehaviorSubject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormControlOptions, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormControlOptions,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from '../../../Core/Services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -15,17 +22,21 @@ import Swal from 'sweetalert2';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './login.component.html',
-  styles: ''
+  styles: '',
 })
 export class LoginComponent {
-  cartCount: any
-  wishlistCount: any
+  cartCount: any;
+  wishlistCount: any;
 
   userId: number = 0;
   loginForm: FormGroup = new FormGroup({
-    username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
+    username: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(20),
+    ]),
     password: new FormControl('', [Validators.required]),
-  })
+  });
 
   constructor(
     private _AuthService: AuthService,
@@ -34,25 +45,26 @@ export class LoginComponent {
     private _SharedService: SharedService,
     private _WhishlistService: WhishlistService,
     private _CartService: CartService
-  ) { }
+  ) {}
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
   errMsg: string = ''; //==>false ,"dfgdf"===>true
 
-  isLoading: boolean = false
+  isLoading: boolean = false;
 
   onSubmit() {
     if (this.loginForm.valid) {
       const userData = this.loginForm.value;
       this.isLoading = true;
 
-
       this._AuthService.login(userData).subscribe({
         next: (response) => {
-          this._SharedService.wishListCount.subscribe(res => this.wishlistCount = res)
-          this._SharedService.cartCount.subscribe(res => this.cartCount = res)
+          this._SharedService.wishListCount.subscribe(
+            (res) => (this.wishlistCount = res)
+          );
+          this._SharedService.cartCount.subscribe(
+            (res) => (this.cartCount = res)
+          );
 
           localStorage.setItem('token', response.token);
 
@@ -60,7 +72,7 @@ export class LoginComponent {
           Swal.fire({
             icon: 'success',
             title: 'Login Sucessfully',
-            text: `Welcome ${userData.username}`
+            text: `Welcome ${userData.username}`,
           });
           this.loginForm.reset();
 
@@ -70,18 +82,16 @@ export class LoginComponent {
           this._AuthService.getUserId().subscribe({
             next: (res) => {
               this.userId = res;
-              localStorage.setItem("userId", this.userId.toString())
-            }
-          })
+              localStorage.setItem('userId', this.userId.toString());
+            },
+          });
 
-          if (response.roles[0] == "admin") {
-            this._Router.navigate(['dashboard'])
-            localStorage.setItem('isAdmin', 'true')
+          if (response.roles[0] == 'admin') {
+            this._Router.navigate(['dashboard']);
+            localStorage.setItem('isAdmin', 'true');
+          } else if (response.roles[0] == null) {
+            this._Router.navigate(['home']);
           }
-          else if (response.roles[0] == null) {
-            this._Router.navigate(['home'])
-          }
-
         },
         error: (err) => {
           this.isLoading = false;
@@ -89,10 +99,10 @@ export class LoginComponent {
           Swal.fire({
             icon: 'error',
             title: 'Wrong!',
-            text: `${JSON.stringify(err.error.Username)}`
+            text: `${JSON.stringify(err.error.Username)}`,
           });
-        }
-      })
+        },
+      });
     }
   }
 }
