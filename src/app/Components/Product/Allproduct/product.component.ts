@@ -15,29 +15,36 @@ import { CartService } from '../../../Core/Services/cart.service';
 import { SpinnerComponent } from '../../Layout/spinner/spinner.component';
 import { SharedService } from '../../../Core/Services/shared.service';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CommonModule, JsonPipe, FormsModule, SpinnerComponent, RouterLink, NgxPaginationModule],
+  imports: [
+    CommonModule,
+    JsonPipe,
+    FormsModule,
+    SpinnerComponent,
+    RouterLink,
+    NgxPaginationModule,
+  ],
   templateUrl: './product.component.html',
-  styles: '.redHover:hover {color:red}'
+  styles: '.redHover:hover {color:red}',
 })
 export class ProductComponent implements OnInit {
   isLoading: boolean = true;
-  products: IProduct[] = [];
+  products: any = [];
   prod: IProduct = {} as IProduct;
-  searchInput: string = "";
-  userId: any
-  favItem = "redColor"
+  searchInput: string = '';
+  userId: any;
+  favItem = 'redColor';
   // token: string | null = ""
-  whishlistData: IFavlistuserproduct = {} as IFavlistuserproduct
-  heartStyle: string = "fa-regular fa-heart fa-2xl d-flex justify-content-end"
-  isFav: boolean = false
+  whishlistData: IFavlistuserproduct = {} as IFavlistuserproduct;
+  heartStyle: string = 'fa-regular fa-heart fa-2xl d-flex justify-content-end';
+  isFav: boolean = false;
   //cartItem: ICartItem = {} as ICartItem
-  count: any
+  count: any;
   page: number = 1;
-
 
   constructor(
     private _ProductService: ProductService,
@@ -47,43 +54,47 @@ export class ProductComponent implements OnInit {
     private _WhishlistService: WhishlistService,
     private _CartService: CartService,
     private _SharedService: SharedService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     setTimeout(() => {
       this._ProductService.GetAll().subscribe({
-        next: (res: any) => { this.products = res; this.isLoading = false },
-        error: (err: any) => { console.log(err); this.isLoading = true }
-      })
+        next: (res: any) => {
+          this.products = res;
+          this.isLoading = false;
+          console.log(this.products);
+        },
+        error: (err: any) => {
+          console.log(err);
+          this.isLoading = true;
+        },
+      });
     }, 200);
 
-    this._AuthService.getUserId().subscribe({ next: res => this.userId = res })
-
-
+    this._AuthService
+      .getUserId()
+      .subscribe({ next: (res) => (this.userId = res) });
   }
 
   search() {
-    if (this.searchInput != "") {
+    if (this.searchInput != '') {
       this._ProductService.search(this.searchInput).subscribe({
         next: (res) => {
           this.products = res;
           if (res.length == 0) {
-            this._ToastrService.error(`${this.searchInput} Not Found `)
-            this.searchInput = ""
+            this._ToastrService.error(`${this.searchInput} Not Found `);
+            this.searchInput = '';
           }
         },
         error: (err) => {
           console.log(err);
-        }
-      })
-    }
-    else {
+        },
+      });
+    } else {
       this._ProductService.GetAll().subscribe({
-        next: res => this.products = res,
-        error: err => console.log(err)
-
-      })
-
+        next: (res) => (this.products = res),
+        error: (err) => console.log(err),
+      });
     }
   }
 
@@ -91,7 +102,7 @@ export class ProductComponent implements OnInit {
   wishlistIds: number[] = [];
 
   toggleWishlist(productId: number) {
-    this._SharedService.toggleWishlist(productId)
+    this._SharedService.toggleWishlist(productId);
   }
 
   isInWishlist(productId: number): boolean {
@@ -99,20 +110,22 @@ export class ProductComponent implements OnInit {
   }
 
   addToWhishlist(prod: IProduct) {
-    this._SharedService.addToWhishlist(prod)
+    this._SharedService.addToWhishlist(prod);
   }
 
   addToCart(prod: IProduct) {
     this._SharedService.addToCart(prod);
   }
 
-
-  mainSrc: string = "assets/watch1.jpg"
+  mainSrc: string = 'assets/watch1.jpg';
   changeImage() {
-    this.mainSrc = "assets/watch2.jpg"
-
+    this.mainSrc = 'assets/watch2.jpg';
   }
   resetImage() {
-    this.mainSrc = "assets/watch1.jpg";
+    this.mainSrc = 'assets/watch1.jpg';
+  }
+
+  getImageUrl(imageName: string): string {
+    return `${environment.baseUrlForImage}/${imageName}`;
   }
 }
