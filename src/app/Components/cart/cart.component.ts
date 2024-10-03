@@ -16,17 +16,16 @@ import { JsonPipe } from '@angular/common';
   standalone: true,
   imports: [SpinnerComponent, RouterLink, JsonPipe],
   templateUrl: './cart.component.html',
-  styles: ''
+  styles: './cart.component.css',
 })
 export class CartComponent implements OnInit {
-  isLoading: boolean = true
+  isLoading: boolean = true;
 
-  cart: ICart = {} as ICart
-  items: ICartItem[] = []
+  cart: ICart = {} as ICart;
+  items: ICartItem[] = [];
   productQty: number = 1;
 
-  userId: number = 0
-
+  userId: number = 0;
 
   constructor(
     private _CartService: CartService,
@@ -34,30 +33,28 @@ export class CartComponent implements OnInit {
     private _SharedService: SharedService,
     private _CheckoutService: CheckoutService,
     private _Router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     //get UserID
-    this.userId = Number(localStorage.getItem("userId"))
+    this.userId = Number(localStorage.getItem('userId'));
 
     //get all items in cart
     this._CartService.getcartByUserId(this.userId).subscribe({
-      next: res => {
+      next: (res) => {
         this.cart = res;
-        this.items = res.cartItems
-        this._SharedService.updateCartCount(this.items.length)
+        this.items = res.cartItems;
+        this._SharedService.updateCartCount(this.items.length);
 
-        this.isLoading = false
+        this.isLoading = false;
       },
-      error: err => {
-        this._ToastrService.warning("Not Items in Your Cart")
-        this.isLoading = false
-      }
-    })
+      error: (err) => {
+        this._ToastrService.warning('Not Items in Your Cart');
+        this.isLoading = false;
+      },
+    });
 
-    this._SharedService.cartProdQty.subscribe(res => this.productQty = res)
-
+    this._SharedService.cartProdQty.subscribe((res) => (this.productQty = res));
   }
 
   incQty(prodId: number) {
@@ -65,13 +62,13 @@ export class CartComponent implements OnInit {
       if (this.items[i].productId == prodId) {
         this._CartService.incQty(this.items[i].id).subscribe({
           next: () => {
-            this._ToastrService.success("item increased")
-            this.items[i].quantity++
+            this._ToastrService.success('item increased');
+            this.items[i].quantity++;
           },
-          error: err => this._ToastrService.warning(JSON.stringify(err.error))
-        })
+          error: (err) =>
+            this._ToastrService.warning(JSON.stringify(err.error)),
+        });
       }
-
     }
   }
 
@@ -80,17 +77,15 @@ export class CartComponent implements OnInit {
       if (this.items[i].productId == prodId) {
         this._CartService.decQty(this.items[i].id).subscribe({
           next: () => {
-            this._ToastrService.success("item decreased");
-            this.items[i].quantity--
+            this._ToastrService.success('item decreased');
+            this.items[i].quantity--;
           },
-          error: err => this._ToastrService.warning(JSON.stringify(err.error))
-        })
+          error: (err) =>
+            this._ToastrService.warning(JSON.stringify(err.error)),
+        });
       }
-
     }
-
   }
-
 
   deleteItem(productId: number) {
     Swal.fire({
@@ -100,30 +95,27 @@ export class CartComponent implements OnInit {
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
       confirmButtonText: 'Yes, Delete Item',
-      cancelButtonText: 'Cancel'
+      cancelButtonText: 'Cancel',
     }).then((result) => {
       if (result.isConfirmed) {
         this._CartService.deleteItem(this.userId, productId).subscribe({
           next: () => {
-            this._ToastrService.show("Item deleted from cart")
-            this.items = this.items.filter((item: any) => item.productId != productId)
-            Swal.fire(
-              'Done',
-              'item Deleted Successfuly',
-              'success'
+            this._ToastrService.show('Item deleted from cart');
+            this.items = this.items.filter(
+              (item: any) => item.productId != productId
             );
+            Swal.fire('Done', 'item Deleted Successfuly', 'success');
           },
-          error: err => {
-            Swal.fire(
-              'Wrong!',
-              'something wrong happened in process',
-              'error'
-            );
-            this._ToastrService.warning(err)
-
-          }
-        })
+          error: (err) => {
+            Swal.fire('Wrong!', 'something wrong happened in process', 'error');
+            this._ToastrService.warning(err);
+          },
+        });
       }
     });
+  }
+
+  navigateToProduct(arg0: number) {
+    this._Router.navigate(['/product', arg0]);
   }
 }

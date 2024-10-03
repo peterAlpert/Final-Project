@@ -1,27 +1,31 @@
 <div class="container">
 
   @if (isLoading) {<app-spinner></app-spinner>}
-<div class="my-5">
-  <div class="row text-center">
-    <div class="col-12 m-4"><h2 class="main-title  main-blue fw-medium text-center my-2"  >Wishlist</h2></div>
-  </div>
-  @if(wishlistItems.length>0){
+  <div class="my-5">
+    <div class="row text-center">
+      <div class="col-12 m-4">
+        <h2 class="main-title  main-blue fw-medium text-center my-2">Wishlist</h2>
+      </div>
+    </div>
+    @if(wishlistItems.length>0){
 
     <div class="container">
       <div class="row">
- @for (item of wishlistItems; track item.id) {
+        @for (item of wishlistItems; track item.id) {
         <div class="col-md-6">
           <section class="container mx-auto py-1">
             <div class="row mx-auto shadow rounded-5 p-3 my-2">
-              <div class="col-md-4 ">
+              <!-- <div class="col-md-4 ">
                 <img src="assets/watch1.jpg" alt="" class="w-100 rounded">
-              </div>
+              </div> -->
               <div class="col-md-7 ">
-                <h4 class="main-blue fw-medium">{{item.product.name}}</h4>
+                <h4 (click)="navigateToProduct(item.product.id)" class="main-blue fw-medium" style="cursor: pointer;">
+                  {{item.product.name}}</h4>
                 <p class="fw-medium fs-5">{{item.product.price | currency}}</p>
                 <p>{{item.product.description}}</p>
 
-                  <button class="btn btn-primary fw-medium d-block ms-auto" (click)="addToCart(item)">Add To Cart <i class="fa-solid border-0 fs-6 fa-cart-plus " ></i></button>
+                <button class="btn btn-primary fw-medium d-block ms-auto" (click)="addToCart(item)">Add To Cart <i
+                    class="fa-solid border-0 fs-6 fa-cart-plus "></i></button>
 
 
               </div>
@@ -36,24 +40,24 @@
 
         </div>
 
-  }
+        }
       </div>
     </div>
 
-  }
-  @else {
-  <section class="container mx-auto py-1">
-    <div class="row w-75 mx-auto rounded-5 px-1 py-2">
-      <div class="col-md-12 text-center h-100">
-        <h2>No items, please add some</h2>
+    }
+    @else {
+    <section class="container mx-auto py-1">
+      <div class="row w-75 mx-auto rounded-5 px-1 py-2">
+        <div class="col-md-12 text-center h-100">
+          <h2>No items, please add some</h2>
 
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
 
-  }
-</div>
+    }
+  </div>
 
 
 </div>

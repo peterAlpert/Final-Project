@@ -5,7 +5,12 @@ import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../../Core/Services/profile.service';
 import { Iprofile } from '../../../Core/interfaces/iprofile';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,11 +18,11 @@ import Swal from 'sweetalert2';
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './edit-account.component.html',
-  styles: ''
+  styles: '',
 })
 export class EditAccountComponent implements OnInit {
-  profileData: Iprofile = {} as Iprofile
-  profileForm: FormGroup
+  profileData: Iprofile = {} as Iprofile;
+  profileForm: FormGroup;
 
   constructor(
     private _ProfileService: ProfileService,
@@ -32,36 +37,32 @@ export class EditAccountComponent implements OnInit {
       phone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       address: ['', Validators.required],
-      image: ['', Validators.required]
+      image: ['', Validators.required],
     });
-
   }
 
   ngOnInit(): void {
     this._ProfileService.get().subscribe({
-      next: res => this.profileData = res,
-      error: err => console.log(err)
-    })
+      next: (res) => (this.profileData = res),
+      error: (err) => console.log(err),
+    });
 
     setTimeout(() => {
       this.profileForm.patchValue(this.profileData);
-      this._SharedService.changeName(this.profileData.userName)
+      this._SharedService.changeName(this.profileData.userName);
     }, 100);
   }
-
 
   updateData() {
     this._ProfileService.update(this.profileForm.value).subscribe({
       next: () => {
         if (this.profileForm.valid)
-          this._ToastrService.success("Your Profile Data Updated Successfuly")
-        else
-          this._ToastrService.warning("Please fill all data")
+          this._ToastrService.success('Your Profile Data Updated Successfuly');
+        else this._ToastrService.warning('Please fill all data');
       },
-      error: err => console.log(err)
-    })
+      error: (err) => console.log(err),
+    });
   }
-
 
   deleteAccount() {
     // Swal.fire({
@@ -87,25 +88,13 @@ export class EditAccountComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
-      preConfirm: (password) => {
-        if (!password) {
-          Swal.showValidationMessage('You need to enter your password');
-          return false;
-        }
-        const isValid = this.checkPassword(password);
-        console.log('Is password valid?', isValid);
-        return isValid ? true : Promise.reject('Incorrect password.');
-      }
-    }).then((result) => {
-      console.log('Result:', result);
-      if (result.isConfirmed) {
-        this.executeDelete();
-      }
-
-    }).catch(error => {
-
-      Swal.fire('Error!', error, 'error');
-    });
+    })
+      .then((result) => {
+        this.executeDelete(result.value);
+      })
+      .catch((error) => {
+        Swal.fire('Error!', error, 'error');
+      });
   }
 
   checkPassword(password: string): boolean {
@@ -113,24 +102,23 @@ export class EditAccountComponent implements OnInit {
     return password === correctPassword;
   }
 
-  executeDelete() {
-    this._ProfileService.delete().subscribe({
+  executeDelete(password: string) {
+    this._ProfileService.delete(password).subscribe({
       next: () => {
-        Swal.fire('Deleted!', 'Your account has been successfully deleted.', 'success');
-        localStorage.removeItem("token");
-        localStorage.removeItem("userId")
+        Swal.fire(
+          'Deleted!',
+          'Your account has been successfully deleted.',
+          'success'
+        );
+        localStorage.removeItem('token');
+        localStorage.removeItem('userId');
         this._AuthService.isLogin.next(false);
-        this._ToastrService.success("Sign out sucessfully")
-        this._Router.navigate(['/home'])
+        this._ToastrService.success('Sign out sucessfully');
+        this._Router.navigate(['/home']);
       },
       error: () => {
         Swal.fire('Error!', 'connection error', 'error');
-      }
-    })
-
-
+      },
+    });
   }
-
-
-
 }

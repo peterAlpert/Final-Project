@@ -19,17 +19,19 @@
           <button (click)="deleteItem(item.productId)" class="fa-solid border-0  fa-trash-can  circle"></button>
         </div>
         <div class="col-md-3 ">
-          <div class="border border-3 w-50 border-light d-flex justify-content-between">
+          <!-- <div class="border border-3 w-50 border-light d-flex justify-content-between">
             <img src="assets/watch1.jpg" class="w-100">
 
-          </div>
+          </div> -->
 
 
 
         </div>
 
         <div class="col-md-4 ">
-          <h6 class="fs-3 main-blue">{{item.product.name}}</h6>
+          <h6 (click)="navigateToProduct(item.product.id)" class="fs-3 main-blue product-name" style="cursor: pointer;">
+            {{item.product.name}}
+          </h6>
           <p class="fs-6">{{item.product.description}}</p>
         </div>
 
