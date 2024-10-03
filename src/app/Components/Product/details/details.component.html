@@ -1,54 +1,56 @@
-<section class="container p-5  my-5 ">
-    <div class="row g-3 shadow-lg   rounded-5  w-75 mx-auto px-5 py-3">
-      <h3 class="main-title  main-blue fw-medium text-center ">Details of Product </h3>
-        <div class="col-md-4 ">
-            <div class="border border-light-subtle border-2 rounded-4 p-2 text-center">
-                <img src="assets/watch1.jpg" class="w-100" />
+<section class="container my-5">
+    <div class="product-details shadow-lg rounded-lg">
+        <h2 class="main-title text-center mb-4">Product Details</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="image-gallery">
+                    <div class="main-image">
+                        <img [src]="getImageUrl(mainImage)" alt="{{prodcut.name}}" class="img-fluid rounded">
+                    </div>
+                    <div class="thumbnail-container">
+                        @for (image of prodcut.images; track $index) {
+                        <img [src]="getImageUrl(image)" alt="{{prodcut.name}}" class="thumbnail"
+                            (click)="setMainImage(image)" [class.active]="image === mainImage">
+                        }
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-md-8 ">
-            <h4 class="py-2 fw-medium">{{prodcut.name}}</h4>
-            <h6 class="py-2">{{prodcut.price}}$</h6>
-
-            <p>{{prodcut.description}}</p>
-
-            <div class="row py-4">
-                <div class="col-md-5">
-                    <button (click)="addToCart()" class="btn w-100 py-2 btn-primary">Add To Cart <i class="fa-solid fa-cart-plus"></i> </button>
-
-                </div>
-                <div class="col-md-5">
-                    <button class="btn w-100 py-2 btn-outline-primary" routerLink="/addreview/{{prodID}}">Add
-                        Review
-                        <i class="fa-regular fa-comment"></i></button>
-
-                </div>
-                <div class="col-md-2  ">
-                  <div class="circle rounded-2  main-btn-blue-hover">
-                    <i (click)="addToWishlist()" [ngClass]="heartStyle" class="fa-solid fa-heart fa-2xs "></i>
-
-                  </div>
-
-
-
+            <div class="col-md-6">
+                <div class="product-info">
+                    <h3 class="product-name">{{prodcut.name}}</h3>
+                    <p class="product-price">${{prodcut.price | number:'1.2-2'}}</p>
+                    <p class="product-description">{{prodcut.description}}</p>
+                    <div class="action-buttons">
+                        <button (click)="addToCart()" class="btn btn-primary">
+                            Add To Cart <i class="fa-solid fa-cart-plus"></i>
+                        </button>
+                        <button [disabled]="CanAddComment" class="btn btn-outline-primary"
+                            routerLink="/addreview/{{prodID}}">
+                            Add Review <i class="fa-regular fa-comment"></i>
+                        </button>
+                        <button (click)="addToWishlist()" class="btn btn-outline-danger">
+                            <i [ngClass]="heartStyle"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    @if(reviews.length > 0){
-    <div class="row mt-5">
-        <h2 class="text-center">Product Reviews</h2>
+    @if(reviews.length > 0) {
+    <div class="reviews-section mt-5">
+        <h2 class="text-center mb-4">Product Reviews</h2>
         @for (review of reviews; track $index) {
-
-        <section class="w-75 mx-auto my-3 shadow p-3">
-            Comment:<span class="fs-3 ms-4 mb-5">{{review.comment}}</span><br>
-            <span class="me-5">Rating:</span><ng-container *ngFor="let star of stars; let i = index">
-                <span class="star" [ngClass]="{'filled': i < review.rating}">★</span>
-            </ng-container>
-        </section>
+        <div class="review-card">
+            <p class="review-comment">{{review.comment}}</p>
+            <div class="review-rating">
+                <span class="me-2">Rating:</span>
+                @for (star of stars; track $index) {
+                <span class="star" [ngClass]="{'filled': $index < review.rating}">★</span>
+                }
+            </div>
+        </div>
         }
     </div>
     }
-</section><br>
-<br><br>
+</section>

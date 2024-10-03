@@ -9,5 +9,5 @@ export interface IProduct {
   categoryId: number;
   category: object;
 
-  Images: string[];
+  images: string[];
 }

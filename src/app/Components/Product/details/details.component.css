@@ -1,37 +1,126 @@
-.main-btn-blue-hover:hover {
-    background-color: #1395E8;
-    color: white;
-    border:none
-
+.product-details {
+  background-color: #fff;
+  padding: 2rem;
+  margin-bottom: 2rem;
 }
 
-.circle {
-    width: 60px;
-    height: 45px;
-
-
-    border: 2px solid #eee;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-
-
+.main-title {
+  color: #007bff;
+  font-weight: 600;
 }
 
-.main-circle-hover:hover {
-    color: #1395E8;
-    background-color: #EDEDED;
+.image-gallery {
+  margin-bottom: 1rem;
+}
 
-    border-radius: 50%;
+.main-image {
+  margin-bottom: 1rem;
+}
+
+.main-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.thumbnail-container {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+}
+
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.thumbnail:hover {
+  border-color: #007bff;
+}
+
+.product-info {
+  padding: 1rem;
+}
+
+.product-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.product-price {
+  font-size: 1.25rem;
+  color: #28a745;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.product-description {
+  margin-bottom: 1.5rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.action-buttons .btn {
+  flex: 1;
+}
+
+.reviews-section {
+  background-color: #f8f9fa;
+  padding: 2rem;
+  border-radius: 0.5rem;
+}
+
+.review-card {
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.review-comment {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.review-rating {
+  display: flex;
+  align-items: center;
 }
 
 .star {
-    font-size: 35px;
-    color: gray;
-    cursor: pointer;
+  color: #ffc107;
+  font-size: 1.25rem;
 }
 
-.filled {
-    color: gold;
+.star.filled {
+  color: #ffc107;
 }
+
+.thumbnail-container {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+  }
+  
+  .thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  
+  .thumbnail:hover, .thumbnail.active {
+    border-color: #007bff;
+  }
